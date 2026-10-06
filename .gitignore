@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+env/
+__pycache__/
+
+# Build and coverage outputs
+dist/
+build/
+coverage/
+.next/
+.turbo/
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local configuration and secrets
+.env
+.env.*
+**/.env
+**/.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local IDE and agent/tooling state
+.vscode/
+.claude/
+.codex/
+.qodo/
+.agents/
+.42c/
+.claudeignore
+CLAUDE.md
+HANDOFF.md
+graphify-out/
+contexto_para_proyectos/
+contexto_para_el_proyecto/
+
+# Exploratory notebooks and local proof folders
+pruebas/
+*.ipynb
+
+# Logs and OS files
+*.log
+Thumbs.db
+.DS_Store

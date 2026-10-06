@@ -1,0 +1,28 @@
+app:
+  runtime:
+    name: nodejs24.x
+  id: ari:cloud:ecosystem::app/1130f0bf-c650-46d4-8aac-4102e65fc8e9
+modules:
+  trigger:
+    - key: jira-issue-events-trigger
+      function: main
+      events:
+        - avi:jira:created:issue
+      filter:
+        ignoreSelf: true
+        # Primera prueba E2E real: solo tickets nuevos del proyecto BFC.
+        # El handler repite esta guardia para no enviar eventos si Forge entrega
+        # algo fuera del filtro.
+        expression: event.issue.fields?.project.key == 'BFC'
+        onError: IGNORE_AND_LOG
+  function:
+    - key: main
+      handler: index.run
+
+permissions:
+  scopes:
+    - read:jira-work
+  external:
+    fetch:
+      backend:
+        - address: "*.ngrok-free.dev"

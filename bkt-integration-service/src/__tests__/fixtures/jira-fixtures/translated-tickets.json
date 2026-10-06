@@ -1,0 +1,2944 @@
+[{
+  "_id": "b50cdbfb-308a-4dc0-bd80-3a43fdd9a867",
+  "itsmTicketId": "PA-205",
+  "tenantId": "b3711099-d7bd-446e-b126-6689dd7c6fac",
+  "itsmId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+  "projectId": "febda9b9-fd04-4722-a988-96cd0ade831c",
+  "__v": 0,
+  "content": {
+    "issueDescription": "Me da error la cuenta puente intragrupo GTX. Veo que existe una variación significativa en pesos pero la cuenta está a cero.\n",
+    "resolution": "<p>Solución 1:</p><p>Paso 1: Revisar con el usuario el escenario en la cuenta puente intragrupo (GTX), identificando los documentos que compensan a 0,00 en moneda de documento y la diferencia resultante en MXN.</p><p>Paso 2: Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables al escenario y definir cómo proceder con la regularización.</p><p>Paso 3: Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta problema.</p><p>Paso 4: Tras confirmación del usuario, proceder al cierre del ticket.</p><p>Solución 2:</p><p>Paso 1: Revisar los documentos intragrupo relacionados (incluyendo cancelaciones) y validar el efecto contable en moneda de documento vs. moneda local en la cuenta puente.</p><p>Paso 2: Confirmar que el efecto global debía quedar en cero y que la diferencia en MXN proviene del tipo de cambio por fechas distintas.</p><p>Paso 3: Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria reflejada en MXN.</p><p>Paso 4: Validar nuevamente el saldo posterior a las anulaciones, verificando que los totales queden en 0,00 en ambas monedas.</p><p>Paso 5: Informar al usuario y adjuntar evidencia mostrando saldo en cero sin diferencia cambiaria.</p><p>Solución 3:</p><p>Paso 1: Revisar el detalle aportado por el usuario para identificar si existe una factura intragrupo que no está contabilizándose/impactando en la cuenta puente.</p><p>Paso 2: Analizar la causa del rechazo y determinar si falta crear/extender el proveedor en la sociedad correspondiente.</p><p>Paso 3: Solicitar la creación/extensión del proveedor a la planta/responsable de datos maestros.</p><p>Paso 4: Una vez confirmado que el proveedor ya está creado/extendido, ejecutar el programa de contabilización para generar el documento.</p><p>Paso 5: Validar el resultado confirmando que el documento contable se generó correctamente.</p><p>Paso 6: Informar al usuario y cerrar el ticket.</p><p>Transacciones o Fiori APP asociados a las soluciones:</p><ul><li>F-03 (Compensar partidas)</li><li>FB08 (Anular documento)</li></ul>\n",
+    "diagnostic": "<p>Causa raíz más probable:</p><p>Diferencia en moneda local (MXN) en la cuenta puente intragrupo (GTX) causada por aplicación de tipos de cambio distintos entre documentos que se compensan a 0,00 en moneda de documento (por ejemplo, facturas y sus cancelaciones/compensaciones), dejando una variación residual en pesos.</p><p>Cómo se determinó (evidencias y comprobaciones):</p><ul><li>En el ticket PA-205 se indica explícitamente el patrón: “existe una variación significativa en pesos pero la cuenta está a cero”.</li><li>Este mismo síntoma coincide con el ticket similar *149366* (cuenta puente intragrupo con saldo 0 en moneda de documento pero variación significativa en MXN), donde se atribuye a TC distinto entre documentos.</li><li>Verificar en los documentos relacionados que los importes en moneda de documento se compensan (saldo 0) mientras que en moneda local permanece una diferencia, coherente con el escenario descrito en *149366 y 133942*.</li></ul>\n",
+    "title": "Incidencia en la cuenta puente GTX",
+    "status": "Recibida",
+    "severityLevel": "Medium",
+    "groupId": "COMPONENTE 1",
+    "technicalAnnotation": [],
+    "generalAnnotation": [],
+    "subtasks": [],
+    "ticketURL": "https://dextia-pre.atlassian.net/browse/PA-205"
+  },
+  "ticketType": "Incidencia",
+  "processing": {
+    "currentAgent": "agentic-orchestrator-application",
+    "currentStatus": "Finished",
+    "history": [
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:34.102Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:36.644Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-initiator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:36.909Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:38.828Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-categorizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:39.209Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:42.056Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El ticket reporta un comportamiento incorrecto en producción (“me da error” y variación significativa con la cuenta a cero), lo que apunta a un fallo/defecto funcional del sistema y por tanto corresponde a una Incidencia. Según las directrices, el componente afectado debe clasificarse siempre como ARIBA, independientemente del groupId informado (“COMPONENTE 1”).\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:42.086Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El ticket reporta un comportamiento incorrecto en producción (“me da error” y variación significativa con la cuenta a cero), lo que apunta a un fallo/defecto funcional del sistema y por tanto corresponde a una Incidencia. Según las directrices, el componente afectado debe clasificarse siempre como ARIBA, independientemente del groupId informado (“COMPONENTE 1”).\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:43.811Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-validator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:43.987Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:46.670Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: se reporta un error en la cuenta puente intragrupo GTX (variación significativa en pesos con saldo cero), lo que permite iniciar su revisión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:46.700Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: se reporta un error en la cuenta puente intragrupo GTX (variación significativa en pesos con saldo cero), lo que permite iniciar su revisión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:48.597Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-prioritizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:48.788Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:52.204Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Low\", \"justification\": \"La severidad del ticket no es correcta, el campo contiene 'Medium' y debería ser 'Low'. Se reporta un error/descadre en una cuenta puente intragrupo específica (GTX) sin evidencias de impacto organizacional, bloqueo de procesos críticos (cierre, pagos, facturación automática multi-sociedad) ni indicación de que el servicio esté inactivo o restringido sin workaround.\", \"documentation\": \"Cambiar prioridad del ticket a Low\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:52.245Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Low\", \"justification\": \"La severidad del ticket no es correcta, el campo contiene 'Medium' y debería ser 'Low'. Se reporta un error/descadre en una cuenta puente intragrupo específica (GTX) sin evidencias de impacto organizacional, bloqueo de procesos críticos (cierre, pagos, facturación automática multi-sociedad) ni indicación de que el servicio esté inactivo o restringido sin workaround.\", \"documentation\": \"Cambiar prioridad del ticket a Low\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:54.137Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:10:59.403Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Acciones recomendadas para el ticket PA-205:\\n\\n1) Clasificación / Tipo: **Incidencia – ARIBA**\\n   - Actualizar el **componente** del ticket a **ARIBA** (aunque figure “COMPONENTE 1”).\\n\\n2) Validación de información: **OK**\\n   - No se requiere acción adicional: la descripción/título aportan contexto suficiente para iniciar la revisión.\\n\\n3) Prioridad: **Low**\\n   - Cambiar la prioridad actual (indicada como “Medium”) a **Low**.\", \"justification\": \"- El comportamiento reportado es un fallo funcional en producción (“me da error”/descadre), por lo que corresponde a **Incidencia**.\\n- Por directriz, el componente afectado debe consignarse como **ARIBA**.\\n- No se observa evidencia de impacto crítico transversal, caída del servicio, ni bloqueo de procesos clave; el alcance parece acotado a una cuenta específica (GTX), por lo que la **prioridad adecuada es Low**.\", \"documentation\": \"Cambios a aplicar en el ticket PA-205:\\n- **Componente:** establecer en **ARIBA**.\\n- **Prioridad:** establecer en **Low**.\\n- **Descripción:** sin cambios (validación OK).\", \"answer_from\": \"agentic-initiator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:11:01.662Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-assigner-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:11:02.891Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:11:30.651Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para resolver el ticket PA-205 son Manuel Del Pino Torres y Roberto Osborne Herrero.\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:11:30.677Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para resolver el ticket PA-205 son Manuel Del Pino Torres y Roberto Osborne Herrero.\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:11:33.248Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-diagnostician-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:11:34.149Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:23.435Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * [149366] - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * [115022] - Factura de GTU intragrupo no se contabiliza\\n\\n    * [133942] - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han elaborado usando (1) el síntoma descrito en el ticket PA-205 (variación significativa en pesos con cuenta a cero) y (2) los patrones observados en los tickets similares: en 149366 y 133942 la diferencia en MXN con saldo 0 en moneda de documento se asocia a tipos de cambio/fechas distintas y se trata mediante compensación/regularización o reversa de documentos; adicionalmente, el ticket 115022 aporta un escenario alternativo donde el problema es que facturas intragrupo no contabilizan por falta/extension de proveedor en la sociedad, resolviéndose tras completar datos maestros y relanzar el programa de contabilización. No se utilizó documentación adicional (no se aportaron resultados de `retrieve_documents`).\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia en moneda local (pesos/MXN) en la cuenta puente intragrupo GTX causada por diferencias de tipo de cambio entre documentos que se compensan a cero en moneda de documento (por existir facturas y sus cancelaciones/compensaciones), o por cancelaciones/contabilizaciones con fechas distintas que generan diferencia cambiaria en MXN.\\n \\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El ticket PA-205 reporta explícitamente el mismo patrón descrito en tickets similares (149366 y 133942): “en pesos existe una variación significativa” mientras “la cuenta está a cero”.\\n- En 149366 se documenta que documentos con mismos importes en moneda de documento pueden quedar en 0,00 pero dejar diferencia en MXN por aplicación de tipos de cambio distintos.\\n- En 133942 se documenta que cancelaciones registradas con fechas diferentes a la original ocasionan diferencia por tipo de cambio en MXN, aunque el efecto global en moneda de documento quede en cero.\\n- Comprobaciones a realizar para confirmar el escenario:\\n  - Revisar los documentos intragrupo de la cuenta puente GTX y comparar moneda de documento vs. moneda local, identificando si existen facturas y cancelaciones/compensaciones que dejan 0,00 en moneda de documento.\\n  - Verificar si los documentos fueron contabilizados/cancelados con fechas distintas (lo que implicaría tipos de cambio distintos) y si la variación en MXN se explica por esa diferencia.\\n\\n\\n**#Solución#**:\\n\\n\\n           Solución 1:\\n\\nPaso 1: Revisar junto con el usuario el escenario en la cuenta puente intragrupo GTX e identificar los documentos que compensan a 0,00 en moneda de documento, pero dejan diferencia en MXN por tipos de cambio distintos.\\nPaso 2: Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables al escenario y definir cómo proceder con la regularización.\\nPaso 3: Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta problema.\\nPaso 4: Tras confirmación del usuario, proceder al cierre del ticket.\\n\\n           Solución 2:\\n\\nPaso 1: Revisar los documentos intragrupo relacionados con la cancelación/compensación y validar el efecto contable en moneda de documento vs. moneda local (MXN) en la cuenta puente.\\nPaso 2: Confirmar que, al estar las facturas canceladas/compensadas, el efecto global debe quedar en cero y que la diferencia en MXN proviene del tipo de cambio por fechas distintas.\\nPaso 3: Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria reflejada en MXN.\\nPaso 4: Validar nuevamente el saldo posterior a las anulaciones, verificando que los totales queden en 0,00 tanto en moneda de documento como en MXN.\\nPaso 5: Informar al usuario y adjuntar evidencia (captura) mostrando saldo en cero sin diferencia cambiaria.\\n\\n           Solución 3:\\n\\nPaso 1: Revisar el detalle aportado por el usuario para confirmar si existe una factura intragrupo que no se está contabilizando/no llega a impactar en la cuenta puente.\\nPaso 2: Analizar la causa del rechazo y determinar si falta crear/extendender el proveedor en la sociedad correspondiente.\\nPaso 3: Solicitar a la planta/responsable de datos maestros la creación/extensión del proveedor en la sociedad.\\nPaso 4: Una vez confirmado que el proveedor ya está creado/extendido, ejecutar el programa de contabilización para generar el documento.\\nPaso 5: Validar que el documento contable se generó correctamente.\\nPaso 6: Informar al usuario y cerrar el ticket.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible en las fuentes consultadas (no se aportó documentación de transacciones/APP Fiori en `retrieve_documents` ni se especifican transacciones en los tickets similares).\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:23.482Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * [149366] - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * [115022] - Factura de GTU intragrupo no se contabiliza\\n\\n    * [133942] - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han elaborado usando (1) el síntoma descrito en el ticket PA-205 (variación significativa en pesos con cuenta a cero) y (2) los patrones observados en los tickets similares: en 149366 y 133942 la diferencia en MXN con saldo 0 en moneda de documento se asocia a tipos de cambio/fechas distintas y se trata mediante compensación/regularización o reversa de documentos; adicionalmente, el ticket 115022 aporta un escenario alternativo donde el problema es que facturas intragrupo no contabilizan por falta/extension de proveedor en la sociedad, resolviéndose tras completar datos maestros y relanzar el programa de contabilización. No se utilizó documentación adicional (no se aportaron resultados de `retrieve_documents`).\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia en moneda local (pesos/MXN) en la cuenta puente intragrupo GTX causada por diferencias de tipo de cambio entre documentos que se compensan a cero en moneda de documento (por existir facturas y sus cancelaciones/compensaciones), o por cancelaciones/contabilizaciones con fechas distintas que generan diferencia cambiaria en MXN.\\n \\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El ticket PA-205 reporta explícitamente el mismo patrón descrito en tickets similares (149366 y 133942): “en pesos existe una variación significativa” mientras “la cuenta está a cero”.\\n- En 149366 se documenta que documentos con mismos importes en moneda de documento pueden quedar en 0,00 pero dejar diferencia en MXN por aplicación de tipos de cambio distintos.\\n- En 133942 se documenta que cancelaciones registradas con fechas diferentes a la original ocasionan diferencia por tipo de cambio en MXN, aunque el efecto global en moneda de documento quede en cero.\\n- Comprobaciones a realizar para confirmar el escenario:\\n  - Revisar los documentos intragrupo de la cuenta puente GTX y comparar moneda de documento vs. moneda local, identificando si existen facturas y cancelaciones/compensaciones que dejan 0,00 en moneda de documento.\\n  - Verificar si los documentos fueron contabilizados/cancelados con fechas distintas (lo que implicaría tipos de cambio distintos) y si la variación en MXN se explica por esa diferencia.\\n\\n\\n**#Solución#**:\\n\\n\\n           Solución 1:\\n\\nPaso 1: Revisar junto con el usuario el escenario en la cuenta puente intragrupo GTX e identificar los documentos que compensan a 0,00 en moneda de documento, pero dejan diferencia en MXN por tipos de cambio distintos.\\nPaso 2: Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables al escenario y definir cómo proceder con la regularización.\\nPaso 3: Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta problema.\\nPaso 4: Tras confirmación del usuario, proceder al cierre del ticket.\\n\\n           Solución 2:\\n\\nPaso 1: Revisar los documentos intragrupo relacionados con la cancelación/compensación y validar el efecto contable en moneda de documento vs. moneda local (MXN) en la cuenta puente.\\nPaso 2: Confirmar que, al estar las facturas canceladas/compensadas, el efecto global debe quedar en cero y que la diferencia en MXN proviene del tipo de cambio por fechas distintas.\\nPaso 3: Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria reflejada en MXN.\\nPaso 4: Validar nuevamente el saldo posterior a las anulaciones, verificando que los totales queden en 0,00 tanto en moneda de documento como en MXN.\\nPaso 5: Informar al usuario y adjuntar evidencia (captura) mostrando saldo en cero sin diferencia cambiaria.\\n\\n           Solución 3:\\n\\nPaso 1: Revisar el detalle aportado por el usuario para confirmar si existe una factura intragrupo que no se está contabilizando/no llega a impactar en la cuenta puente.\\nPaso 2: Analizar la causa del rechazo y determinar si falta crear/extendender el proveedor en la sociedad correspondiente.\\nPaso 3: Solicitar a la planta/responsable de datos maestros la creación/extensión del proveedor en la sociedad.\\nPaso 4: Una vez confirmado que el proveedor ya está creado/extendido, ejecutar el programa de contabilización para generar el documento.\\nPaso 5: Validar que el documento contable se generó correctamente.\\nPaso 6: Informar al usuario y cerrar el ticket.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible en las fuentes consultadas (no se aportó documentación de transacciones/APP Fiori en `retrieve_documents` ni se especifican transacciones en los tickets similares).\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:27.959Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-conditional-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:29.768Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:40.106Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"NOT_PREVIOUS_DIAGNOSTIC\", \"justification\": \"No es posible realizar la comparación porque no existe un registro de diagnóstico previo válido para este rawTicketId (la herramienta devuelve explícitamente que no se encontró diagnóstico previo).\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:40.119Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"NOT_PREVIOUS_DIAGNOSTIC\", \"justification\": \"No es posible realizar la comparación porque no existe un registro de diagnóstico previo válido para este rawTicketId (la herramienta devuelve explícitamente que no se encontró diagnóstico previo).\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:42.643Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-resolver-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:46.950Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:59.412Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:12:59.431Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:13:01.771Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-publisher-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:13:02.338Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:13:16.131Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"KO\", \"justification\": \"Error al ejecutar el flujo en la herramienta: insert_technician falló con `cannot execute query. TenantId should be a UUID`.\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:13:16.141Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"KO\", \"justification\": \"Error al ejecutar el flujo en la herramienta: insert_technician falló con `cannot execute query. TenantId should be a UUID`.\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:13:18.782Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-11T11:13:18.823Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer_from\": \"agentic-orchestrator-application\", \"answer\": \"KO\", \"justification\": \"Proceso finalizado. Respuesta encapsulada por agentic-orchestrator-application.\", \"original_response\": {\"answer\": \"KO\", \"justification\": \"Error al ejecutar el flujo en la herramienta: insert_technician falló con `cannot execute query. TenantId should be a UUID`.\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:46:50.265Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:46:52.998Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-initiator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:46:54.065Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:46:55.833Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-categorizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:46:56.826Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:46:59.605Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El usuario reporta un error/comportamiento indebido en producción relacionado con la cuenta puente intragrupo GTX (variación significativa en pesos pero la cuenta aparece a cero), lo que indica un posible fallo funcional o inconsistencia del sistema; por tanto corresponde a una Incidencia. Según las directrices, el componente afectado debe clasificarse siempre como ARIBA, independientemente del groupId indicado.\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:46:59.620Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El usuario reporta un error/comportamiento indebido en producción relacionado con la cuenta puente intragrupo GTX (variación significativa en pesos pero la cuenta aparece a cero), lo que indica un posible fallo funcional o inconsistencia del sistema; por tanto corresponde a una Incidencia. Según las directrices, el componente afectado debe clasificarse siempre como ARIBA, independientemente del groupId indicado.\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:01.337Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-validator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:02.145Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:04.583Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con suficiente claridad la incidencia: error en la cuenta puente intragrupo GTX y discrepancia/variación significativa en pesos pese a que la cuenta figura a cero, lo que permite iniciar la revisión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:04.595Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con suficiente claridad la incidencia: error en la cuenta puente intragrupo GTX y discrepancia/variación significativa en pesos pese a que la cuenta figura a cero, lo que permite iniciar la revisión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:06.414Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-prioritizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:07.219Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:09.979Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Medium\", \"justification\": \"El ticket contiene 'Medium' y coincide con la revisión. Se reporta una incidencia en una cuenta puente intragrupo (GTX) con discrepancia/variación significativa, pero no hay evidencia de impacto a toda la organización, bloqueo de un proceso crítico (p.ej. cierre contable) ni información sobre ausencia de workaround que justifique High/Critical.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:09.994Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Medium\", \"justification\": \"El ticket contiene 'Medium' y coincide con la revisión. Se reporta una incidencia en una cuenta puente intragrupo (GTX) con discrepancia/variación significativa, pero no hay evidencia de impacto a toda la organización, bloqueo de un proceso crítico (p.ej. cierre contable) ni información sobre ausencia de workaround que justifique High/Critical.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:11.942Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:15.985Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Ticket PA-205 procesado con los siguientes resultados:\\n\\n- Categoría/Componente: Incidencia – ARIBA\\n- Validación de descripción: OK (sin acción)\\n- Prioridad: Medium (sin acción)\\n\\nAcción requerida: actualizar el componente del ticket a ARIBA.\", \"justification\": \"La situación descrita corresponde a una incidencia en producción (discrepancia en la cuenta puente GTX). Según la directriz indicada, el componente afectado debe clasificarse como ARIBA independientemente del groupId. La descripción es suficiente para iniciar análisis y no hay evidencia de impacto crítico o sin workaround que justifique una prioridad superior a Medium.\", \"documentation\": \"- Cambiar el componente del ticket a ARIBA.\\n- No se requieren cambios adicionales en descripción ni prioridad.\", \"answer_from\": \"agentic-initiator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:18.285Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-assigner-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:23.954Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-diagnostician-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:30.324Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-conditional-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:31.119Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:39.549Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"NOT_PREVIOUS_DIAGNOSTIC\", \"justification\": \"No es posible realizar la comparación porque no existe un registro de diagnóstico previo válido para este ticket: la tool de diagnóstico previo devuelve que no se encontró ningún diagnóstico para el rawTicketId indicado.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:39.555Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"NOT_PREVIOUS_DIAGNOSTIC\", \"justification\": \"No es posible realizar la comparación porque no existe un registro de diagnóstico previo válido para este ticket: la tool de diagnóstico previo devuelve que no se encontró ningún diagnóstico para el rawTicketId indicado.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:42.156Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-resolver-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:47.621Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-publisher-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:48.747Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:59.258Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"KO\", \"justification\": \"Error al ejecutar el flujo en la herramienta: insert_diagnostic_comment devolvió error (no se encontró diagnóstico para el rawTicketId indicado), por lo que no se publicó el comentario en Jira.\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:47:59.262Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"KO\", \"justification\": \"Error al ejecutar el flujo en la herramienta: insert_diagnostic_comment devolvió error (no se encontró diagnóstico para el rawTicketId indicado), por lo que no se publicó el comentario en Jira.\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:48:01.634Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:48:01.642Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer_from\": \"agentic-orchestrator-application\", \"answer\": \"KO\", \"justification\": \"Proceso finalizado. Respuesta encapsulada por agentic-orchestrator-application.\", \"original_response\": {\"answer\": \"KO\", \"justification\": \"Error al ejecutar el flujo en la herramienta: insert_diagnostic_comment devolvió error (no se encontró diagnóstico para el rawTicketId indicado), por lo que no se publicó el comentario en Jira.\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:36.252Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:38.719Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-initiator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:38.763Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:40.598Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-categorizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:40.671Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:43.362Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El usuario reporta un comportamiento incorrecto en producción (“da error” en la cuenta puente intragrupo GTX y una variación significativa con cuenta a cero), lo que apunta a un fallo/defecto en el funcionamiento del sistema y por tanto corresponde a una Incidencia. Según las directrices, el componente afectado debe clasificarse siempre como ARIBA (el groupId actual no es ARIBA).\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:43.369Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El usuario reporta un comportamiento incorrecto en producción (“da error” en la cuenta puente intragrupo GTX y una variación significativa con cuenta a cero), lo que apunta a un fallo/defecto en el funcionamiento del sistema y por tanto corresponde a una Incidencia. Según las directrices, el componente afectado debe clasificarse siempre como ARIBA (el groupId actual no es ARIBA).\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:45.013Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-validator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:45.052Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:47.453Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: error en la cuenta puente intragrupo GTX y discrepancia/variación significativa en pesos pese a que la cuenta figura a cero, lo que permite iniciar la revisión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:47.470Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: error en la cuenta puente intragrupo GTX y discrepancia/variación significativa en pesos pese a que la cuenta figura a cero, lo que permite iniciar la revisión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:49.445Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-prioritizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:49.499Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:51.953Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Medium\", \"justification\": \"El ticket contiene 'Medium' y coincide con la revisión. Se trata de una incidencia funcional contable (cuenta puente intragrupo GTX con variación significativa y saldo a cero) que afecta a un proceso de negocio, pero no hay evidencia de impacto a toda la organización, bloqueo de cierre contable o pagos, ni se indica ausencia de workaround.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:51.960Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Medium\", \"justification\": \"El ticket contiene 'Medium' y coincide con la revisión. Se trata de una incidencia funcional contable (cuenta puente intragrupo GTX con variación significativa y saldo a cero) que afecta a un proceso de negocio, pero no hay evidencia de impacto a toda la organización, bloqueo de cierre contable o pagos, ni se indica ausencia de workaround.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:53.755Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:49:59.239Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Clasificación propuesta para el ticket PA-205:\\n- Tipo: Incidencia (Incidencia-ARIBA)\\n- Componente/Grupo: ARIBA (actualmente figura “COMPONENTE 1”; debe corregirse a ARIBA)\\n- Prioridad: Medium\\n- Validación de descripción: OK (información suficiente; no requiere acción)\\n\\nAcción requerida:\\n- Actualizar el componente del ticket a ARIBA.\\n\\nSin más acciones por el momento.\", \"justification\": \"El usuario reporta un fallo en producción (“da error” en la cuenta puente intragrupo GTX) y una discrepancia relevante con cuenta a cero, lo que corresponde a una incidencia. Por directriz, el componente debe clasificarse como ARIBA. La prioridad Medium encaja al tratarse de una incidencia funcional con impacto de negocio sin evidencia de bloqueo crítico. La descripción es suficiente para iniciar el análisis.\", \"documentation\": \"Ticket: PA-205 — “Incidencia en la cuenta puente GTX”.\\nDecisiones registradas:\\n- Categoría: Incidencia-ARIBA.\\n- Cambio requerido: componente/grupo → ARIBA.\\n- Prioridad: Medium.\\n- Validación: descripción suficiente (Sin acción).\\nEstado actual: Recibida.\", \"answer_from\": \"agentic-initiator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:50:05.985Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-assigner-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:50:06.416Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:50:28.296Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para el ticket PA-205 son Manuel Del Pino Torres (2 tickets asignados) y Roberto Osborne Herrero (1 ticket asignado).\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:50:28.301Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para el ticket PA-205 son Manuel Del Pino Torres (2 tickets asignados) y Roberto Osborne Herrero (1 ticket asignado).\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:50:30.261Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-diagnostician-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:50:30.418Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:06.348Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * 149366 - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * 115022 - Factura de GTU intragrupo no se contabiliza\\n\\n    * 133942 - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han elaborado a partir de la descripción del ticket PA-205 (diferencia significativa en pesos con cuenta a cero) y de los tickets similares recuperados. En particular, los tickets 149366 y 133942 documentan escenarios equivalentes donde la cuenta puente queda en cero en moneda de documento, pero persisten diferencias en moneda local por tipo de cambio/fechas de contabilización; el ticket 115022 aporta un caso alternativo en el que el problema era que las facturas intragrupo no se contabilizaban por falta de datos maestros (proveedor no extendido), y se resolvía extendiendo el proveedor y relanzando el programa de contabilización. No se ha utilizado documentación adicional porque no se aportó salida de `retrieve_documents`.\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia en moneda local (pesos) en la cuenta puente intragrupo, aun cuando el saldo en moneda de documento queda en cero, causada por aplicación de tipos de cambio distintos entre documentos (p. ej., facturas y sus cancelaciones/compensaciones) o por registros/cancelaciones con fechas distintas que generan efecto por tipo de cambio en moneda local.\\n\\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El síntoma del ticket PA-205 (“variación significativa en pesos pero la cuenta está a cero”) coincide con los casos 149366 y 133942: saldo 0 en moneda de documento pero diferencia en MXN atribuida a TC/fechas.\\n- Comprobar en los documentos relacionados de la cuenta puente intragrupo:\\n  - Que los importes compensan a 0,00 en moneda de documento.\\n  - Que existen documentos con mismo importe en moneda de documento pero con tipos de cambio distintos (149366), o que las cancelaciones fueron contabilizadas con fecha distinta a la original (133942).\\n  - Identificar si la diferencia en moneda local proviene únicamente del tipo de cambio (sin otros movimientos que expliquen el saldo).\\n\\n\\n**#Solución#**:\\n\\n\\nSolución 1:\\n\\n1) Revisar con el usuario el escenario de la cuenta puente intragrupo, identificando los documentos que compensan a 0,00 en moneda de documento, pero dejan diferencia en moneda local por tipos de cambio distintos.\\n2) Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables y cómo proceder con la regularización.\\n3) Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta el problema.\\n4) Tras la confirmación del usuario, proceder al cierre del ticket.\\n\\nSolución 2:\\n\\n1) Revisar los documentos intragrupo relacionados con la cancelación y validar el efecto contable en moneda de documento vs. moneda local en la cuenta puente.\\n2) Confirmar que, al estar las facturas canceladas, el efecto global debe quedar en cero y que la diferencia en moneda local proviene del tipo de cambio por fechas distintas.\\n3) Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria reflejada en moneda local.\\n4) Validar nuevamente el saldo posterior a las anulaciones, verificando que los totales queden en 0,00 en ambas monedas.\\n5) Informar al usuario y adjuntar evidencia mostrando saldo en cero sin diferencia cambiaria.\\n\\nSolución 3:\\n\\n1) Revisar el detalle aportado por el usuario para confirmar que la factura intragrupo no se está contabilizando/no impacta en la cuenta puente.\\n2) Determinar si falta crear/extender el proveedor en la sociedad correspondiente.\\n3) Solicitar a la planta/responsable de datos maestros la creación/extensión del proveedor en la sociedad.\\n4) Una vez confirmado, ejecutar el programa de contabilización para generar el documento.\\n5) Validar que el documento contable se generó correctamente e informar al usuario.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible (no se aportó documentación de transacciones/Apps en `retrieve_documents` ni aparecen en los tickets similares).\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:06.357Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * 149366 - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * 115022 - Factura de GTU intragrupo no se contabiliza\\n\\n    * 133942 - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han elaborado a partir de la descripción del ticket PA-205 (diferencia significativa en pesos con cuenta a cero) y de los tickets similares recuperados. En particular, los tickets 149366 y 133942 documentan escenarios equivalentes donde la cuenta puente queda en cero en moneda de documento, pero persisten diferencias en moneda local por tipo de cambio/fechas de contabilización; el ticket 115022 aporta un caso alternativo en el que el problema era que las facturas intragrupo no se contabilizaban por falta de datos maestros (proveedor no extendido), y se resolvía extendiendo el proveedor y relanzando el programa de contabilización. No se ha utilizado documentación adicional porque no se aportó salida de `retrieve_documents`.\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia en moneda local (pesos) en la cuenta puente intragrupo, aun cuando el saldo en moneda de documento queda en cero, causada por aplicación de tipos de cambio distintos entre documentos (p. ej., facturas y sus cancelaciones/compensaciones) o por registros/cancelaciones con fechas distintas que generan efecto por tipo de cambio en moneda local.\\n\\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El síntoma del ticket PA-205 (“variación significativa en pesos pero la cuenta está a cero”) coincide con los casos 149366 y 133942: saldo 0 en moneda de documento pero diferencia en MXN atribuida a TC/fechas.\\n- Comprobar en los documentos relacionados de la cuenta puente intragrupo:\\n  - Que los importes compensan a 0,00 en moneda de documento.\\n  - Que existen documentos con mismo importe en moneda de documento pero con tipos de cambio distintos (149366), o que las cancelaciones fueron contabilizadas con fecha distinta a la original (133942).\\n  - Identificar si la diferencia en moneda local proviene únicamente del tipo de cambio (sin otros movimientos que expliquen el saldo).\\n\\n\\n**#Solución#**:\\n\\n\\nSolución 1:\\n\\n1) Revisar con el usuario el escenario de la cuenta puente intragrupo, identificando los documentos que compensan a 0,00 en moneda de documento, pero dejan diferencia en moneda local por tipos de cambio distintos.\\n2) Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables y cómo proceder con la regularización.\\n3) Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta el problema.\\n4) Tras la confirmación del usuario, proceder al cierre del ticket.\\n\\nSolución 2:\\n\\n1) Revisar los documentos intragrupo relacionados con la cancelación y validar el efecto contable en moneda de documento vs. moneda local en la cuenta puente.\\n2) Confirmar que, al estar las facturas canceladas, el efecto global debe quedar en cero y que la diferencia en moneda local proviene del tipo de cambio por fechas distintas.\\n3) Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria reflejada en moneda local.\\n4) Validar nuevamente el saldo posterior a las anulaciones, verificando que los totales queden en 0,00 en ambas monedas.\\n5) Informar al usuario y adjuntar evidencia mostrando saldo en cero sin diferencia cambiaria.\\n\\nSolución 3:\\n\\n1) Revisar el detalle aportado por el usuario para confirmar que la factura intragrupo no se está contabilizando/no impacta en la cuenta puente.\\n2) Determinar si falta crear/extender el proveedor en la sociedad correspondiente.\\n3) Solicitar a la planta/responsable de datos maestros la creación/extensión del proveedor en la sociedad.\\n4) Una vez confirmado, ejecutar el programa de contabilización para generar el documento.\\n5) Validar que el documento contable se generó correctamente e informar al usuario.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible (no se aportó documentación de transacciones/Apps en `retrieve_documents` ni aparecen en los tickets similares).\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:09.269Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-conditional-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:09.381Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:22.288Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"DIAGNOSE_EQUALS\", \"justification\": \"Los diagnósticos son equivalentes: ambos tienen el mismo valor en 'answer' (\\\"OK\\\") y en 'documentation' describen semánticamente el mismo problema/causa (diferencia en moneda local MXN/pesos en cuenta puente intragrupo con saldo 0 en moneda de documento por tipos de cambio/fechas distintas entre factura y cancelación/compensación) y proponen las mismas líneas de solución (revisión/compensación-regularización, reversa de documentos KR si aplica, o alternativa de proveedor no extendido y relanzar contabilización). Las diferencias de redacción o detalle en 'justification' no afectan la equivalencia.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:22.293Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"DIAGNOSE_EQUALS\", \"justification\": \"Los diagnósticos son equivalentes: ambos tienen el mismo valor en 'answer' (\\\"OK\\\") y en 'documentation' describen semánticamente el mismo problema/causa (diferencia en moneda local MXN/pesos en cuenta puente intragrupo con saldo 0 en moneda de documento por tipos de cambio/fechas distintas entre factura y cancelación/compensación) y proponen las mismas líneas de solución (revisión/compensación-regularización, reversa de documentos KR si aplica, o alternativa de proveedor no extendido y relanzar contabilización). Las diferencias de redacción o detalle en 'justification' no afectan la equivalencia.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:24.713Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-resolver-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:25.467Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:36.233Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:36.242Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:38.633Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-publisher-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:38.809Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:54.591Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:54.595Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:56.967Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:53:56.981Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer_from\": \"agentic-orchestrator-application\", \"answer\": \"OK\", \"justification\": \"Proceso finalizado. Respuesta encapsulada por agentic-orchestrator-application.\", \"original_response\": {\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:01.244Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:03.263Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-initiator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:03.300Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:04.927Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-categorizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:04.966Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:07.538Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El ticket describe un error en producción relacionado con la “cuenta puente intragrupo GTX”, indicando un comportamiento inesperado (variación significativa en pesos mientras la cuenta aparece a cero). Esto corresponde a un funcionamiento indebido del sistema, por lo que es una Incidencia. Según las directrices, el componente debe clasificarse siempre como ARIBA, independientemente del groupId informado (“COMPONENTE 1”).\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:07.549Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El ticket describe un error en producción relacionado con la “cuenta puente intragrupo GTX”, indicando un comportamiento inesperado (variación significativa en pesos mientras la cuenta aparece a cero). Esto corresponde a un funcionamiento indebido del sistema, por lo que es una Incidencia. Según las directrices, el componente debe clasificarse siempre como ARIBA, independientemente del groupId informado (“COMPONENTE 1”).\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:09.495Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-validator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:09.537Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:11.598Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: error en la cuenta puente intragrupo GTX y una discrepancia/variación significativa en pesos con saldo en cero, lo que permite iniciar el análisis y la gestión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:11.609Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: error en la cuenta puente intragrupo GTX y una discrepancia/variación significativa en pesos con saldo en cero, lo que permite iniciar el análisis y la gestión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:13.859Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-prioritizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:13.921Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:17.271Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Low\", \"justification\": \"La severidad del ticket no es correcta, el campo contiene 'Medium' y debería ser 'Low'. Se reporta un descuadre/variación en una cuenta puente intragrupo específica (GTX) sin evidencia de impacto generalizado en toda la organización, bloqueo de un proceso crítico (pagos/cierre/AFI) ni indicación de que no exista workaround; con la información disponible parece un problema acotado y operativo.\", \"documentation\": \"Cambiar prioridad del ticket a Low\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:17.278Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Low\", \"justification\": \"La severidad del ticket no es correcta, el campo contiene 'Medium' y debería ser 'Low'. Se reporta un descuadre/variación en una cuenta puente intragrupo específica (GTX) sin evidencia de impacto generalizado en toda la organización, bloqueo de un proceso crítico (pagos/cierre/AFI) ni indicación de que no exista workaround; con la información disponible parece un problema acotado y operativo.\", \"documentation\": \"Cambiar prioridad del ticket a Low\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:19.670Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:24.610Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Acciones a ejecutar sobre el ticket **PA-205 – “Incidencia en la cuenta puente GTX”**:\\n\\n1) **Categoría/Tipo:** Incidencia-ARIBA\\n- **Actualizar componente del ticket a:** **ARIBA** (independientemente del groupId “COMPONENTE 1”).\\n\\n2) **Validación de descripción:** OK\\n- **Acción:** Sin acción (la descripción es suficiente para iniciar análisis).\\n\\n3) **Prioridad/Severidad:** Low\\n- **Actualizar prioridad del ticket a:** **Low** (actualmente figura como “Medium”).\", \"justification\": \"Se trata de un comportamiento inesperado en producción (variación significativa en pesos con cuenta a cero), por lo que corresponde a una **incidencia**. Por directriz, el componente debe ser **ARIBA**. La descripción aporta contexto suficiente (título + descripción) para gestionarlo. No se evidencia impacto generalizado ni bloqueo crítico; con la información disponible la prioridad adecuada es **Low**.\", \"documentation\": \"- Cambiar el componente del ticket a **ARIBA**.\\n- **Sin acción** sobre la descripción.\\n- Cambiar la prioridad/severidad del ticket a **Low**.\", \"answer_from\": \"agentic-initiator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:26.528Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-assigner-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:26.668Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:48.111Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Técnicos seleccionados según la respuesta de get_related_technician: Manuel Del Pino Torres (2 tickets asignados) y Javier Pedrazuela Flor (1 ticket asignado).\", \"documentation\": \"Manuel Del Pino Torres; Javier Pedrazuela Flor\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:48.116Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Técnicos seleccionados según la respuesta de get_related_technician: Manuel Del Pino Torres (2 tickets asignados) y Javier Pedrazuela Flor (1 ticket asignado).\", \"documentation\": \"Manuel Del Pino Torres; Javier Pedrazuela Flor\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:49.950Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-diagnostician-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:56:50.090Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:24.569Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * 149366 - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * 115022 - Factura de GTU intragrupo no se contabiliza\\n\\n    * 133942 - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han elaborado usando exclusivamente la descripción del ticket PA-205 (error/variación significativa en pesos en cuenta puente intragrupo GTX con saldo 0) y los patrones observados en los tickets similares: (i) diferencias en moneda local con saldo 0 en moneda de documento por tipos de cambio distintos y necesidad de compensación/regularización (149366), (ii) descuadre por cancelaciones con fechas distintas que generan diferencias por TC en moneda local y se corrige anulando documentos FI tipo KR (133942), y (iii) facturas intragrupo que no contabilizan por falta de datos maestros (proveedor no creado/extendido) y se resuelve creando/extendiendo proveedor y relanzando contabilización (115022). No se utilizó documentación adicional porque no se aportó salida de `retrieve_documents`.\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia/variación en moneda local (pesos) en una cuenta puente intragrupo (GTX) mientras el saldo en moneda de documento queda en cero, asociada a efectos de tipo de cambio entre documentos (p. ej., documentos con mismo importe en moneda de documento pero distintos TC) y/o a cancelaciones/compensaciones registradas con fechas diferentes.\\n\\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El síntoma del ticket (\\\"variación significativa en pesos pero la cuenta está a cero\\\") coincide con los casos 149366 y 133942: saldo en moneda de documento en 0 pero con diferencia en MXN por tipo de cambio.\\n- Comprobar si los documentos de la cuenta puente GTX incluyen facturas y sus cancelaciones/compensaciones que netean a 0 en moneda de documento, pero con TC/fechas diferentes que dejan diferencia en moneda local (patrón descrito en 149366 y 133942).\\n- Comprobar si hubo cancelaciones contabilizadas en fecha distinta a la original (patrón descrito en 133942) y si existen documentos FI tipo KR vinculados al efecto.\\n- Como verificación alternativa (si el problema reportado incluye que “no llegan” documentos a la cuenta puente), comprobar si alguna factura intragrupo no se contabiliza por datos maestros incompletos (proveedor no creado/extendido en la sociedad correspondiente), tal como ocurrió en 115022.\\n\\n\\n**#Solución#**:\\n\\n\\n\\n           Solución 1:\\n\\n1) Revisar con el usuario el escenario en la cuenta puente intragrupo GTX e identificar los documentos que compensan a 0,00 en moneda de documento pero dejan diferencia en pesos por tipos de cambio distintos.\\n2) Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables y cómo proceder con la regularización.\\n3) Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme la corrección.\\n4) Cerrar el ticket tras confirmación del usuario.\\n\\n           Solución 2:\\n\\n1) Revisar los documentos intragrupo relacionados con cancelaciones y validar el efecto en moneda de documento vs. moneda local en la cuenta puente.\\n2) Confirmar que, al estar canceladas las facturas, el efecto global debería quedar en cero y que la diferencia en moneda local proviene del tipo de cambio por fechas distintas.\\n3) Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria en pesos.\\n4) Validar nuevamente el saldo, verificando que quede en 0,00 tanto en moneda de documento como en moneda local.\\n5) Informar al usuario y adjuntar evidencia del saldo en cero.\\n\\n           Solución 3:\\n\\n1) Revisar el caso y el detalle aportado por el usuario para confirmar que la factura intragrupo no se está contabilizando/impactando en la cuenta puente.\\n2) Determinar si falta crear/extender el proveedor en la sociedad correspondiente.\\n3) Solicitar al responsable de datos maestros la creación/extensión del proveedor en dicha sociedad.\\n4) Una vez confirmado, ejecutar el programa de contabilización para generar el documento.\\n5) Validar que el documento contable se generó correctamente e informar al usuario.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible (no se aportó información de `retrieve_documents` sobre transacciones o apps Fiori).\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:24.580Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * 149366 - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * 115022 - Factura de GTU intragrupo no se contabiliza\\n\\n    * 133942 - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han elaborado usando exclusivamente la descripción del ticket PA-205 (error/variación significativa en pesos en cuenta puente intragrupo GTX con saldo 0) y los patrones observados en los tickets similares: (i) diferencias en moneda local con saldo 0 en moneda de documento por tipos de cambio distintos y necesidad de compensación/regularización (149366), (ii) descuadre por cancelaciones con fechas distintas que generan diferencias por TC en moneda local y se corrige anulando documentos FI tipo KR (133942), y (iii) facturas intragrupo que no contabilizan por falta de datos maestros (proveedor no creado/extendido) y se resuelve creando/extendiendo proveedor y relanzando contabilización (115022). No se utilizó documentación adicional porque no se aportó salida de `retrieve_documents`.\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia/variación en moneda local (pesos) en una cuenta puente intragrupo (GTX) mientras el saldo en moneda de documento queda en cero, asociada a efectos de tipo de cambio entre documentos (p. ej., documentos con mismo importe en moneda de documento pero distintos TC) y/o a cancelaciones/compensaciones registradas con fechas diferentes.\\n\\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El síntoma del ticket (\\\"variación significativa en pesos pero la cuenta está a cero\\\") coincide con los casos 149366 y 133942: saldo en moneda de documento en 0 pero con diferencia en MXN por tipo de cambio.\\n- Comprobar si los documentos de la cuenta puente GTX incluyen facturas y sus cancelaciones/compensaciones que netean a 0 en moneda de documento, pero con TC/fechas diferentes que dejan diferencia en moneda local (patrón descrito en 149366 y 133942).\\n- Comprobar si hubo cancelaciones contabilizadas en fecha distinta a la original (patrón descrito en 133942) y si existen documentos FI tipo KR vinculados al efecto.\\n- Como verificación alternativa (si el problema reportado incluye que “no llegan” documentos a la cuenta puente), comprobar si alguna factura intragrupo no se contabiliza por datos maestros incompletos (proveedor no creado/extendido en la sociedad correspondiente), tal como ocurrió en 115022.\\n\\n\\n**#Solución#**:\\n\\n\\n\\n           Solución 1:\\n\\n1) Revisar con el usuario el escenario en la cuenta puente intragrupo GTX e identificar los documentos que compensan a 0,00 en moneda de documento pero dejan diferencia en pesos por tipos de cambio distintos.\\n2) Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables y cómo proceder con la regularización.\\n3) Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme la corrección.\\n4) Cerrar el ticket tras confirmación del usuario.\\n\\n           Solución 2:\\n\\n1) Revisar los documentos intragrupo relacionados con cancelaciones y validar el efecto en moneda de documento vs. moneda local en la cuenta puente.\\n2) Confirmar que, al estar canceladas las facturas, el efecto global debería quedar en cero y que la diferencia en moneda local proviene del tipo de cambio por fechas distintas.\\n3) Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria en pesos.\\n4) Validar nuevamente el saldo, verificando que quede en 0,00 tanto en moneda de documento como en moneda local.\\n5) Informar al usuario y adjuntar evidencia del saldo en cero.\\n\\n           Solución 3:\\n\\n1) Revisar el caso y el detalle aportado por el usuario para confirmar que la factura intragrupo no se está contabilizando/impactando en la cuenta puente.\\n2) Determinar si falta crear/extender el proveedor en la sociedad correspondiente.\\n3) Solicitar al responsable de datos maestros la creación/extensión del proveedor en dicha sociedad.\\n4) Una vez confirmado, ejecutar el programa de contabilización para generar el documento.\\n5) Validar que el documento contable se generó correctamente e informar al usuario.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible (no se aportó información de `retrieve_documents` sobre transacciones o apps Fiori).\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:27.139Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-conditional-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:27.233Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:37.562Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"DIAGNOSE_EQUALS\", \"justification\": \"Los diagnósticos son equivalentes: ambos tienen el mismo 'answer' (\\\"OK\\\") y en 'documentation' describen semánticamente el mismo problema/causa/solución (diferencia en moneda local con saldo 0 en moneda de documento en cuenta puente intragrupo por efectos de tipo de cambio y/o fechas de cancelación; soluciones de revisión/compensación, reversa de documentos KR si aplica y alternativa de extensión de proveedor si la factura no contabiliza). Las variaciones de redacción o matices en la justificación no cambian el diagnóstico final.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:37.570Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"DIAGNOSE_EQUALS\", \"justification\": \"Los diagnósticos son equivalentes: ambos tienen el mismo 'answer' (\\\"OK\\\") y en 'documentation' describen semánticamente el mismo problema/causa/solución (diferencia en moneda local con saldo 0 en moneda de documento en cuenta puente intragrupo por efectos de tipo de cambio y/o fechas de cancelación; soluciones de revisión/compensación, reversa de documentos KR si aplica y alternativa de extensión de proveedor si la factura no contabiliza). Las variaciones de redacción o matices en la justificación no cambian el diagnóstico final.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:43.768Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-resolver-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:44.679Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:53.984Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:53.992Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:56.166Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-publisher-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:57:56.246Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:58:11.951Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:58:11.956Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:58:14.486Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:58:14.497Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer_from\": \"agentic-orchestrator-application\", \"answer\": \"OK\", \"justification\": \"Proceso finalizado. Respuesta encapsulada por agentic-orchestrator-application.\", \"original_response\": {\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T06:59:58.730Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:00.627Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-initiator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:00.666Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:02.278Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-categorizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:02.321Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:04.900Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El usuario reporta un “error” relacionado con la cuenta puente intragrupo GTX (comportamiento incorrecto/diferencia entre lo esperado y lo que muestra el sistema: variación significativa pero cuenta a cero). Esto encaja con un funcionamiento indebido en producción, por lo que es una Incidencia. Según las directrices, el componente afectado debe clasificarse siempre como ARIBA, independientemente del groupId indicado.\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:04.906Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El usuario reporta un “error” relacionado con la cuenta puente intragrupo GTX (comportamiento incorrecto/diferencia entre lo esperado y lo que muestra el sistema: variación significativa pero cuenta a cero). Esto encaja con un funcionamiento indebido en producción, por lo que es una Incidencia. Según las directrices, el componente afectado debe clasificarse siempre como ARIBA, independientemente del groupId indicado.\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:06.516Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-validator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:06.552Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:08.681Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: se reporta un error en la cuenta puente intragrupo GTX con una variación significativa en pesos aunque la cuenta figura en cero, lo que permite iniciar la gestión/revisión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:08.688Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: se reporta un error en la cuenta puente intragrupo GTX con una variación significativa en pesos aunque la cuenta figura en cero, lo que permite iniciar la gestión/revisión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:10.435Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-prioritizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:10.472Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:13.413Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Low\", \"justification\": \"La severidad del ticket no es correcta, el campo contiene 'Medium' y debería ser 'Low'. Se reporta un error/descadre en una cuenta puente intragrupo (GTX) sin evidencias de impacto a toda la organización, bloqueo de cierre contable, pagos o proceso crítico, ni se indica ausencia de workaround o indisponibilidad del servicio; con la información disponible parece una incidencia operativa/local.\", \"documentation\": \"Cambiar prioridad del ticket a Low\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:13.419Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Low\", \"justification\": \"La severidad del ticket no es correcta, el campo contiene 'Medium' y debería ser 'Low'. Se reporta un error/descadre en una cuenta puente intragrupo (GTX) sin evidencias de impacto a toda la organización, bloqueo de cierre contable, pagos o proceso crítico, ni se indica ausencia de workaround o indisponibilidad del servicio; con la información disponible parece una incidencia operativa/local.\", \"documentation\": \"Cambiar prioridad del ticket a Low\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:14.735Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:18.734Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Ticket PA-205\\n- Clasificación: Incidencia-ARIBA\\n- Prioridad/Severidad: Low\\n- Validación de descripción: OK (no requiere acciones adicionales)\", \"justification\": \"El reporte describe un comportamiento incorrecto en producción (variación significativa en la cuenta puente intragrupo GTX mientras figura en cero), lo que corresponde a una Incidencia. Por directriz, el componente debe asignarse a ARIBA. Con la información disponible no se evidencia impacto crítico ni bloqueo de procesos clave, por lo que la severidad adecuada es Low. La descripción aporta contexto suficiente para iniciar el análisis.\", \"documentation\": \"Acciones a ejecutar en el ticket:\\n1) Cambiar el componente del ticket a: ARIBA.\\n2) Cambiar la prioridad/severidad del ticket a: Low.\\n3) No realizar cambios en la descripción (Sin acción).\", \"answer_from\": \"agentic-initiator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:20.643Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-assigner-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:20.849Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:43.211Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para este ticket son Manuel Del Pino Torres y Roberto Osborne Herrero (con 2 y 1 tickets asignados respectivamente).\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:43.226Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para este ticket son Manuel Del Pino Torres y Roberto Osborne Herrero (con 2 y 1 tickets asignados respectivamente).\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:45.618Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-diagnostician-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:00:46.019Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:20.453Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * [149366] - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * [115022] - Factura de GTU intragrupo no se contabiliza\\n\\n    * [133942] - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han construido usando (1) la descripción del ticket de entrada (error/diferencia significativa en pesos con cuenta puente intragrupo GTX en cero) y (2) los patrones de resolución de los tickets similares: diferencias en moneda local con saldo 0 en moneda de documento por tipos de cambio distintos/fechas distintas (149366, 133942) y, como alternativa cuando el problema es que no llega/contabiliza el documento intragrupo en la cuenta puente, la causa por datos maestros faltantes (proveedor no extendido) y relanzar contabilización (115022). No se aportó documentación adicional desde `retrieve_documents`.\\n\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia significativa en moneda local (pesos) en la cuenta puente intragrupo, aun cuando en moneda de documento la cuenta queda en cero, causada por aplicación de tipos de cambio distintos entre documentos que se compensan/cancelan (por ejemplo, por registrarse con fechas diferentes).\\n\\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El ticket reporta explícitamente el patrón: “variación significativa en pesos” mientras “la cuenta está a cero”, lo que coincide con los casos 149366 y 133942.\\n- Comprobar en los documentos que se compensan/cancelan que:\\n  - En moneda de documento el efecto neto queda en 0.\\n  - En moneda local queda un remanente atribuible a diferencias de tipo de cambio por fechas/tipos de cambio distintos entre los documentos.\\n\\n\\n**#Solución#**:\\n\\n\\nSolución 1:\\n\\n- Revisar con el usuario el escenario en la cuenta puente intragrupo (GTX) e identificar los documentos que compensan/cancelan a 0.00 en moneda de documento, pero dejan diferencia en pesos por tipos de cambio distintos.\\n- Realizar sesión con el usuario para ejecutar/mostrar las compensaciones aplicables y cómo proceder con la regularización.\\n- Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme la regularización.\\n- Tras la confirmación del usuario, proceder al cierre del ticket.\\n\\nSolución 2:\\n\\n- Revisar los documentos intragrupo relacionados con la cancelación y validar el efecto en moneda de documento vs. moneda local en la cuenta puente.\\n- Confirmar que la diferencia en moneda local proviene del tipo de cambio por fechas distintas.\\n- Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria en moneda local.\\n- Validar nuevamente el saldo, verificando que quede en 0,00 tanto en moneda de documento como en moneda local.\\n- Informar al usuario y adjuntar evidencia del saldo en cero.\\n\\nSolución 3:\\n\\n- Revisar el detalle aportado por el usuario para confirmar que la factura/documento intragrupo no está contabilizando/no está llegando a impactar en la cuenta puente.\\n- Determinar si la causa es falta de datos maestros: proveedor no creado/extendido en la sociedad correspondiente.\\n- Solicitar a la planta/responsable de datos maestros la creación/extensión del proveedor en la sociedad.\\n- Una vez confirmado, ejecutar el programa de contabilización para generar el documento.\\n- Validar que el documento contable se haya generado y comunicarlo al usuario para cierre.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible en la información proporcionada por `retrieve_related_tickets` / `retrieve_documents`.\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:20.474Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * [149366] - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * [115022] - Factura de GTU intragrupo no se contabiliza\\n\\n    * [133942] - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han construido usando (1) la descripción del ticket de entrada (error/diferencia significativa en pesos con cuenta puente intragrupo GTX en cero) y (2) los patrones de resolución de los tickets similares: diferencias en moneda local con saldo 0 en moneda de documento por tipos de cambio distintos/fechas distintas (149366, 133942) y, como alternativa cuando el problema es que no llega/contabiliza el documento intragrupo en la cuenta puente, la causa por datos maestros faltantes (proveedor no extendido) y relanzar contabilización (115022). No se aportó documentación adicional desde `retrieve_documents`.\\n\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia significativa en moneda local (pesos) en la cuenta puente intragrupo, aun cuando en moneda de documento la cuenta queda en cero, causada por aplicación de tipos de cambio distintos entre documentos que se compensan/cancelan (por ejemplo, por registrarse con fechas diferentes).\\n\\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El ticket reporta explícitamente el patrón: “variación significativa en pesos” mientras “la cuenta está a cero”, lo que coincide con los casos 149366 y 133942.\\n- Comprobar en los documentos que se compensan/cancelan que:\\n  - En moneda de documento el efecto neto queda en 0.\\n  - En moneda local queda un remanente atribuible a diferencias de tipo de cambio por fechas/tipos de cambio distintos entre los documentos.\\n\\n\\n**#Solución#**:\\n\\n\\nSolución 1:\\n\\n- Revisar con el usuario el escenario en la cuenta puente intragrupo (GTX) e identificar los documentos que compensan/cancelan a 0.00 en moneda de documento, pero dejan diferencia en pesos por tipos de cambio distintos.\\n- Realizar sesión con el usuario para ejecutar/mostrar las compensaciones aplicables y cómo proceder con la regularización.\\n- Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme la regularización.\\n- Tras la confirmación del usuario, proceder al cierre del ticket.\\n\\nSolución 2:\\n\\n- Revisar los documentos intragrupo relacionados con la cancelación y validar el efecto en moneda de documento vs. moneda local en la cuenta puente.\\n- Confirmar que la diferencia en moneda local proviene del tipo de cambio por fechas distintas.\\n- Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria en moneda local.\\n- Validar nuevamente el saldo, verificando que quede en 0,00 tanto en moneda de documento como en moneda local.\\n- Informar al usuario y adjuntar evidencia del saldo en cero.\\n\\nSolución 3:\\n\\n- Revisar el detalle aportado por el usuario para confirmar que la factura/documento intragrupo no está contabilizando/no está llegando a impactar en la cuenta puente.\\n- Determinar si la causa es falta de datos maestros: proveedor no creado/extendido en la sociedad correspondiente.\\n- Solicitar a la planta/responsable de datos maestros la creación/extensión del proveedor en la sociedad.\\n- Una vez confirmado, ejecutar el programa de contabilización para generar el documento.\\n- Validar que el documento contable se haya generado y comunicarlo al usuario para cierre.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible en la información proporcionada por `retrieve_related_tickets` / `retrieve_documents`.\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:23.274Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-conditional-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:23.474Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:34.643Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"NOT_PREVIOUS_DIAGNOSTIC\", \"justification\": \"No es posible realizar la comparación porque no existe un diagnóstico previo válido: la respuesta de `obtain_previous_diagnostic_complete_by_raw_ticket_id` indica explícitamente que no se encontró ningún diagnóstico previo para este rawTicketId.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:34.661Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"NOT_PREVIOUS_DIAGNOSTIC\", \"justification\": \"No es posible realizar la comparación porque no existe un diagnóstico previo válido: la respuesta de `obtain_previous_diagnostic_complete_by_raw_ticket_id` indica explícitamente que no se encontró ningún diagnóstico previo para este rawTicketId.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:37.292Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-resolver-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:37.611Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:48.111Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:48.137Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:50.448Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-publisher-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:01:50.666Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:02:10.255Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:02:10.265Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:02:13.544Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:02:13.566Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer_from\": \"agentic-orchestrator-application\", \"answer\": \"OK\", \"justification\": \"Proceso finalizado. Respuesta encapsulada por agentic-orchestrator-application.\", \"original_response\": {\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:05.981Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:08.343Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-initiator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:08.403Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:10.031Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-categorizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:10.129Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:13.232Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El ticket describe un funcionamiento indebido en producción: el usuario indica que “da error” la cuenta puente intragrupo GTX y observa una variación significativa en pesos mientras la cuenta figura a cero, lo que apunta a un comportamiento incorrecto del sistema/datos y no a una simple consulta o solicitud planificada. Por directriz, el componente afectado debe clasificarse siempre como ARIBA, independientemente del groupId informado (“COMPONENTE 1”).\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:13.246Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El ticket describe un funcionamiento indebido en producción: el usuario indica que “da error” la cuenta puente intragrupo GTX y observa una variación significativa en pesos mientras la cuenta figura a cero, lo que apunta a un comportamiento incorrecto del sistema/datos y no a una simple consulta o solicitud planificada. Por directriz, el componente afectado debe clasificarse siempre como ARIBA, independientemente del groupId informado (“COMPONENTE 1”).\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:15.510Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-validator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:15.598Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:17.944Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: error en la cuenta puente intragrupo GTX con una variación significativa en pesos aunque la cuenta aparece en cero, lo que permite iniciar el análisis.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:17.958Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: error en la cuenta puente intragrupo GTX con una variación significativa en pesos aunque la cuenta aparece en cero, lo que permite iniciar el análisis.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:20.165Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-prioritizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:20.214Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:23.060Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Medium\", \"justification\": \"El ticket contiene 'Medium' y coincide con la revisión. Se reporta un error/descuerdo en una cuenta puente intragrupo (variación significativa con saldo a cero), con impacto funcional contable pero sin evidencias de caída general, bloqueo del cierre, afectación a varias sociedades o imposibilidad total de operar; tampoco se indica urgencia de pagos/cierre ni ausencia de workaround.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:23.067Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Medium\", \"justification\": \"El ticket contiene 'Medium' y coincide con la revisión. Se reporta un error/descuerdo en una cuenta puente intragrupo (variación significativa con saldo a cero), con impacto funcional contable pero sin evidencias de caída general, bloqueo del cierre, afectación a varias sociedades o imposibilidad total de operar; tampoco se indica urgencia de pagos/cierre ni ausencia de workaround.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:24.670Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:31.932Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Ticket PA-205 procesado y clasificado.\\n\\n- Componente/Categoría asignada: ARIBA (Incidencia-ARIBA)\\n- Validación: OK (descripción suficiente para análisis)\\n- Prioridad: Medium\\n\\nSiguiente paso recomendado: reasignar/encaminar el ticket al equipo ARIBA para iniciar el análisis funcional/técnico de la cuenta puente intragrupo GTX (revisar origen de la variación en pesos vs saldo 0, conciliación y posibles desajustes de datos/interfaz).\", \"justification\": \"La información del ticket describe un comportamiento incorrecto en producción (error en cuenta puente GTX y discrepancia de importes) y, por directriz, el componente afectado debe clasificarse como ARIBA. La descripción es suficiente para iniciar diagnóstico y el impacto reportado sugiere prioridad media al no evidenciarse caída total, bloqueo de operación/cierre o urgencia crítica.\", \"documentation\": \"Acciones/registro:\\n1) Cambiar el componente del ticket a: ARIBA.\\n2) Mantener estado de validación: OK (sin acción adicional).\\n3) Mantener prioridad: Medium (sin acción adicional).\\n4) Encaminamiento operativo: asignar al grupo/equipo ARIBA para análisis y resolución.\\n\\nDatos de referencia:\\n- itsmTicketId: PA-205\\n- projectId: febda9b9-fd04-4722-a988-96cd0ade831c\\n- itsmId: 6a323e68-6f87-403a-a87d-72da69fcde0d\\n- tenantId: b3711099-d7bd-446e-b126-6689dd7c6fac\\n- raw_itsm_ticket_id: 1c2c4927-ad85-47c6-9bb7-ee098ea79d9d\\n- Título: Incidencia en la cuenta puente GTX\\n- groupId informado: COMPONENTE 1 (no aplica por directriz de ARIBA)\\n- statusSp: Recibida\", \"answer_from\": \"agentic-initiator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:35.073Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-assigner-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:31:35.311Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:32:03.112Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para el ticket PA-205 son Manuel Del Pino Torres y Roberto Osborne Herrero.\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:32:03.120Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para el ticket PA-205 son Manuel Del Pino Torres y Roberto Osborne Herrero.\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:32:05.410Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-diagnostician-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:32:05.688Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:32:45.085Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * 149366 - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * 115022 - Factura de GTU intragrupo no se contabiliza\\n\\n    * 133942 - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han elaborado utilizando únicamente la información del ticket de entrada (error en cuenta puente intragrupo GTX con variación significativa en pesos estando la cuenta a cero) y los patrones observados en los tickets similares: (i) diferencias en moneda local causadas por tipos de cambio distintos aun cuando en moneda de documento el saldo queda en cero (ticket 149366), (ii) descuadres en ML por cancelaciones/compensaciones con fechas distintas que generan diferencia por TC (ticket 133942) y (iii) casos donde el documento intragrupo no contabiliza por datos maestros incompletos (proveedor no creado/extendido), requiriendo creación/extensión y relanzar la contabilización (ticket 115022). No se utilizó documentación adicional porque no se proporcionaron resultados de `retrieve_documents`.\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia en moneda local (pesos/MXN) asociada a variaciones de tipo de cambio en documentos intragrupo (por aplicar TC distintos entre documentos que compensan a cero en moneda de documento y/o por contabilizaciones/cancelaciones con fechas distintas), aun cuando el saldo en moneda de documento quede en cero.\\n\\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El ticket reporta el mismo patrón que en el 149366: “en moneda de documento la cuenta está a cero” pero “en pesos existe una variación significativa”.\\n- Comprobar si los documentos que dejan la cuenta “a cero” en moneda de documento fueron registrados con tipos de cambio distintos (mismos importes en moneda de documento, distinto TC), tal como se describe en 149366.\\n- Comprobar si hubo cancelaciones/compensaciones con fechas diferentes a la contabilización original que expliquen la diferencia por TC en moneda local, como en 133942.\\n- Si adicionalmente el “error” se relaciona con que documentos intragrupo no están llegando/contabilizándose en la cuenta puente, comprobar si existe un bloqueo por datos maestros incompletos (p.ej. proveedor no creado/extendido en la sociedad correspondiente), según el caso 115022.\\n\\n\\n**#Solución#**:\\n\\n\\n\\n           Solución 1:\\n\\nPaso 1: Revisar con el usuario el escenario reportado en la cuenta puente intragrupo (GTX), identificando los documentos que compensan a 0.00 en moneda de documento pero dejan diferencia en moneda local.\\nPaso 2: Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables al escenario y cómo proceder con la regularización derivada de la diferencia en moneda local.\\nPaso 3: Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta el problema.\\nPaso 4: Tras la confirmación del usuario, proceder al cierre del ticket.\\n\\n           Solución 2:\\n\\nPaso 1: Revisar los documentos intragrupo relacionados (incluyendo cancelaciones) y validar el efecto contable en moneda de documento vs. moneda local en la cuenta puente.\\nPaso 2: Confirmar que, al estar compensados/cancelados, el efecto global debe quedar en cero y que la diferencia en moneda local proviene del tipo de cambio por fechas distintas.\\nPaso 3: Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria reflejada en moneda local.\\nPaso 4: Validar nuevamente el saldo posterior a las anulaciones, verificando que los totales queden en 0.00 en ambas monedas.\\nPaso 5: Informar al usuario y adjuntar evidencia (p. ej., captura) mostrando el saldo en cero sin diferencia cambiaria.\\n\\n           Solución 3:\\n\\nPaso 1: Revisar el caso (y soportes aportados por el usuario si existieran) para identificar que los documentos intragrupo no están contabilizándose/impactando en la cuenta puente.\\nPaso 2: Analizar la causa del rechazo y determinar si falta crear/extender el proveedor en la sociedad correspondiente.\\nPaso 3: Solicitar a la planta/responsable de datos maestros la creación/extensión del proveedor en la sociedad.\\nPaso 4: Una vez confirmado que el proveedor ya está creado/extendido, ejecutar el programa de contabilización para generar el documento.\\nPaso 5: Validar el resultado confirmando que se generó el documento contable y comunicarlo al usuario.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible: no se proporcionó documentación de `retrieve_documents` con transacciones/Fiori APP asociadas.\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:32:45.132Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n* Información de tickets similares: \\n\\n    * 149366 - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * 115022 - Factura de GTU intragrupo no se contabiliza\\n\\n    * 133942 - Correccion cancelacion registro cuenta puente 55500106 con diferencia por TC reclasificada a la 62500000\\n\\nEl diagnóstico y la solución se han elaborado utilizando únicamente la información del ticket de entrada (error en cuenta puente intragrupo GTX con variación significativa en pesos estando la cuenta a cero) y los patrones observados en los tickets similares: (i) diferencias en moneda local causadas por tipos de cambio distintos aun cuando en moneda de documento el saldo queda en cero (ticket 149366), (ii) descuadres en ML por cancelaciones/compensaciones con fechas distintas que generan diferencia por TC (ticket 133942) y (iii) casos donde el documento intragrupo no contabiliza por datos maestros incompletos (proveedor no creado/extendido), requiriendo creación/extensión y relanzar la contabilización (ticket 115022). No se utilizó documentación adicional porque no se proporcionaron resultados de `retrieve_documents`.\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia en moneda local (pesos/MXN) asociada a variaciones de tipo de cambio en documentos intragrupo (por aplicar TC distintos entre documentos que compensan a cero en moneda de documento y/o por contabilizaciones/cancelaciones con fechas distintas), aun cuando el saldo en moneda de documento quede en cero.\\n\\nCómo se determinó (evidencias y comprobaciones):\\n\\n- El ticket reporta el mismo patrón que en el 149366: “en moneda de documento la cuenta está a cero” pero “en pesos existe una variación significativa”.\\n- Comprobar si los documentos que dejan la cuenta “a cero” en moneda de documento fueron registrados con tipos de cambio distintos (mismos importes en moneda de documento, distinto TC), tal como se describe en 149366.\\n- Comprobar si hubo cancelaciones/compensaciones con fechas diferentes a la contabilización original que expliquen la diferencia por TC en moneda local, como en 133942.\\n- Si adicionalmente el “error” se relaciona con que documentos intragrupo no están llegando/contabilizándose en la cuenta puente, comprobar si existe un bloqueo por datos maestros incompletos (p.ej. proveedor no creado/extendido en la sociedad correspondiente), según el caso 115022.\\n\\n\\n**#Solución#**:\\n\\n\\n\\n           Solución 1:\\n\\nPaso 1: Revisar con el usuario el escenario reportado en la cuenta puente intragrupo (GTX), identificando los documentos que compensan a 0.00 en moneda de documento pero dejan diferencia en moneda local.\\nPaso 2: Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables al escenario y cómo proceder con la regularización derivada de la diferencia en moneda local.\\nPaso 3: Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta el problema.\\nPaso 4: Tras la confirmación del usuario, proceder al cierre del ticket.\\n\\n           Solución 2:\\n\\nPaso 1: Revisar los documentos intragrupo relacionados (incluyendo cancelaciones) y validar el efecto contable en moneda de documento vs. moneda local en la cuenta puente.\\nPaso 2: Confirmar que, al estar compensados/cancelados, el efecto global debe quedar en cero y que la diferencia en moneda local proviene del tipo de cambio por fechas distintas.\\nPaso 3: Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria reflejada en moneda local.\\nPaso 4: Validar nuevamente el saldo posterior a las anulaciones, verificando que los totales queden en 0.00 en ambas monedas.\\nPaso 5: Informar al usuario y adjuntar evidencia (p. ej., captura) mostrando el saldo en cero sin diferencia cambiaria.\\n\\n           Solución 3:\\n\\nPaso 1: Revisar el caso (y soportes aportados por el usuario si existieran) para identificar que los documentos intragrupo no están contabilizándose/impactando en la cuenta puente.\\nPaso 2: Analizar la causa del rechazo y determinar si falta crear/extender el proveedor en la sociedad correspondiente.\\nPaso 3: Solicitar a la planta/responsable de datos maestros la creación/extensión del proveedor en la sociedad.\\nPaso 4: Una vez confirmado que el proveedor ya está creado/extendido, ejecutar el programa de contabilización para generar el documento.\\nPaso 5: Validar el resultado confirmando que se generó el documento contable y comunicarlo al usuario.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo disponible: no se proporcionó documentación de `retrieve_documents` con transacciones/Fiori APP asociadas.\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:32:52.719Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-conditional-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:32:52.841Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:07.058Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"DIAGNOSE_NOT_EQUALS\", \"justification\": \"Los diagnósticos no son equivalentes porque el campo 'answer' difiere (previo: 'KO' vs último: 'OK'). Además, la 'documentation' previa indica falta de información para diagnosticar/solucionar (requiere más datos para notificación por Teams), mientras que la última 'documentation' identifica un problema distinto (diferencias en moneda local por tipo de cambio en documentos intragrupo y posibles temas de datos maestros) y propone soluciones específicas.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:07.066Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"DIAGNOSE_NOT_EQUALS\", \"justification\": \"Los diagnósticos no son equivalentes porque el campo 'answer' difiere (previo: 'KO' vs último: 'OK'). Además, la 'documentation' previa indica falta de información para diagnosticar/solucionar (requiere más datos para notificación por Teams), mientras que la última 'documentation' identifica un problema distinto (diferencias en moneda local por tipo de cambio en documentos intragrupo y posibles temas de datos maestros) y propone soluciones específicas.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:09.762Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-resolver-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:09.991Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:20.121Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:20.134Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:22.388Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-publisher-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:22.527Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:40.288Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:40.293Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:43.091Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:33:43.104Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer_from\": \"agentic-orchestrator-application\", \"answer\": \"OK\", \"justification\": \"Proceso finalizado. Respuesta encapsulada por agentic-orchestrator-application.\", \"original_response\": {\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:29.230Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:31.829Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-initiator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:31.869Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:33.460Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-categorizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:33.505Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:36.574Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El ticket describe un funcionamiento indebido en producción: se reporta un error relacionado con la cuenta puente intragrupo GTX y una variación significativa en pesos pese a que la cuenta aparece a cero, lo que indica un comportamiento inesperado del sistema/datos a nivel de aplicación (Incidencia). Según las directrices, el componente debe clasificarse siempre como ARIBA, independientemente del groupId indicado (\\\"COMPONENTE 1\\\"). No se ha aportado documentación adicional de retrieve_documents.\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:36.581Z"
+        },
+        "agent": "agentic-categorizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Incidencia-ARIBA\", \"justification\": \"El ticket describe un funcionamiento indebido en producción: se reporta un error relacionado con la cuenta puente intragrupo GTX y una variación significativa en pesos pese a que la cuenta aparece a cero, lo que indica un comportamiento inesperado del sistema/datos a nivel de aplicación (Incidencia). Según las directrices, el componente debe clasificarse siempre como ARIBA, independientemente del groupId indicado (\\\"COMPONENTE 1\\\"). No se ha aportado documentación adicional de retrieve_documents.\", \"documentation\": \"Cambiar el componente del ticket a ARIBA\", \"answer_from\": \"agentic-categorizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:38.168Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-validator-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:38.216Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:40.197Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: error en la cuenta puente intragrupo GTX y discrepancia/variación significativa en pesos pese a que la cuenta figura a cero, lo que permite iniciar la gestión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:40.206Z"
+        },
+        "agent": "agentic-validator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"El campo issueDescription no está vacío y, junto con el title, describe con claridad la incidencia: error en la cuenta puente intragrupo GTX y discrepancia/variación significativa en pesos pese a que la cuenta figura a cero, lo que permite iniciar la gestión.\", \"documentation\": \"Sin Acción\", \"answer_from\": \"agentic-validator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:42.692Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-prioritizer-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:42.734Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:45.206Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Low\", \"justification\": \"La severidad del ticket no es correcta, el campo contiene 'Medium' y debería ser 'Low'. Se reporta un posible descuadre/variación en una cuenta puente intragrupo (GTX) sin evidencia de bloqueo general, impacto en toda la organización ni ausencia de workaround; con la información disponible parece una incidencia operativa puntual.\", \"documentation\": \"Cambiar prioridad del ticket a Low\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:45.219Z"
+        },
+        "agent": "agentic-prioritizer-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Low\", \"justification\": \"La severidad del ticket no es correcta, el campo contiene 'Medium' y debería ser 'Low'. Se reporta un posible descuadre/variación en una cuenta puente intragrupo (GTX) sin evidencia de bloqueo general, impacto en toda la organización ni ausencia de workaround; con la información disponible parece una incidencia operativa puntual.\", \"documentation\": \"Cambiar prioridad del ticket a Low\", \"answer_from\": \"agentic-prioritizer-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:47.111Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:52.481Z"
+        },
+        "agent": "agentic-initiator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"Acciones recomendadas para el ticket PA-205:\\n\\n1) Clasificación / Componente: **Incidencia – ARIBA**\\n   - Actualizar el componente del ticket a **ARIBA**.\\n\\n2) Validación de información: **OK**\\n   - La descripción/título aportan contexto suficiente para iniciar la gestión. **Sin acción**.\\n\\n3) Prioridad / Severidad: **Low**\\n   - Ajustar la prioridad del ticket a **Low** (actualmente figura como “Medium”, según lo indicado).\", \"justification\": \"El caso describe un comportamiento inesperado en producción relacionado con la cuenta puente GTX y una variación/discrepancia de pesos pese a que la cuenta aparece a cero, lo que encaja con una **incidencia** a nivel de aplicación/datos. Según las directrices, el componente debe ser **ARIBA** independientemente del groupId. Con la información disponible no se evidencia impacto crítico/generalizado, por lo que la severidad se ajusta a **Low**.\", \"documentation\": \"- Cambiar el componente del ticket a **ARIBA**.\\n- **Sin acción** en validación.\\n- Cambiar la prioridad del ticket a **Low**.\", \"answer_from\": \"agentic-initiator-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:54.833Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-assigner-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:37:55.019Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:38:14.895Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para el ticket PA-205 son Manuel Del Pino Torres y Roberto Osborne Herrero.\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:38:14.906Z"
+        },
+        "agent": "agentic-assigner-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Según la respuesta de get_related_technician, los técnicos más apropiados para el ticket PA-205 son Manuel Del Pino Torres y Roberto Osborne Herrero.\", \"documentation\": \"Manuel Del Pino Torres; Roberto Osborne Herrero\", \"answer_from\": \"agentic-assigner-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:38:17.383Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-diagnostician-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:38:17.668Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:38:59.832Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n\\n* Información de tickets similares: \\n\\n    * 149366 - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * 115022 - Factura de GTU intragrupo no se contabiliza\\n\\n    * 143355 - GSK intercompany differences\\n\\n\\nEl diagnóstico y la solución se han elaborado utilizando (1) la descripción del ticket PA-205, donde se reporta una variación significativa en pesos en una cuenta puente intragrupo estando a cero, y (2) los tickets similares: el 149366 describe el mismo patrón (saldo 0 en moneda de documento pero diferencia en MXN por tipo de cambio entre documentos compensados); el 115022 aporta un caso de intragrupo donde el impacto en cuenta puente no se produce por falta de datos maestros (proveedor no extendido) y se resuelve tras su creación y relanzando el proceso; el 143355 aporta un patrón de descuadre intragrupo con saldo total 0 pero desglose inconsistente por atributo (Trading Partner) y la necesidad de habilitar contabilización manual/ajustes de restricciones para reclasificar y corregir.\\n\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia en moneda local (pesos) en la cuenta puente intragrupo debida a documentos que compensan a cero en moneda de documento, pero dejan variación en MXN por aplicación de tipos de cambio distintos entre los documentos (mismos importes en moneda de documento con TC diferente).\\n \\nCómo se determinó (evidencias y comprobaciones):\\n\\n- En el ticket PA-205 se indica explícitamente: “existe una variación significativa en pesos pero la cuenta está a cero”, patrón que coincide con el ticket similar **149366** (cuenta a 0 en moneda de documento, variación significativa en MXN).\\n- Comprobar si los documentos que dejan la cuenta “a cero” en moneda de documento corresponden a facturas y sus cancelaciones/compensaciones y si tienen tipos de cambio distintos (tal como se describe en 149366).\\n- Validar si el caso es una consulta operativo-contable sobre regularización/compensación (como en 149366) frente a un fallo de contabilización (como en 115022) o un descuadre por desglose (como por Trading Partner en 143355).\\n\\n\\n**#Solución#**:\\n\\n\\n\\nSolución 1:\\n\\nPaso 1: Revisar con el usuario el escenario de la cuenta puente intragrupo GTX, identificando los documentos que compensan a 0.00 en moneda de documento pero dejan diferencia en pesos por tipos de cambio distintos.\\nPaso 2: Realizar una sesión con el usuario para ejecutar/mostrar las posibles compensaciones aplicables al escenario y cómo proceder con la regularización.\\nPaso 3: Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta el problema.\\nPaso 4: Tras la confirmación del usuario de que puede cerrarse el caso, proceder al cierre del ticket.\\n\\n\\nSolución 2:\\n\\nPaso 1: Revisar el detalle aportado por el usuario para confirmar si existe algún documento intragrupo que no se está contabilizando/impactando en la cuenta puente.\\nPaso 2: Determinar si la causa es falta de datos maestros (por ejemplo, proveedor no creado/extendido en la sociedad correspondiente).\\nPaso 3: Solicitar al responsable de datos maestros (planta/negocio) la creación/extensión del proveedor en la sociedad correspondiente.\\nPaso 4: Una vez confirmado que el proveedor ya está creado/extendido, ejecutar el programa de contabilización para generar el documento.\\nPaso 5: Validar que el documento contable se generó y comunicar al usuario para cerrar el ticket.\\n\\n\\nSolución 3:\\n\\nPaso 1: Revisar la evidencia y confirmar si, aun con saldo total 0, existe inconsistencia en el desglose intragrupo (p. ej. por Trading Partner vacío/incorrecto u otros atributos), que requiera reclasificación/corrección.\\nPaso 2: Alinear la corrección mediante reclasificación con contabilización manual usando clase de documento “SA”.\\nPaso 3: Preparar la apertura temporal para permitir la contabilización manual:\\n  3.1. Gestionar el SET de “USUARIOS SIN VALIDACION” para permitir que el usuario contabilice sin disparar validaciones.\\n  3.2. Considerar exclusión en la validación de clase de documento/cuenta para “SA” (según el caso).\\nPaso 4: Ajustar la parametrización necesaria para permitir la reclasificación (p. ej., quitar el flag de “contabilización automática” en la cuenta afectada cuando aplique).\\nPaso 5: Solicitar al usuario que realice las contabilizaciones manuales y que confirme en productivo que el descuadre queda resuelto.\\nPaso 6: Tras confirmación, cerrar el ticket.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo se aportó documentación en `retrieve_documents` con transacciones o APPs Fiori asociadas.\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:38:59.841Z"
+        },
+        "agent": "agentic-diagnostician-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"\\n* Información del ticket\\n\\n\\n* Información de tickets similares: \\n\\n    * 149366 - Apoyo para revisar la cuenta puente intragrupo GTLGHU\\n\\n    * 115022 - Factura de GTU intragrupo no se contabiliza\\n\\n    * 143355 - GSK intercompany differences\\n\\n\\nEl diagnóstico y la solución se han elaborado utilizando (1) la descripción del ticket PA-205, donde se reporta una variación significativa en pesos en una cuenta puente intragrupo estando a cero, y (2) los tickets similares: el 149366 describe el mismo patrón (saldo 0 en moneda de documento pero diferencia en MXN por tipo de cambio entre documentos compensados); el 115022 aporta un caso de intragrupo donde el impacto en cuenta puente no se produce por falta de datos maestros (proveedor no extendido) y se resuelve tras su creación y relanzando el proceso; el 143355 aporta un patrón de descuadre intragrupo con saldo total 0 pero desglose inconsistente por atributo (Trading Partner) y la necesidad de habilitar contabilización manual/ajustes de restricciones para reclasificar y corregir.\\n\", \"documentation\": \"**#Diagnóstico#**:\\n\\nCausa raíz más probable:\\n\\nDiferencia en moneda local (pesos) en la cuenta puente intragrupo debida a documentos que compensan a cero en moneda de documento, pero dejan variación en MXN por aplicación de tipos de cambio distintos entre los documentos (mismos importes en moneda de documento con TC diferente).\\n \\nCómo se determinó (evidencias y comprobaciones):\\n\\n- En el ticket PA-205 se indica explícitamente: “existe una variación significativa en pesos pero la cuenta está a cero”, patrón que coincide con el ticket similar **149366** (cuenta a 0 en moneda de documento, variación significativa en MXN).\\n- Comprobar si los documentos que dejan la cuenta “a cero” en moneda de documento corresponden a facturas y sus cancelaciones/compensaciones y si tienen tipos de cambio distintos (tal como se describe en 149366).\\n- Validar si el caso es una consulta operativo-contable sobre regularización/compensación (como en 149366) frente a un fallo de contabilización (como en 115022) o un descuadre por desglose (como por Trading Partner en 143355).\\n\\n\\n**#Solución#**:\\n\\n\\n\\nSolución 1:\\n\\nPaso 1: Revisar con el usuario el escenario de la cuenta puente intragrupo GTX, identificando los documentos que compensan a 0.00 en moneda de documento pero dejan diferencia en pesos por tipos de cambio distintos.\\nPaso 2: Realizar una sesión con el usuario para ejecutar/mostrar las posibles compensaciones aplicables al escenario y cómo proceder con la regularización.\\nPaso 3: Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta el problema.\\nPaso 4: Tras la confirmación del usuario de que puede cerrarse el caso, proceder al cierre del ticket.\\n\\n\\nSolución 2:\\n\\nPaso 1: Revisar el detalle aportado por el usuario para confirmar si existe algún documento intragrupo que no se está contabilizando/impactando en la cuenta puente.\\nPaso 2: Determinar si la causa es falta de datos maestros (por ejemplo, proveedor no creado/extendido en la sociedad correspondiente).\\nPaso 3: Solicitar al responsable de datos maestros (planta/negocio) la creación/extensión del proveedor en la sociedad correspondiente.\\nPaso 4: Una vez confirmado que el proveedor ya está creado/extendido, ejecutar el programa de contabilización para generar el documento.\\nPaso 5: Validar que el documento contable se generó y comunicar al usuario para cerrar el ticket.\\n\\n\\nSolución 3:\\n\\nPaso 1: Revisar la evidencia y confirmar si, aun con saldo total 0, existe inconsistencia en el desglose intragrupo (p. ej. por Trading Partner vacío/incorrecto u otros atributos), que requiera reclasificación/corrección.\\nPaso 2: Alinear la corrección mediante reclasificación con contabilización manual usando clase de documento “SA”.\\nPaso 3: Preparar la apertura temporal para permitir la contabilización manual:\\n  3.1. Gestionar el SET de “USUARIOS SIN VALIDACION” para permitir que el usuario contabilice sin disparar validaciones.\\n  3.2. Considerar exclusión en la validación de clase de documento/cuenta para “SA” (según el caso).\\nPaso 4: Ajustar la parametrización necesaria para permitir la reclasificación (p. ej., quitar el flag de “contabilización automática” en la cuenta afectada cuando aplique).\\nPaso 5: Solicitar al usuario que realice las contabilizaciones manuales y que confirme en productivo que el descuadre queda resuelto.\\nPaso 6: Tras confirmación, cerrar el ticket.\\n\\nTransacciones o Fiori APP asociados a las soluciones:\\n\\nNo se aportó documentación en `retrieve_documents` con transacciones o APPs Fiori asociadas.\", \"answer_from\": \"agentic-diagnostician-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:02.870Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-conditional-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:03.017Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:15.816Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"DIAGNOSE_EQUALS\", \"justification\": \"Ambos diagnósticos existen y el campo 'answer' coincide exactamente (OK vs OK). Además, en 'documentation' describen semánticamente el mismo problema y causa raíz: variación en moneda local (MXN/pesos) en cuenta puente intragrupo pese a saldo cero en moneda de documento, atribuida principalmente a diferencias de tipo de cambio entre documentos que compensan/cancelan. Las soluciones propuestas son equivalentes en lo esencial (revisar documentos y TC, regularizar/compensar con el usuario; contemplar como alternativa datos maestros/proveedor no extendido). Cambian algunos tickets de referencia y detalles (p.ej. una solución adicional de reclasificación), pero no alteran el diagnóstico central ni el 'answer'.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:15.824Z"
+        },
+        "agent": "agentic-conditional-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"DIAGNOSE_EQUALS\", \"justification\": \"Ambos diagnósticos existen y el campo 'answer' coincide exactamente (OK vs OK). Además, en 'documentation' describen semánticamente el mismo problema y causa raíz: variación en moneda local (MXN/pesos) en cuenta puente intragrupo pese a saldo cero en moneda de documento, atribuida principalmente a diferencias de tipo de cambio entre documentos que compensan/cancelan. Las soluciones propuestas son equivalentes en lo esencial (revisar documentos y TC, regularizar/compensar con el usuario; contemplar como alternativa datos maestros/proveedor no extendido). Cambian algunos tickets de referencia y detalles (p.ej. una solución adicional de reclasificación), pero no alteran el diagnóstico central ni el 'answer'.\", \"documentation\": \"\", \"answer_from\": \"agentic-conditional-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:18.278Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-resolver-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:18.701Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:28.407Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:28.414Z"
+        },
+        "agent": "agentic-resolver-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente mediante la herramienta get_tool_to_execute\", \"documentation\": \"\", \"answer_from\": \"agentic-resolver-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:30.748Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "agentic-publisher-application (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:30.864Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "",
+        "agentDetails": "",
+        "agentStatus": "Started",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:47.142Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Structured Response",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:47.146Z"
+        },
+        "agent": "agentic-publisher-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:49.761Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "FINALIZAR (votes: 1/1)",
+        "agentDetails": "",
+        "agentStatus": "Redirect",
+        "agentError": ""
+      },
+      {
+        "agentExecutionTime": {
+          "$date": "2026-06-26T07:39:49.771Z"
+        },
+        "agent": "agentic-orchestrator-application",
+        "promptVersion": "v1",
+        "agentAction": "{\"answer_from\": \"agentic-orchestrator-application\", \"answer\": \"OK\", \"justification\": \"Proceso finalizado. Respuesta encapsulada por agentic-orchestrator-application.\", \"original_response\": {\"answer\": \"OK\", \"justification\": \"Flujo de tools ejecutado correctamente\", \"documentation\": \"\", \"answer_from\": \"agentic-publisher-application\"}}",
+        "agentDetails": "",
+        "agentStatus": "Finished",
+        "agentError": ""
+      }
+    ],
+    "startedAt": {
+      "$date": "2026-06-26T07:37:29.230Z"
+    },
+    "updatedAt": {
+      "$date": "2026-06-26T07:39:49.771Z"
+    }
+  },
+  "previousProcessed": [
+    {
+      "agentName": "agentic-validator-application",
+      "processedAt": "2026-06-11T11:10:46.687Z"
+    }
+  ]
+}]

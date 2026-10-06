@@ -1,0 +1,8 @@
+allowBuilds:
+  mongodb-memory-server: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@redocly/cli@2.45.0'
+onlyBuiltDependencies:
+  - mongodb-memory-server
+  - unrs-resolver

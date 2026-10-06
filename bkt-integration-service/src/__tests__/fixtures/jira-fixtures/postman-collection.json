@@ -1,0 +1,46 @@
+{
+  "info": {
+    "_postman_id": "6667964f-3986-4ec6-9eef-beb357cec8b8",
+    "name": "LLAMADA SERVICIO INTEGRACION",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42644836"
+  },
+  "item": [
+    {
+      "name": "Procesar ticket Jira PA-205",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"initiatedBy\": \"postman-demo\",\n  \"issues\": [\n    {\n      \"id\": \"13401\",\n      \"key\": \"PA-205\",\n      \"fields\": {\n        \"summary\": \"Incidencia en la cuenta puente GTX\",\n        \"description\": \"Me da error la cuenta puente intragrupo GTX.\",\n        \"issuetype\": {\n          \"name\": \"Incidencia\"\n        },\n        \"status\": {\n          \"name\": \"Recibida\"\n        },\n        \"priority\": {\n          \"name\": \"Medium\"\n        },\n        \"components\": \"COMPONENTE 1\"\n      }\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/api/v1/issues",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "issues"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ]
+}

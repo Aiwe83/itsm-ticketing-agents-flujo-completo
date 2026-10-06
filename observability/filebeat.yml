@@ -1,0 +1,64 @@
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: false
+      templates:
+        - condition:
+            equals:
+              docker.container.name: "bkt-integration-service"
+          config:
+            - type: container
+              paths:
+                - "/var/lib/docker/containers/${data.docker.container.id}/*.log"
+              fields:
+                servicio: bkt-integration-service-ts
+              fields_under_root: true
+
+        - condition:
+            equals:
+              docker.container.name: "bkt-integration-service-python"
+          config:
+            - type: container
+              paths:
+                - "/var/lib/docker/containers/${data.docker.container.id}/*.log"
+              fields:
+                servicio: bkt-integration-service-python
+              fields_under_root: true
+
+        - condition:
+            equals:
+              docker.container.name: "agent-runtime"
+          config:
+            - type: container
+              paths:
+                - "/var/lib/docker/containers/${data.docker.container.id}/*.log"
+              fields:
+                servicio: agent-runtime
+              fields_under_root: true
+
+        - condition:
+            equals:
+              docker.container.name: "bktcortexproxyllm"
+          config:
+            - type: container
+              paths:
+                - "/var/lib/docker/containers/${data.docker.container.id}/*.log"
+              fields:
+                servicio: bkt-cortex-proxy-llm
+              fields_under_root: true
+
+processors:
+  - add_docker_metadata: ~
+
+output.elasticsearch:
+  hosts: ["http://host.docker.internal:9200"]
+
+setup.kibana:
+  host: "http://host.docker.internal:5601"
+
+setup.ilm.enabled: false
+setup.template.name: "itsm-logs"
+setup.template.pattern: "itsm-logs-*"
+output.elasticsearch.index: "itsm-logs-%{+yyyy.MM.dd}"
+
+logging.level: info

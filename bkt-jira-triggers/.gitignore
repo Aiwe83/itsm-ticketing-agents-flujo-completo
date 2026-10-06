@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+.forge/
+.env
+.env.*
+*.pem
+docs/evidence/*.local.txt

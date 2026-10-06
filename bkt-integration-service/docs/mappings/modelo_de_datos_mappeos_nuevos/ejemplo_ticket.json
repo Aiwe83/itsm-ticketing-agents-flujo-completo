@@ -1,0 +1,224 @@
+{
+  "id": "b7f3c2e1-4a9d-4c18-9f22-8e1d5a6b0c74",
+  "key": "INC-14872",
+  "issueType": "OPERATIONS_INCIDENT",
+  "affectedCountry": "ES",
+  "locale": "es-ES",
+  "summary": "Job BK_LIQ_INT_D01 abortado: no se liquidan intereses de cuentas a la vista",
+  "description": "El proceso batch nocturno de liquidación de intereses de cuentas a la vista (BK_LIQ_INT_D01) abortó a las 02:14 durante la ventana de proceso del 03/08/2026. Como consecuencia no se han generado los apuntes de liquidación del día y los saldos mostrados en Banca Digital y en oficina no incluyen los intereses devengados. Detectado por la consola de monitorización de Control-M y confirmado por el CAU tras recibir avisos de oficinas al abrir. El proceso depende de la tabla LIQ_MOV, sobre la que también opera el online de altas de cuenta.",
+  "status": "RESOLVED",
+  "resolution": "FIXED",
+  "resolutionDate": "2026-08-03T06:40:00Z",
+  "reporter": {
+    "accountId": "5f2a9c11e4b0",
+    "displayName": "Marta Ruiz Delgado",
+    "email": "mruizd@bankinter.com"
+  },
+  "creator": {
+    "accountId": "5f2a9c11e4b0",
+    "displayName": "Marta Ruiz Delgado",
+    "email": "mruizd@bankinter.com"
+  },
+  "company": {
+    "id": "BK",
+    "name": "Bankinter S.A."
+  },
+  "department": {
+    "id": "DEP-0442",
+    "name": "Centro de Proceso de Datos"
+  },
+  "site": {
+    "id": "CEN-021",
+    "name": "Tres Cantos"
+  },
+  "division": {
+    "id": "DG-07",
+    "name": "Dirección General de Tecnología y Operaciones"
+  },
+  "affectedApplication": {
+    "id": "APP-0318",
+    "name": "Core Cuentas y Depósitos"
+  },
+  "environment": "PRO",
+  "externalOwner": {
+    "accountId": "9d41b07ca2f8",
+    "displayName": "Óscar Peña Molina",
+    "email": "opena@proveedor-externo.com"
+  },
+  "assignee": {
+    "accountId": "3c88e5da1097",
+    "displayName": "Nuria Sáez Tomás",
+    "email": "nsaez@proveedor-externo.com"
+  },
+  "externalWatchers": [
+    {
+      "accountId": "7b12f4c9a350",
+      "displayName": "Iván Correa Blasco",
+      "email": "icorrea@proveedor-externo.com"
+    }
+  ],
+  "internalOwner": {
+    "accountId": "1a6d3e908b47",
+    "displayName": "Javier Alonso Prieto",
+    "email": "jalonsop@bankinter.com"
+  },
+  "internalWatchers": [
+    {
+      "accountId": "4e70a2fb6d15",
+      "displayName": "Cristina Vega Herrero",
+      "email": "cvegah@bankinter.com"
+    }
+  ],
+  "isUrgent": true,
+  "urgencyReason": "Incidencia de Explotación",
+  "priority": "CRITICAL",
+  "isProjectWarranty": true,
+  "warrantyProjectCode": "6Q-1234",
+  "warrantyProjectName": "Migración motor de liquidación de intereses",
+  "created": "2026-08-03T03:05:00Z",
+  "incidentOccurredAt": "2026-08-03T02:14:00Z",
+  "resolutionCommitmentAt": "2026-08-03T07:05:00Z",
+  "slaCalendarType": "NATURAL_HOURS",
+  "actualResult": "El job finaliza con ABEND y código de retorno 8 a los 11 minutos de arrancar. La tabla LIQ_MOV queda sin los apuntes del día y el job sucesor BK_CIERRE_D02 permanece en espera.",
+  "expectedResult": "El job debe recorrer las 1.842.310 cuentas a la vista, generar el apunte de liquidación de cada una en LIQ_MOV y finalizar con RC=0 antes de las 03:30, liberando el job sucesor.",
+  "stepsToReproduce": "1. Lanzar BK_LIQ_INT_D01 en la ventana batch mientras el online de altas de cuenta mantiene transacciones abiertas sobre LIQ_MOV. 2. El commit intermedio del paso 3 (LIQPASO3) solicita bloqueo exclusivo sobre las páginas que retiene el online. 3. A los ~11 minutos DB2 resuelve el interbloqueo abortando el batch.",
+  "errorMessage": "DSNT408I SQLCODE = -911, ERROR: THE CURRENT UNIT OF WORK HAS BEEN ROLLED BACK DUE TO DEADLOCK OR TIMEOUT",
+  "errorCode": "SQLCODE -911 / RC=8",
+  "affectedUser": {
+    "accountId": "8c05d7ae2b93",
+    "displayName": "Usuario batch BKBATCH01",
+    "email": "explotacion@bankinter.com"
+  },
+  "infoAttachments": [
+    {
+      "id": "att-90114",
+      "filename": "consola-controlm-abend.png",
+      "mimeType": "image/png",
+      "sizeBytes": 284517,
+      "uploadedAt": "2026-08-03T03:06:12Z"
+    },
+    {
+      "id": "att-90115",
+      "filename": "joblog-BK_LIQ_INT_D01.txt",
+      "mimeType": "text/plain",
+      "sizeBytes": 1043882,
+      "uploadedAt": "2026-08-03T03:07:40Z"
+    }
+  ],
+  "functionalSolutionDescription": "Se ha liberado el bloqueo que impedía terminar el proceso nocturno y se ha vuelto a lanzar la liquidación de intereses, que ha finalizado correctamente. Los saldos y los apuntes del día ya están completos y visibles tanto en oficina como en Banca Digital. No es necesaria ninguna acción por parte de los usuarios.",
+  "solutionType": "JOB_RERUN",
+  "problemClassification": "CONTENTION",
+  "rootCause": {
+    "cause": "el paso LIQPASO3 amplió su ámbito de commit de 5.000 a 50.000 filas en la versión 4.2.0, manteniendo el bloqueo sobre LIQ_MOV más allá de la ventana en la que el online sigue activo",
+    "affectedComponent": "job batch BK_LIQ_INT_D01, paso LIQPASO3, sobre la tabla DB2 LIQ_MOV",
+    "triggerCondition": "el batch arranca antes de que drene el online de altas de cuenta y ambos compiten por las mismas páginas de datos",
+    "observedOutcome": "un interbloqueo resuelto por DB2 con SQLCODE -911, ABEND del batch con RC=8 y ausencia de los apuntes de liquidación del día"
+  },
+  "modifiedComponents": [
+    {
+      "componentName": "BK_LIQ_INT_D01 / LIQPASO3",
+      "componentVersion": "4.2.1",
+      "componentType": "BATCH"
+    },
+    {
+      "componentName": "PKG_LIQUIDACION_INTERESES",
+      "componentVersion": "2.8.4",
+      "componentType": "DATABASE"
+    }
+  ],
+  "performedTests": [
+    {
+      "testDescription": "Reejecución completa de BK_LIQ_INT_D01 tras liberar el bloqueo, con el online drenado y el commit revertido a 5.000 filas.",
+      "testResult": "OK. Finaliza con RC=0 en 24 minutos, generando 1.842.310 apuntes en LIQ_MOV. Se adjunta pantallazo de Control-M con el proceso terminado correctamente."
+    },
+    {
+      "testDescription": "Cuadre de saldos: consulta comparativa entre LIQ_MOV y el maestro de cuentas para una muestra de 500 cuentas de los segmentos Particulares y Empresas.",
+      "testResult": "OK. Las 500 cuentas cuadran sin diferencias. Confirmado por Cristina Vega (Contabilidad) a las 06:35."
+    }
+  ],
+  "executedStatement": "UPDATE LIQ_CTL SET ESTADO_PROCESO = 'PENDIENTE', TS_ULT_EJEC = NULL WHERE FEC_PROCESO = '2026-08-03' AND COD_PROCESO = 'LIQ_INT_D01';",
+  "informationRequestedFromReporter": "Se solicitó a Explotación el joblog completo del paso LIQPASO3 y la confirmación de si el online de altas de cuenta seguía activo en el momento del arranque del batch.",
+  "resolutionAttachments": [
+    {
+      "id": "att-90131",
+      "filename": "controlm-rerun-ok.png",
+      "mimeType": "image/png",
+      "sizeBytes": 197340,
+      "uploadedAt": "2026-08-03T06:21:55Z"
+    },
+    {
+      "id": "att-90132",
+      "filename": "cuadre-saldos-muestra500.xlsx",
+      "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "sizeBytes": 68204,
+      "uploadedAt": "2026-08-03T06:37:10Z"
+    }
+  ],
+  "registeredAlertsRange": "OVER_20",
+  "affectedCustomersRange": "OVER_300",
+  "cidaDataLossCriteria": [
+    "AVAILABILITY",
+    "INTEGRITY"
+  ],
+  "impactedCountries": [
+    "ES",
+    "PT"
+  ],
+  "hasEconomicImpact": false,
+  "inactivity": [
+    "CRITICAL_FUNCTION_OVER_2H"
+  ],
+  "affectedCustomerSegments": [
+    "RETAIL",
+    "PERSONAL_BANKING",
+    "SME"
+  ],
+  "impactLevel": "CRITICAL",
+  "isCriticalService": true,
+  "timeEntries": [
+    {
+      "id": "wl-55021",
+      "author": {
+        "accountId": "9d41b07ca2f8",
+        "displayName": "Óscar Peña Molina",
+        "email": "opena@proveedor-externo.com"
+      },
+      "updateAuthor": {
+        "accountId": "9d41b07ca2f8",
+        "displayName": "Óscar Peña Molina",
+        "email": "opena@proveedor-externo.com"
+      },
+      "application": {
+        "id": "APP-0318",
+        "name": "Core Cuentas y Depósitos"
+      },
+      "issueType": "OPERATIONS_INCIDENT",
+      "environment": "PRO",
+      "workCharacteristic": "URGENT",
+      "started": "2026-08-03T03:15:00Z",
+      "timeSpentSeconds": 9000
+    },
+    {
+      "id": "wl-55022",
+      "author": {
+        "accountId": "3c88e5da1097",
+        "displayName": "Nuria Sáez Tomás",
+        "email": "nsaez@proveedor-externo.com"
+      },
+      "updateAuthor": {
+        "accountId": "1a6d3e908b47",
+        "displayName": "Javier Alonso Prieto",
+        "email": "jalonsop@bankinter.com"
+      },
+      "application": {
+        "id": "APP-0318",
+        "name": "Core Cuentas y Depósitos"
+      },
+      "issueType": "OPERATIONS_INCIDENT",
+      "environment": "PRO",
+      "workCharacteristic": "PROJECT_WARRANTY",
+      "started": "2026-08-03T05:45:00Z",
+      "timeSpentSeconds": 3300
+    }
+  ]
+}

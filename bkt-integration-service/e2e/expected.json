@@ -1,0 +1,19 @@
+{
+  "description": "Resultado esperado de los 10 adjuntos de la prueba real (documentos_prueba/ + el .docx). ok: debe convertirse y contener los fragmentos; unsupported: debe omitirse.",
+  "files": {
+    "01_incidencia_pdf.pdf": { "ok": true, "includes": ["## Página 1", "## Página 2"] },
+    "02_incidencias_excel.xlsx": { "ok": true, "includes": ["## Hoja: Incidencias", "## Hoja: Resumen", "Cerrada"] },
+    "03_revision_powerpoint.pptx": { "ok": true, "includes": ["## Diapositiva 1", "## Diapositiva 2", "## Diapositiva 10", "4 h & 30 min"] },
+    "04_configuracion.json": { "ok": true, "includes": ["```json", "\"entorno\": \"pre\""] },
+    "05_notas.md": { "ok": true, "includes": ["# Notas de la incidencia"] },
+    "06_notas_sin_extension": { "ok": false, "skippedReason": "unsupported" },
+    "07_excel_corrupto.xlsx": { "ok": false, "skippedReason": "unsupported" },
+    "08_captura.png": { "ok": false, "skippedReason": "unsupported" },
+    "09_pdf_renombrado.pdf": { "ok": false, "skippedReason": "unsupported" },
+    "10_Detalle_incidencia_informe_mensual.docx": {
+      "aliases": ["10_DET~1.DOC", "DETALL~1.DOC"],
+      "ok": true,
+      "includes": ["Incidencia: error al generar informe mensual", "| Paso |"]
+    }
+  }
+}

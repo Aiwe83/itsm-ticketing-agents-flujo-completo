@@ -1,0 +1,19 @@
+FROM imagerepository.tc.vncloudlab.com/agentic-docker-thirdparties/node:22-alpine
+
+WORKDIR /app
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+RUN apk add --no-cache python3 make g++
+
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+EXPOSE 8000
+
+EXPOSE 9229
+
+CMD ["pnpm", "run", "debug"]

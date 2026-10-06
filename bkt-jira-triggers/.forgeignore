@@ -1,0 +1,27 @@
+# Ficheros que NO se suben a Atlassian al desplegar.
+#
+# No tocar: package.json, tsconfig.json, manifest.yml ni src/ (salvo __tests__).
+# Forge los necesita para empaquetar la app.
+
+# Salida compilada y de herramientas
+dist/
+coverage/
+graphify-out/
+
+# Pruebas: sus fixtures llevan marcadores CANARY_* que no pintan nada en
+# Atlassian. Excluirlas evita ademas que el 'include' de tsconfig.json las
+# alcance durante el empaquetado y exija los tipos de jest.
+src/__tests__/
+
+# Documentacion y utilidades de desarrollo
+docs/
+openspec/
+scripts/
+README.md
+CHANGELOG.md
+
+# Documentacion y notas de trabajo internas
+contexto_para_proyectos/
+
+# Copias de seguridad puntuales
+*.bak-pre-forge

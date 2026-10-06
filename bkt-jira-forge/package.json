@@ -1,0 +1,22 @@
+{
+  "name": "bankdesk-ai-forge",
+  "version": "1.0.0",
+  "description": "BankDesk AI — Agentes LangGraph nativos en Jira Forge",
+  "main": "src/resolvers/index.js",
+  "scripts": {
+    "build": "forge build",
+    "build:asistente": "cd static/asistente-app && npm install && npm run build",
+    "deploy": "npm run build:asistente && forge deploy",
+    "tunnel": "forge tunnel"
+  },
+  "dependencies": {
+    "@forge/api": "^7.2.0",
+    "@forge/events": "^2.1.6",
+    "@forge/kvs": "^1.6.3",
+    "@forge/resolver": "^1.8.0"
+  },
+  "devDependencies": {
+    "@forge/bridge": "^5.16.1",
+    "@forge/react": "^11.16.0"
+  }
+}

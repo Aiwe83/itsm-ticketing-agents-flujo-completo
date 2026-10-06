@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "context": {
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+  },
+  "sourceFunctionalSections": ["Alta", "Solucion", "Impacto", "Imputacion"],
+  "source": {
+    "kind": "modelo-funcional-saneado",
+    "metadataStatus": "partial",
+    "notes": "Batch documental para clasificar campos del modelo funcional. No confirma customfield_* nuevos ni contiene payloads reales completos."
+  },
+  "confirmedStandardFields": [
+    {
+      "functionalField": "Clave visible",
+      "jiraFieldId": "key",
+      "jiraType": "string",
+      "readPath": "key",
+      "targetField": "itsmTicketId",
+      "decision": "confirmed",
+      "reason": "Campo estandar ya cubierto por catalog.json."
+    },
+    {
+      "functionalField": "Tipo de incidencia",
+      "jiraFieldId": "issuetype",
+      "jiraType": "object",
+      "readPath": "fields.issuetype.name",
+      "targetField": "ticketType",
+      "decision": "confirmed",
+      "reason": "Campo estandar ya cubierto por catalog.json."
+    },
+    {
+      "functionalField": "Referencia",
+      "jiraFieldId": "summary",
+      "jiraType": "string",
+      "readPath": "fields.summary",
+      "targetField": "content.title",
+      "decision": "confirmed",
+      "reason": "Campo estandar ya cubierto por catalog.json."
+    },
+    {
+      "functionalField": "Descripcion",
+      "jiraFieldId": "description",
+      "jiraType": "string",
+      "readPath": "fields.description",
+      "targetField": "content.issueDescription",
+      "decision": "confirmed",
+      "reason": "Campo estandar ya cubierto por catalog.json."
+    },
+    {
+      "functionalField": "Estado",
+      "jiraFieldId": "status",
+      "jiraType": "object",
+      "readPath": "fields.status.name",
+      "targetField": "content.status",
+      "decision": "confirmed",
+      "reason": "Campo estandar ya cubierto por catalog.json. No se usa el campo legacy statusSp."
+    },
+    {
+      "functionalField": "Grado de urgencia tecnico",
+      "jiraFieldId": "priority",
+      "jiraType": "object",
+      "readPath": "fields.priority.name",
+      "targetField": "content.severityLevel",
+      "decision": "confirmed",
+      "reason": "Campo estandar ya cubierto por catalog.json. No equivale automaticamente a urgencia funcional."
+    }
+  ],
+  "observedButNotConfirmed": [
+    {
+      "jiraFieldId": "customfield_10147",
+      "observedReadPath": "fields.customfield_10147.value",
+      "jiraType": "option",
+      "decision": "pending-validation",
+      "reason": "Existe forma observada, pero falta nombre funcional o metadata Jira."
+    },
+    {
+      "jiraFieldId": "customfield_10152",
+      "observedReadPath": "fields.customfield_10152.value",
+      "jiraType": "option",
+      "decision": "pending-validation",
+      "reason": "Existe forma observada, pero falta nombre funcional o metadata Jira."
+    }
+  ],
+  "sanitization": {
+    "removed": [
+      "tokens",
+      "cookies",
+      "cabeceras de autorizacion",
+      "nombres de personas",
+      "correos",
+      "identificadores personales",
+      "URLs internas completas",
+      "texto libre sensible",
+      "SQL real",
+      "adjuntos reales"
+    ],
+    "kept": [
+      "nombres funcionales",
+      "identificadores tecnicos de campos estandar",
+      "customfield observados previamente",
+      "tipos de dato",
+      "rutas de lectura candidatas",
+      "decisiones documentales"
+    ]
+  }
+}

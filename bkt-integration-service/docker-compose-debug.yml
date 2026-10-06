@@ -1,0 +1,29 @@
+name: integration-service-debug
+
+services:
+  integration-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    env_file:
+      - .env
+    environment:
+      APP_NAME: INTEGRATION-SERVICE
+      MONGODB_DATABASE: integration-service
+      MONGODB_HOST: mongo
+      MESH_ID: ${MESH_ID:-6a323e68-6f87-403a-a87d-72da69fcde0d}
+      ORCHESTRATOR_ROLE: ${ORCHESTRATOR_ROLE:-agentic-orchestrator-application}
+    ports:
+      - "8000:8000"
+      - "9229:9229"
+    volumes:
+      - ./src:/app/src
+      - /app/node_modules
+    restart: unless-stopped
+    networks:
+      - integration-service-network
+
+networks:
+  integration-service-network:
+    external: true
+

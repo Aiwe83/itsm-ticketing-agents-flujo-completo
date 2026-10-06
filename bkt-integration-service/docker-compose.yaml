@@ -1,0 +1,45 @@
+name: integration-service
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  integration-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      APP_NAME: INTEGRATION-SERVICE
+      MONGODB_DATABASE: integration-service
+      MONGODB_HOST: mongo
+      MESH_ID: ${MESH_ID:-6a323e68-6f87-403a-a87d-72da69fcde0d}
+      ORCHESTRATOR_ROLE: ${ORCHESTRATOR_ROLE:-agentic-orchestrator-application}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - /app/node_modules
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo_data:
+    name: integration-service_mongo_data
+

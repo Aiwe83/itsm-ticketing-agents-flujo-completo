@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "context": {
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+  },
+  "sourceFunctionalSection": "1.- Datos basicos",
+  "decisionValues": ["confirmed", "pending-validation", "excluded", "blocked"],
+  "entries": [
+    {
+      "order": 1,
+      "formField": "Pais afectado",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.affectedCountry",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta confirmar el campo real de Jira y los valores permitidos."
+    },
+    {
+      "order": 2,
+      "formField": "Tipo de incidencia",
+      "jiraFieldId": "issuetype",
+      "jiraFieldName": "Tipo de incidencia",
+      "jiraType": "object",
+      "readPath": "fields.issuetype.name",
+      "targetField": "ticketType",
+      "decision": "confirmed",
+      "evidence": [
+        {
+          "source": "catalog.json",
+          "detail": "Mapping existente: fields.issuetype.name -> ticketType."
+        },
+        {
+          "source": "Formulario_intervenciones_Jira_v07072026_Felix.docx",
+          "detail": "El punto 1.- Datos básicos incluye Tipo de incidencia."
+        }
+      ],
+      "candidateJiraFields": [],
+      "notes": "Campo estandar de Jira. La lista final de valores del desplegable queda para validacion funcional."
+    },
+    {
+      "order": 3,
+      "formField": "Solicitante",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": "user",
+      "readPath": null,
+      "targetField": "content.requestorId",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [
+        {
+          "jiraFieldId": "reporter",
+          "readPathCandidate": "fields.reporter.accountId",
+          "notes": "Candidato estandar, pero falta decidir si el consumidor necesita accountId, displayName o email."
+        },
+        {
+          "jiraFieldId": "creator",
+          "readPathCandidate": "fields.creator.accountId",
+          "notes": "Candidato alternativo pendiente de validacion funcional."
+        }
+      ],
+      "notes": "No confirmar campos de persona hasta acordar la representacion interna."
+    },
+    {
+      "order": 4,
+      "formField": "Empresa",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.requestorCompany",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Puede llegar desde Jira o derivarse del solicitante. Falta evidencia."
+    },
+    {
+      "order": 5,
+      "formField": "Departamento",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.requestorDepartment",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Puede llegar desde Jira o derivarse del solicitante. Falta evidencia."
+    },
+    {
+      "order": 6,
+      "formField": "Centro",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.requestorCenter",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Puede llegar desde Jira o derivarse del solicitante. Falta evidencia."
+    },
+    {
+      "order": 7,
+      "formField": "Direccion general",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.requestorDivision",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Puede llegar desde Jira o derivarse del solicitante. Falta evidencia."
+    },
+    {
+      "order": 8,
+      "formField": "Fecha / hora apertura",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": "datetime",
+      "readPath": null,
+      "targetField": "content.openedAt",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [
+        {
+          "jiraFieldId": "created",
+          "readPathCandidate": "fields.created",
+          "notes": "Campo estandar candidato. Falta confirmar que negocio quiere la fecha de creacion Jira."
+        }
+      ],
+      "notes": "Antes de confirmar hay que documentar formato y zona horaria."
+    },
+    {
+      "order": 9,
+      "formField": "Compromiso de resolucion",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.resolutionCommitment",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Puede ser dato Jira o calculo SLA. No se mapea hasta confirmar origen."
+    },
+    {
+      "order": 10,
+      "formField": "Aplicacion afectada",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.affectedApplication",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta campo real Jira y catalogo de aplicaciones."
+    },
+    {
+      "order": 11,
+      "formField": "Entorno",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": "option",
+      "readPath": null,
+      "targetField": "content.environment",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [
+        {
+          "jiraFieldId": "customfield_10147",
+          "readPathCandidate": "fields.customfield_10147.value",
+          "observedShape": "option-object",
+          "syntheticObservedValue": "Temporales",
+          "notes": "Candidato observado. El valor no confirma por sí solo que sea Entorno."
+        }
+      ],
+      "notes": "Permanece pendiente hasta obtener nombre funcional o metadata Jira."
+    },
+    {
+      "order": 12,
+      "formField": "Responsable de la empresa externa",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": "user-or-rule",
+      "readPath": null,
+      "targetField": "content.externalCompanyResponsible",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [
+        {
+          "jiraFieldId": "assignee",
+          "readPathCandidate": "fields.assignee.accountId",
+          "notes": "Candidato por mapping histórico, pero puede ser una regla por aplicación y entorno."
+        }
+      ],
+      "notes": "No se promueve por tratarse de persona/regla no acordada."
+    },
+    {
+      "order": 13,
+      "formField": "En garantia de proyecto",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": "option",
+      "readPath": null,
+      "targetField": "content.projectWarranty",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [
+        {
+          "jiraFieldId": "customfield_10152",
+          "readPathCandidate": "fields.customfield_10152.value",
+          "observedShape": "option-object",
+          "syntheticObservedValue": "SI",
+          "notes": "Candidato observado. El valor SI no confirma si es garantía, urgencia u otra decisión."
+        }
+      ],
+      "notes": "Falta confirmar si el campo es booleano, opcion SI/NO u otro formato."
+    },
+    {
+      "order": 14,
+      "formField": "Codigo proyecto",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.projectCode",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta campo real Jira y formato esperado."
+    },
+    {
+      "order": 15,
+      "formField": "Es Urgente",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": "boolean-or-option",
+      "readPath": null,
+      "targetField": "content.isUrgent",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "No se deduce de fields.priority.name ni de customfield_10152 sin metadata funcional."
+    },
+    {
+      "order": 16,
+      "formField": "Motivo de urgencia",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.urgencyReason",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta campo real Jira y regla de obligatoriedad."
+    },
+    {
+      "order": 17,
+      "formField": "Grado de urgencia",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.urgencyLevel",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Se mantiene separado de content.severityLevel hasta validación funcional."
+    },
+    {
+      "order": 18,
+      "formField": "Referencia",
+      "jiraFieldId": "summary",
+      "jiraFieldName": "Resumen",
+      "jiraType": "string",
+      "readPath": "fields.summary",
+      "targetField": "content.title",
+      "decision": "confirmed",
+      "evidence": [
+        {
+          "source": "catalog.json",
+          "detail": "Mapping existente: fields.summary -> content.title."
+        },
+        {
+          "source": "Formulario_intervenciones_Jira_v07072026_Felix.docx",
+          "detail": "El punto 1.- Datos básicos incluye Referencia."
+        }
+      ],
+      "candidateJiraFields": [],
+      "notes": "Campo estandar de Jira usado como titulo visible."
+    },
+    {
+      "order": 19,
+      "formField": "Descripcion",
+      "jiraFieldId": "description",
+      "jiraFieldName": "Descripción",
+      "jiraType": "string",
+      "readPath": "fields.description",
+      "targetField": "content.issueDescription",
+      "decision": "confirmed",
+      "evidence": [
+        {
+          "source": "catalog.json",
+          "detail": "Mapping existente fields.description -> content.issueDescription."
+        },
+        {
+          "source": "Formulario_intervenciones_Jira_v07072026_Felix.docx",
+          "detail": "El punto 1.- Datos básicos incluye Descripcion."
+        }
+      ],
+      "candidateJiraFields": [],
+      "notes": "No se parsean subapartados embebidos dentro de description en este cambio."
+    },
+    {
+      "order": 20,
+      "formField": "Resultado obtenido",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.actualResult",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta confirmar si llega como campo separado o dentro de fields.description."
+    },
+    {
+      "order": 21,
+      "formField": "Resultado esperado",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.expectedResult",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta confirmar si llega como campo separado o dentro de fields.description."
+    },
+    {
+      "order": 22,
+      "formField": "Reproduccion del problema",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.reproductionSteps",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta confirmar si llega como campo separado o dentro de fields.description."
+    },
+    {
+      "order": 23,
+      "formField": "Mensaje de error literal",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.errorMessage",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta confirmar si llega como campo separado o dentro de fields.description."
+    },
+    {
+      "order": 24,
+      "formField": "Codigo de error",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": null,
+      "readPath": null,
+      "targetField": "content.errorCode",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta confirmar si llega como campo separado o dentro de fields.description."
+    },
+    {
+      "order": 25,
+      "formField": "Adjuntos",
+      "jiraFieldId": "attachment",
+      "jiraFieldName": "Adjuntos",
+      "jiraType": "array",
+      "readPath": null,
+      "targetField": "content.attachedDocuments",
+      "decision": "excluded",
+      "evidence": [
+        {
+          "source": "implementation-notes",
+          "detail": "Los adjuntos se procesan por el flujo especializado y terminan en content.attachedDocuments."
+        }
+      ],
+      "candidateJiraFields": [
+        {
+          "jiraFieldId": "attachment",
+          "readPathCandidate": "fields.attachment",
+          "notes": "Se excluye de mappings regulares porque requiere procesamiento de ficheros."
+        }
+      ],
+      "notes": "No se inserta como mapping regular en catalog.json."
+    },
+    {
+      "order": 26,
+      "formField": "Hora del incidente",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": "datetime",
+      "readPath": null,
+      "targetField": "content.incidentTime",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta confirmar si llega como campo separado o si se deriva de otra fecha."
+    },
+    {
+      "order": 27,
+      "formField": "Usuario o numero de persona afectada",
+      "jiraFieldId": null,
+      "jiraFieldName": null,
+      "jiraType": "user-or-string",
+      "readPath": null,
+      "targetField": "content.affectedUser",
+      "decision": "pending-validation",
+      "evidence": [],
+      "candidateJiraFields": [],
+      "notes": "Falta confirmar el campo real y si se debe guardar ID, nombre, email o numero de persona."
+    }
+  ],
+  "summary": {
+    "total": 27,
+    "confirmed": 3,
+    "pendingValidation": 23,
+    "excluded": 1
+  },
+  "functionalBatches": [
+    {
+      "id": "alta-solucion-impacto-imputacion",
+      "sections": ["Alta", "Solucion", "Impacto", "Imputacion"],
+      "evidenceFiles": [
+        "docs/mappings/evidence/pilot-local/batch-2-field-metadata.json",
+        "docs/mappings/evidence/pilot-local/batch-2-issue-shapes.json",
+        "docs/mappings/evidence/pilot-local/batch-2-decision-notes.md"
+      ],
+      "status": "classified",
+      "notes": [
+        "No confirma customfield nuevos sin metadata Jira.",
+        "Imputacion queda bloqueada por timeEntries[].",
+        "Los adjuntos quedan fuera de mappings regulares."
+      ]
+    }
+  ]
+}

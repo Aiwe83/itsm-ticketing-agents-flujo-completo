@@ -1,0 +1,33 @@
+{
+  "name": "demo-trigger-jira-forge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Jira Forge trigger demo that sends a sanitized, validated issue payload to integration-service.",
+  "scripts": {
+    "build": "tsc",
+    "demo": "node scripts/demo-local.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.ts\"",
+    "test": "jest --runInBand",
+    "forge:lint": "forge lint",
+    "logs": "node scripts/format-logs.js"
+  },
+  "dependencies": {
+    "@forge/api": "^6.1.2",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "jest": "^30.2.0",
+    "prettier": "^3.6.2",
+    "ts-jest": "^29.4.5",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

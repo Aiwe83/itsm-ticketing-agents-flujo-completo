@@ -1,0 +1,750 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "1.0.0",
+  "sourceSystem": "jira",
+  "targetModel": "internal-ticket",
+  "status": "proposal",
+  "context": {
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+  },
+  "evidence": {
+    "dictionary": "docs/mappings/evidence/pilot-local/jira-field-dictionary.json",
+    "fieldMetadata": "docs/mappings/evidence/pilot-local/sanitized-field-metadata.json",
+    "issueShapes": "docs/mappings/evidence/pilot-local/sanitized-issue-shapes.json",
+    "batch2FieldMetadata": "docs/mappings/evidence/pilot-local/batch-2-field-metadata.json",
+    "batch2IssueShapes": "docs/mappings/evidence/pilot-local/batch-2-issue-shapes.json",
+    "batch2DecisionNotes": "docs/mappings/evidence/pilot-local/batch-2-decision-notes.md"
+  },
+  "notes": [
+    "catalog.json sera la futura fuente de verdad para cargar mappings en MongoDB.",
+    "Las claves con prefijo _ son documentales y deben eliminarse antes de insertar en MongoDB.",
+    "Este catalogo no modifica MongoDB por si mismo.",
+    "La referencia funcional de entrada es la seccion 1.- Datos basicos del documento Formulario_intervenciones_Jira_v07072026_Felix.docx.",
+    "Solo los mappings confirmados se listan en mappings.",
+    "Las entradas pendientes y excluidas se mantienen fuera de mappings.",
+    "Los adjuntos se gestionan mediante el flujo de procesamiento de adjuntos y no son mappings de campo normales.",
+    "La prioridad de Jira asignada a content.severityLevel no se trata como urgencia de negocio hasta que se valide.",
+    "El contexto operativo nuevo se identifica con meshId.",
+    "Las secciones Alta, Solucion, Impacto e Imputacion se han clasificado en matrices humanas dentro de docs/mappings/contexts/pilot-local/.",
+    "El batch 2 no promociona mappings nuevos porque no hay metadata Jira suficiente para confirmar nuevos sourceField.",
+    "timeEntries[] queda documentado como coleccion hija bloqueada y no aparece en mappings ni pendingCandidates.",
+    "Los campos con engineBlocked true quedan documentados, pero no se cargan como mappings normales.",
+    "Divergencia conocida (verificada en directo 2026-08-17): los mappings de fields.assignee.accountId/emailAddress/displayName y fields.components estan cargados como operativos en la coleccion mappings de MongoDB, pero aqui siguen en pendingCandidates como pending-validation porque la subruta de persona a usar y la forma real de components no estan confirmadas. No promocionar a mappings hasta resolver esa ambiguedad; este catalogo documenta la divergencia en vez de forzar una confirmacion sin evidencia."
+  ],
+  "sectionExpansionCoverage": [
+    {
+      "section": "Alta",
+      "matrix": "docs/mappings/contexts/pilot-local/alta-data-matrix.md",
+      "decision": "classified",
+      "newConfirmedMappings": 0,
+      "notes": "Se reutilizan mappings confirmados existentes y se dejan pendientes los campos sin metadata Jira."
+    },
+    {
+      "section": "Solucion",
+      "matrix": "docs/mappings/contexts/pilot-local/solucion-data-matrix.md",
+      "decision": "classified",
+      "newConfirmedMappings": 0,
+      "notes": "Se separan campos candidatos de campos generados posteriormente o arrays complejos."
+    },
+    {
+      "section": "Impacto",
+      "matrix": "docs/mappings/contexts/pilot-local/impacto-data-matrix.md",
+      "decision": "classified",
+      "newConfirmedMappings": 0,
+      "notes": "Los campos quedan pendientes hasta obtener customfields o metadata Jira saneada."
+    },
+    {
+      "section": "Imputacion",
+      "matrix": "docs/mappings/contexts/pilot-local/imputacion-timeentries.md",
+      "decision": "blocked",
+      "newConfirmedMappings": 0,
+      "notes": "timeEntries[] requiere soporte de coleccion hija o procesamiento especializado."
+    }
+  ],
+  "basicDataCoverage": [
+    {
+      "order": 1,
+      "formField": "Pais afectado",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.affectedCountry",
+      "notes": "No se añade ningún mapping hasta confirmar el campo real de Jira y los valores permitidos de país."
+    },
+    {
+      "order": 2,
+      "formField": "Tipo de incidencia",
+      "decision": "confirmed",
+      "catalogMapping": true,
+      "sourceField": "fields.issuetype.name",
+      "targetField": "ticketType",
+      "notes": "Cubierto por el mapping actual de tipo de incidencia."
+    },
+    {
+      "order": 3,
+      "formField": "Solicitante",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.requestorId",
+      "notes": "Hay que confirmar si Jira envía reporter, creator u otro campo de solicitante."
+    },
+    {
+      "order": 4,
+      "formField": "Empresa",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.requestorCompany",
+      "notes": "Hay que confirmar si Jira envía este campo o si se obtiene de los datos del solicitante."
+    },
+    {
+      "order": 5,
+      "formField": "Departamento",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.requestorDepartment",
+      "notes": "Hay que confirmar si Jira envía este campo o si se obtiene de los datos del solicitante."
+    },
+    {
+      "order": 6,
+      "formField": "Centro",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.requestorCenter",
+      "notes": "Hay que confirmar si Jira envía este campo o si se obtiene de los datos del solicitante."
+    },
+    {
+      "order": 7,
+      "formField": "Direccion general",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.requestorDivision",
+      "notes": "Hay que confirmar si Jira envía este campo o si se obtiene de los datos del solicitante."
+    },
+    {
+      "order": 8,
+      "formField": "Fecha / hora apertura",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.openedAt",
+      "notes": "fields.created es solo un candidato hasta que negocio lo confirme."
+    },
+    {
+      "order": 9,
+      "formField": "Compromiso de resolucion",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.resolutionCommitment",
+      "notes": "Hay que confirmar si Jira envía este valor o si se calcula mediante reglas de SLA."
+    },
+    {
+      "order": 10,
+      "formField": "Aplicacion afectada",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.affectedApplication",
+      "notes": "Hace falta el campo real de Jira y el catálogo de aplicaciones."
+    },
+    {
+      "order": 11,
+      "formField": "Entorno",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.environment",
+      "notes": "customfield_10147.value se observó como candidato de tipo opción, pero su significado funcional no está confirmado."
+    },
+    {
+      "order": 12,
+      "formField": "Responsable de la empresa externa",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.externalCompanyResponsible",
+      "notes": "Puede ser assignee o una regla derivada de la aplicación y del entorno."
+    },
+    {
+      "order": 13,
+      "formField": "En garantia de proyecto",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.projectWarranty",
+      "notes": "customfield_10152.value se observó como candidato de tipo sí/no, pero su significado funcional no está confirmado."
+    },
+    {
+      "order": 14,
+      "formField": "Codigo proyecto",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.projectCode",
+      "notes": "Hace falta el campo real de Jira y validar el formato esperado."
+    },
+    {
+      "order": 15,
+      "formField": "Es Urgente",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.isUrgent",
+      "notes": "No debe asumirse que equivale a la prioridad de Jira."
+    },
+    {
+      "order": 16,
+      "formField": "Motivo de urgencia",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.urgencyReason",
+      "notes": "Hace falta confirmar el origen y puede aplicar solo cuando se marque como urgente."
+    },
+    {
+      "order": 17,
+      "formField": "Grado de urgencia",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.urgencyLevel",
+      "notes": "Hace falta validar la escala funcional de urgencia y su separación de severityLevel."
+    },
+    {
+      "order": 18,
+      "formField": "Referencia",
+      "decision": "confirmed",
+      "catalogMapping": true,
+      "sourceField": "fields.summary",
+      "targetField": "content.title",
+      "notes": "Cubierto por el mapping actual de summary a title."
+    },
+    {
+      "order": 19,
+      "formField": "Descripcion",
+      "decision": "confirmed",
+      "catalogMapping": true,
+      "sourceField": "fields.description",
+      "targetField": "content.issueDescription",
+      "notes": "Cubierto por el mapping actual de description."
+    },
+    {
+      "order": 20,
+      "formField": "Resultado obtenido",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.actualResult",
+      "notes": "Hace falta confirmar si es un campo separado o si forma parte de description."
+    },
+    {
+      "order": 21,
+      "formField": "Resultado esperado",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.expectedResult",
+      "notes": "Hace falta confirmar si es un campo separado o si forma parte de description."
+    },
+    {
+      "order": 22,
+      "formField": "Reproduccion del problema",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.reproductionSteps",
+      "notes": "Hace falta confirmar si es un campo separado o si forma parte de description."
+    },
+    {
+      "order": 23,
+      "formField": "Mensaje de error literal",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.errorMessage",
+      "notes": "Hace falta confirmar si es un campo separado o si forma parte de description."
+    },
+    {
+      "order": 24,
+      "formField": "Codigo de error",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.errorCode",
+      "notes": "Hace falta confirmar si es un campo separado o si forma parte de description."
+    },
+    {
+      "order": 25,
+      "formField": "Adjuntos",
+      "decision": "excluded",
+      "catalogMapping": false,
+      "targetField": "content.attachedDocuments",
+      "notes": "Attachments are processed by the attachment flow and are not regular field mappings."
+    },
+    {
+      "order": 26,
+      "formField": "Hora del incidente",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.incidentTime",
+      "notes": "Hace falta confirmar si llega como campo separado de Jira o si se deriva de otra fecha."
+    },
+    {
+      "order": 27,
+      "formField": "Usuario o numero de persona afectada",
+      "decision": "pending-validation",
+      "catalogMapping": false,
+      "targetField": "content.affectedUser",
+      "notes": "Hace falta el campo real de Jira y el formato de valor esperado."
+    }
+  ],
+  "mappings": [
+    {
+      "sourceField": "key",
+      "targetField": "itsmTicketId",
+      "transformer": "copy",
+      "required": true,
+      "description": "Clave de incidencia de Jira usada como referencia interna del ticket.",
+      "options": {},
+      "createdBy": "catalog",
+      "updatedBy": "catalog",
+      "_evidence": {
+        "source": "ticket-example | mapping-example",
+        "confidence": "confirmed",
+        "notes": "Los ejemplos de Jira incluyen key y el ejemplo de mapping asigna key a itsmTicketId."
+      },
+      "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+    },
+    {
+      "sourceField": "fields.issuetype.name",
+      "targetField": "ticketType",
+      "transformer": "copy",
+      "required": false,
+      "description": "Nombre del tipo de incidencia de Jira usado como tipo interno del ticket.",
+      "options": {},
+      "createdBy": "catalog",
+      "updatedBy": "catalog",
+      "_evidence": {
+        "source": "ticket-example | mapping-example | functional-form",
+        "confidence": "confirmed",
+        "notes": "The Jira examples include fields.issuetype.name and the Datos basicos form confirms this as Tipo de incidencia."
+      },
+      "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+    },
+    {
+      "sourceField": "fields.description",
+      "targetField": "content.issueDescription",
+      "transformer": "copy",
+      "required": false,
+      "description": "Descripción principal de Jira copiada en la descripción interna del ticket.",
+      "options": {},
+      "createdBy": "catalog",
+      "updatedBy": "catalog",
+      "_evidence": {
+        "source": "ticket-example | mapping-example | translated-ticket-example",
+        "confidence": "confirmed",
+        "notes": "Los ejemplos en bruto y traducido contienen el valor de description, y el ejemplo de mapping define este destino."
+      },
+      "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+    },
+    {
+      "sourceField": "fields.summary",
+      "targetField": "content.title",
+      "transformer": "copy",
+      "required": true,
+      "description": "Título visible o referencia del ticket interno.",
+      "options": {},
+      "createdBy": "catalog",
+      "updatedBy": "catalog",
+      "_evidence": {
+        "source": "ticket-example | mapping-example | translated-ticket-example",
+        "confidence": "confirmed",
+        "notes": "El endpoint requiere fields.summary y el ejemplo de mapping lo asigna a content.title."
+      },
+      "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+    },
+    {
+      "sourceField": "fields.status.name",
+      "targetField": "content.status",
+      "transformer": "copy",
+      "required": false,
+      "description": "Nombre actual del estado de Jira copiado al campo interno de estado.",
+      "options": {},
+      "createdBy": "catalog",
+      "updatedBy": "catalog",
+      "_evidence": {
+        "source": "ticket-example | mapping-example | translated-ticket-example",
+        "confidence": "confirmed",
+        "notes": "La implementación actual y los ejemplos usan content.status."
+      },
+      "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+    },
+    {
+      "sourceField": "fields.priority.name",
+      "targetField": "content.severityLevel",
+      "transformer": "copy",
+      "required": false,
+      "description": "Nombre de la prioridad de Jira copiado al nivel interno de severidad.",
+      "options": {},
+      "createdBy": "catalog",
+      "updatedBy": "catalog",
+      "_evidence": {
+        "source": "ticket-example | mapping-example | translated-ticket-example",
+        "confidence": "confirmed",
+        "notes": "El ticket de ejemplo contiene priority.name y el ejemplo traducido lo guarda como severityLevel. Esto va separado de los campos de urgencia de negocio hasta que se valide."
+      },
+      "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+    }
+  ],
+  "pendingCandidates": [
+    {
+      "formField": "Pais afectado",
+      "targetField": "content.affectedCountry",
+      "reason": "The real Jira source field and allowed values are not confirmed."
+    },
+    {
+      "formField": "Solicitante",
+      "targetField": "content.requestorId",
+      "reason": "The requester could come from reporter, creator, or another Jira field. Modelo funcional nuevo (json_modelo_datos _1.md) confirma que reporter y creator son campos nativos de Jira, pero eso no resuelve cual de los dos usar ni que representacion de persona necesita el consumidor (accountId, displayName o email)."
+    },
+    {
+      "formField": "Empresa",
+      "targetField": "content.requestorCompany",
+      "reason": "It may be sent by Jira or obtained from requester data."
+    },
+    {
+      "formField": "Departamento",
+      "targetField": "content.requestorDepartment",
+      "reason": "It may be sent by Jira or obtained from requester data."
+    },
+    {
+      "formField": "Centro",
+      "targetField": "content.requestorCenter",
+      "reason": "It may be sent by Jira or obtained from requester data."
+    },
+    {
+      "formField": "Direccion general",
+      "targetField": "content.requestorDivision",
+      "reason": "It may be sent by Jira or obtained from requester data."
+    },
+    {
+      "formField": "Fecha / hora apertura",
+      "targetField": "content.openedAt",
+      "reason": "fields.created is only a candidate until business validates it. Modelo funcional nuevo confirma created como campo nativo de Jira; ademas de la validacion de negocio, sigue pendiente documentar formato y zona horaria antes de poder confirmarlo."
+    },
+    {
+      "formField": "Compromiso de resolucion",
+      "targetField": "content.resolutionCommitment",
+      "reason": "It may be calculated by SLA rules instead of copied from the payload."
+    },
+    {
+      "formField": "Aplicacion afectada",
+      "targetField": "content.affectedApplication",
+      "reason": "The real Jira field and application catalog are not confirmed."
+    },
+    {
+      "formField": "Entorno",
+      "targetField": "content.environment",
+      "candidateSourceField": "fields.customfield_10147.value",
+      "reason": "Observed value shape only; field name and functional meaning are not confirmed. CONFLICTO SIN RESOLVER: el modelo funcional nuevo marca Entorno como campo NATIVO de Jira (fields.environment), un origen distinto de este candidato customfield_10147. Hay dos posibles sourceField para el mismo destino; no confirmar ninguno hasta verificar contra un payload real cual usa este Jira."
+    },
+    {
+      "formField": "Responsable de la empresa externa",
+      "targetField": "content.externalCompanyResponsible",
+      "reason": "It may be assignee or a rule by application and environment."
+    },
+    {
+      "formField": "En garantia de proyecto",
+      "targetField": "content.projectWarranty",
+      "candidateSourceField": "fields.customfield_10152.value",
+      "reason": "Observed yes/no shape only; field name and functional meaning are not confirmed."
+    },
+    {
+      "formField": "Codigo proyecto",
+      "targetField": "content.projectCode",
+      "reason": "The real Jira field and expected format are not confirmed."
+    },
+    {
+      "formField": "Es Urgente",
+      "targetField": "content.isUrgent",
+      "reason": "Business urgency must not be inferred from Jira priority without validation."
+    },
+    {
+      "formField": "Motivo de urgencia",
+      "targetField": "content.urgencyReason",
+      "reason": "The real Jira field and conditional rule are not confirmed."
+    },
+    {
+      "formField": "Grado de urgencia",
+      "targetField": "content.urgencyLevel",
+      "reason": "The functional urgency scale is not confirmed and is separate from severityLevel. AVISO: el modelo funcional nuevo mapea Grado de urgencia directamente a priority, el mismo campo Jira ya confirmado como content.severityLevel. No fusionar: este catalogo trata urgencia y severidad como conceptos distintos hasta que negocio decida lo contrario explicitamente."
+    },
+    {
+      "formField": "Resultado obtenido",
+      "targetField": "content.actualResult",
+      "reason": "It is unknown whether this arrives as a separate field or inside description."
+    },
+    {
+      "formField": "Resultado esperado",
+      "targetField": "content.expectedResult",
+      "reason": "It is unknown whether this arrives as a separate field or inside description."
+    },
+    {
+      "formField": "Reproduccion del problema",
+      "targetField": "content.reproductionSteps",
+      "reason": "It is unknown whether this arrives as a separate field or inside description."
+    },
+    {
+      "formField": "Mensaje de error literal",
+      "targetField": "content.errorMessage",
+      "reason": "It is unknown whether this arrives as a separate field or inside description."
+    },
+    {
+      "formField": "Codigo de error",
+      "targetField": "content.errorCode",
+      "reason": "It is unknown whether this arrives as a separate field or inside description."
+    },
+    {
+      "formField": "Hora del incidente",
+      "targetField": "content.incidentTime",
+      "reason": "It is unknown whether this arrives as a separate Jira field or is derived from another date."
+    },
+    {
+      "formField": "Usuario o numero de persona afectada",
+      "targetField": "content.affectedUser",
+      "reason": "The real Jira source field and value format are not confirmed."
+    },
+    {
+      "sourceField": "fields.assignee.displayName",
+      "targetField": "content.technicianInfo.lastName",
+      "reason": "El mapping existía como ejemplo, pero la representación de persona y el contrato del consumidor no están confirmados. Modelo funcional nuevo confirma assignee como campo nativo de Jira; sigue sin resolver cual de las tres subrutas (displayName/accountId/emailAddress) usar."
+    },
+    {
+      "sourceField": "fields.assignee.accountId",
+      "targetField": "content.technicianInfo.userId",
+      "reason": "El mapping existía como ejemplo, pero la representación de persona y el contrato del consumidor no están confirmados. Modelo funcional nuevo confirma assignee como campo nativo de Jira; sigue sin resolver cual de las tres subrutas (displayName/accountId/emailAddress) usar."
+    },
+    {
+      "sourceField": "fields.assignee.emailAddress",
+      "targetField": "content.technicianInfo.email",
+      "reason": "El mapping existía como ejemplo, pero la disponibilidad y el contrato del consumidor no están confirmados. Modelo funcional nuevo confirma assignee como campo nativo de Jira; sigue sin resolver cual de las tres subrutas (displayName/accountId/emailAddress) usar."
+    },
+    {
+      "sourceField": "fields.components",
+      "targetField": "content.groupId",
+      "reason": "El mapping existía como ejemplo, pero la forma del componente Jira y la regla de extracción no están confirmadas."
+    },
+    {
+      "formField": "ID interno",
+      "targetField": "internal.id",
+      "reason": "Es identificador interno del modelo; no hay sourceField Jira confirmado. Modelo funcional nuevo aporta un candidato: el campo nativo id de Jira (numero interno del issue, distinto de key). Falta confirmar de negocio si internal.id debe reflejar ese id de Jira o es un identificador propio del servicio, dado que itsmTicketId ya usa key.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Multiidioma",
+      "targetField": "content.locale",
+      "reason": "Falta confirmar si llega desde Jira o se deriva.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Resolucion Jira",
+      "targetField": "content.jiraResolution",
+      "reason": "Puede venir de fields.resolution.name, pero falta decision funcional. Modelo funcional nuevo confirma resolution como campo nativo de Jira y la ruta sigue el mismo patron que status.name/priority.name ya confirmados; es el candidato mas cerca de poder confirmarse, solo pendiente de decision de negocio.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Fecha de resolucion",
+      "targetField": "content.resolutionDate",
+      "reason": "fields.resolutiondate es candidato; falta validar formato, zona horaria y destino. Modelo funcional nuevo confirma resolutionDate como campo nativo de Jira, pero eso no resuelve el hueco de formato/zona horaria/destino ya identificado.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Quien da el alta",
+      "targetField": "content.createdByUser",
+      "reason": "Campo de persona pendiente de contrato interno. Modelo funcional nuevo confirma creator como campo nativo de Jira, pero sigue sin resolver que representacion de persona usar ni si el origen real es creator o reporter.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Responsable externo",
+      "targetField": "content.externalOwner",
+      "reason": "Puede ser campo Jira o regla derivada; falta evidencia.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Informados externos",
+      "targetField": "content.externalWatchers",
+      "reason": "Jira no separa externos e internos sin regla adicional.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Responsable interno",
+      "targetField": "content.internalOwner",
+      "reason": "Falta campo real o regla de derivacion.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Informados internos",
+      "targetField": "content.internalWatchers",
+      "reason": "Jira no separa externos e internos sin regla adicional.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Regla SLA",
+      "targetField": "content.slaCalendarType",
+      "reason": "Falta confirmar origen.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Descripcion funcional de la solucion final",
+      "targetField": "content.functionalSolutionDescription",
+      "reason": "Falta customfield Jira confirmado.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Tipo de solucion",
+      "targetField": "content.solutionType",
+      "reason": "Falta desplegable Jira y valores permitidos.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Clasificacion del problema",
+      "targetField": "content.problemClassification",
+      "reason": "Falta campo real Jira.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Causa",
+      "targetField": "content.rootCause.cause",
+      "reason": "Falta ruta real Jira.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Componente afectado",
+      "targetField": "content.rootCause.affectedComponent",
+      "reason": "Falta ruta real Jira.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Condicion disparadora",
+      "targetField": "content.rootCause.triggerCondition",
+      "reason": "Falta ruta real Jira.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Resultado observado",
+      "targetField": "content.rootCause.observedOutcome",
+      "reason": "Falta ruta real Jira.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Sentencia ejecutada",
+      "targetField": "content.executedStatement",
+      "reason": "Falta ruta real Jira y regla de tratamiento de contenido sensible.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Informacion demandada al usuario",
+      "targetField": "content.informationRequestedFromReporter",
+      "reason": "Falta ruta real Jira.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Alertas registradas",
+      "targetField": "content.registeredAlertsRange",
+      "reason": "Falta desplegable Jira y valores permitidos.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Clientes afectados",
+      "targetField": "content.affectedCustomersRange",
+      "reason": "Falta desplegable Jira y valores permitidos.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Perdidas de datos bajo criterio CIDA",
+      "targetField": "content.cidaDataLossCriteria",
+      "reason": "Falta confirmar forma Jira y transformador.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Paises afectados",
+      "targetField": "content.impactedCountries",
+      "reason": "Falta confirmar forma Jira.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Impacto economico",
+      "targetField": "content.hasEconomicImpact",
+      "reason": "Falta confirmar si llega como booleano u opcion.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Inactividad",
+      "targetField": "content.inactivity",
+      "reason": "Falta confirmar forma Jira.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Segmento de clientes afectados",
+      "targetField": "content.affectedCustomerSegments",
+      "reason": "Falta confirmar forma Jira.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Nivel de impacto",
+      "targetField": "content.impactLevel",
+      "reason": "Falta desplegable Jira y valores permitidos.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    },
+    {
+      "formField": "Indicador de servicio critico",
+      "targetField": "content.isCriticalService",
+      "reason": "Falta confirmar si llega como booleano u opcion.",
+      "functionalBatch": "alta-solucion-impacto-imputacion"
+    }
+  ],
+  "excludedFields": [
+    {
+      "sourceField": "fields.attachment",
+      "targetField": "content.attachedDocuments",
+      "reason": "Los adjuntos se procesan por el flujo de adjuntos y no son mappings normales."
+    },
+    {
+      "targetField": "content.diagnostic",
+      "reason": "El contenido de diagnóstico se genera después de la entrada de Jira y no debe mapearse desde el payload inicial."
+    },
+    {
+      "targetField": "content.resolution",
+      "reason": "El contenido de resolución se genera después de la entrada de Jira y no debe mapearse desde el payload inicial."
+    }
+  ],
+  "unresolvedCustomFieldCandidates": [
+    {
+      "jiraFieldId": "customfield_10147",
+      "readPathCandidate": "fields.customfield_10147.value",
+      "syntheticObservedValue": "Temporales",
+      "decision": "pending-validation",
+      "neededEvidence": "Nombre del campo de Jira, esquema o confirmación funcional para el contexto actual."
+    },
+    {
+      "jiraFieldId": "customfield_10152",
+      "readPathCandidate": "fields.customfield_10152.value",
+      "syntheticObservedValue": "SI",
+      "decision": "pending-validation",
+      "neededEvidence": "Nombre del campo de Jira, esquema o confirmación funcional para el contexto actual."
+    }
+  ],
+  "engineBlockedCandidates": [
+    {
+      "formField": "Cambios tecnicos efectuados",
+      "sourceShape": "modifiedComponents[]",
+      "targetField": "content.modifiedComponents",
+      "decision": "pending-validation",
+      "engineBlocked": true,
+      "functionalBatch": "alta-solucion-impacto-imputacion",
+      "reason": "Requiere fan-out de array de objetos; el motor actual solo procesa mappings planos."
+    },
+    {
+      "formField": "Pruebas realizadas",
+      "sourceShape": "performedTests[]",
+      "targetField": "content.performedTests",
+      "decision": "pending-validation",
+      "engineBlocked": true,
+      "functionalBatch": "alta-solucion-impacto-imputacion",
+      "reason": "Requiere fan-out de array de objetos; el motor actual solo procesa mappings planos."
+    },
+    {
+      "formField": "Imputacion",
+      "sourceShape": "timeEntries[]",
+      "targetField": "timeEntries[]",
+      "decision": "blocked",
+      "engineBlocked": true,
+      "functionalBatch": "alta-solucion-impacto-imputacion",
+      "reason": "Coleccion hija basada en worklogs; queda fuera de mappings y pendingCandidates cargables."
+    }
+  ]
+}

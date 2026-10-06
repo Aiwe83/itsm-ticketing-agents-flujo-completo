@@ -1,0 +1,87 @@
+name: agent-runtime
+
+networks:
+  agentic-core-network:
+    driver: bridge
+
+services:
+  app:
+    container_name: agent-runtime
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: agentic-core:local
+    restart: unless-stopped
+    networks:
+      - agentic-core-network
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      phoenix:
+        condition: service_started
+    env_file:
+      - ${APP_ENV_FILE:-../.env}
+    ports:
+      - "${APP_HOST_PORT:-8000}:8000"
+
+  mongo:
+    container_name: agent-runtime-mongo
+    image: mongo:${MONGO_VERSION:-8.0}
+    restart: unless-stopped
+    command: ["mongod", "--bind_ip_all", "--auth"]
+    networks:
+      - agentic-core-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    ports:
+      - "${MONGO_HOST_PORT:-27017}:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh -u $$MONGO_INITDB_ROOT_USERNAME -p $$MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin --eval 'db.adminCommand(\"ping\").ok' --quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  redis:
+    container_name: agent-runtime-redis
+    image: redis:${REDIS_VERSION:-8.6.1}-alpine
+    restart: unless-stopped
+    command: ["sh", "-c", "redis-server --appendonly yes --requirepass $$REDIS_PASSWORD"]
+    networks:
+      - agentic-core-network
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    ports:
+      - "${REDIS_HOST_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  phoenix:
+    container_name: agent-runtime-phoenix
+    image: arizephoenix/phoenix:latest
+    restart: unless-stopped
+    networks:
+      - agentic-core-network
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+    ports:
+      - "${PHOENIX_HOST_PORT:-6006}:6006"
+    volumes:
+      - phoenix-data:/mnt/data
+
+volumes:
+  mongo-data:
+    name: ${MONGO_VOLUME_NAME:-infra_mongo-data}
+  redis-data:
+  phoenix-data:

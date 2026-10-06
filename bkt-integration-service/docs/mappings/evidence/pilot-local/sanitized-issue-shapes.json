@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "context": {
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+  },
+  "issueShape": {
+    "source": "forma saneada de incidencia Jira",
+    "issueKeyPattern": "PICA-XXXXX",
+    "fields": {
+      "issuetype": {
+        "shape": "object",
+        "readPath": "fields.issuetype.name",
+        "syntheticValue": "Incidencia"
+      },
+      "summary": {
+        "shape": "string",
+        "readPath": "fields.summary",
+        "syntheticValue": "Titulo sintetico del ticket"
+      },
+      "description": {
+        "shape": "string",
+        "readPath": "fields.description",
+        "syntheticValue": "[texto-libre-saneado]"
+      },
+      "status": {
+        "shape": "object",
+        "readPath": "fields.status.name",
+        "syntheticValue": "Recibida"
+      },
+      "priority": {
+        "shape": "object",
+        "readPath": "fields.priority.name",
+        "syntheticValue": "Medium"
+      },
+      "customfield_10147": {
+        "shape": "option-object",
+        "readPathCandidate": "fields.customfield_10147.value",
+        "syntheticValue": "Temporales",
+        "decision": "pending-validation"
+      },
+      "customfield_10152": {
+        "shape": "option-object",
+        "readPathCandidate": "fields.customfield_10152.value",
+        "syntheticValue": "SI",
+        "decision": "pending-validation"
+      }
+    }
+  },
+  "notes": [
+    "Este archivo describe solo la forma del payload. No confirma el significado funcional de customfield_10147 ni de customfield_10152.",
+    "Aquí no se almacena ninguna descripción real de texto libre, datos de personas, credenciales, URLs internas completas ni contenido de adjuntos."
+  ]
+}

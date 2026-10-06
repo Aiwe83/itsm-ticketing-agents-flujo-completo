@@ -1,0 +1,13 @@
+services:
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.13.0
+    container_name: itsm-filebeat
+    user: root
+    command: ["--strict.perms=false", "-e"]
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

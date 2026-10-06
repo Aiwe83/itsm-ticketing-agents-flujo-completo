@@ -1,0 +1,739 @@
+# GENERATED FILE - do not edit by hand.
+# Source of truth: src/openapi/{schemas,examples,document}.ts
+# Regenerate with: pnpm openapi:generate
+# Verify it is in sync (CI-safe, no write) with: pnpm openapi:check
+
+openapi: 3.0.3
+info:
+  title: Integration Service BKT
+  version: 1.0.0-SNAPSHOT
+  description: "ITSM TC Integration Service: recibe tickets de Jira/TC, guarda el
+    bruto, los traduce con mappings guardados en MongoDB y notifica al
+    orquestador. Generado a partir de los schemas Zod reales (src/validators,
+    src/services) - ver CHANGELOG.md y README.md para el resto de la
+    documentacion del proyecto."
+servers:
+- url: "{protocol}://{host}"
+  description: Override the variables per deployment.
+  variables:
+    protocol:
+      default: https
+      enum:
+      - https
+      description: Transport protocol.
+    host:
+      default: localhost:8000
+      description: Host:port where the service is exposed.
+tags:
+- name: Health
+  description: Liveness/readiness probe
+- name: Meta
+  description: API root/info endpoint
+- name: Issues
+  description: Jira/TC ticket ingestion
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      tags:
+      - Health
+      summary: Health check
+      description: "Configurable via HEALTH_CHECK_PATH env var (default shown here:
+        /health). Not behind the rate limiter (mounted only on /api/)."
+      x-configurable-path: HEALTH_CHECK_PATH
+      responses:
+        "200":
+          description: Database connected
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              examples:
+                ok:
+                  value:
+                    uptime: 12345.67
+                    message: OK
+                    timestamp: 2026-08-06T09:00:00.000Z
+                    environment: production
+                    database: connected
+        "404": &a1
+          description: No matching route (see notFoundHandler in
+            src/middlewares/error.middleware.ts).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "503":
+          description: Database disconnected. Body is otherwise identical to the 200 case
+            - `message` stays the literal "OK" even here; only `database` (and
+            the HTTP status) differ.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              examples:
+                degraded:
+                  value:
+                    uptime: 42.1
+                    message: OK
+                    timestamp: 2026-08-06T09:00:00.000Z
+                    environment: production
+                    database: disconnected
+        default: &a2
+          description: Unexpected error, caught by the global exceptionHandler in
+            src/middlewares/error.middleware.ts.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+      security: []
+  /api/v1:
+    get:
+      operationId: getApiRoot
+      tags:
+      - Meta
+      summary: API root/info
+      description: "Configurable via API_VERSION env var (default: v1)."
+      x-configurable-path: API_VERSION
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiRootResponse"
+              examples:
+                ok:
+                  value:
+                    success: true
+                    message: Integration service for ITSM Torre de Control
+                    version: v1
+        "401": &a4
+          description: Missing or invalid API key (see
+            src/middlewares/auth.middleware.ts). The message is the same whether
+            the header was absent or simply wrong.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404": *a1
+        "429": &a5
+          description: Rate limit exceeded (express-rate-limit, mounted on /api/ before
+            requestIdMiddleware in src/app.ts). Shape intentionally different
+            from every other error response - no
+            statusCode/timestamp/requestId/path.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitErrorResponse"
+              examples:
+                rateLimited:
+                  value:
+                    success: false
+                    error:
+                      message: Too many requests from this IP, please try again later
+                      code: RATE_LIMIT_EXCEEDED
+        default: *a2
+      security:
+      - ApiKeyAuth: []
+  /api/v1/issues:
+    post:
+      operationId: createIssues
+      tags:
+      - Issues
+      summary: Ingest one Jira/TC issue
+      description: Accepts exactly ONE ticket per request (issues array has length 1).
+        Persists the raw payload in itsm_tickets, translates it with the
+        mappings stored in MongoDB, persists the normalized ticket in tickets,
+        and - in the background, without blocking this response - enriches
+        attachments and notifies the orchestrator.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IssueBatchRequest"
+            examples:
+              jiraIssue:
+                value:
+                  initiatedBy: postman-demo
+                  issues:
+                  - &a3
+                    id: "13401"
+                    key: PA-205
+                    fields:
+                      summary: Incidencia en la cuenta puente GTX
+                      description: Me da error la cuenta puente intragrupo GTX.
+                      issuetype:
+                        name: Incidencia
+                      status:
+                        name: Recibida
+                      priority:
+                        name: Medium
+                      components: COMPONENTE 1
+      responses:
+        "201":
+          description: Accepted for processing. HTTP 201 does NOT imply every ticket
+            succeeded - check data.summary.successIntegration and each
+            data.tickets[].success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IssueAcceptedResponse"
+              examples:
+                exitoCompleto:
+                  value:
+                    success: true
+                    message: Issues accepted
+                    data:
+                      executionId: mesh-pilot:PA-205
+                      summary:
+                        ticketsProcessed: 1
+                        ticketsSucceeded: 1
+                        ticketsFailed: 0
+                        successIntegration: true
+                        orchestratorDispatched: true
+                      tickets:
+                      - key: PA-205
+                        issueJiraId: "13401"
+                        success: true
+                        errors: []
+                        issue: *a3
+                        transformedIssue:
+                          meshId: mesh-pilot
+                          content:
+                            key: PA-205
+                            issueJiraId: "13401"
+                            summary: Incidencia en la cuenta puente GTX
+                            description: Me da error la cuenta puente intragrupo GTX.
+                            issueType: Incidencia
+                            status: Recibida
+                            priority: Medium
+                            attachedDocuments: []
+                        receivedAt: 2026-08-06T09:15:32.000Z
+                        storedTicketId: mesh-pilot:PA-205
+                aceptadoConFalloPorTicket:
+                  value:
+                    success: true
+                    message: Issues accepted
+                    data:
+                      executionId: mesh-pilot:PA-206
+                      summary:
+                        ticketsProcessed: 1
+                        ticketsSucceeded: 0
+                        ticketsFailed: 1
+                        successIntegration: false
+                        orchestratorDispatched: false
+                      tickets:
+                      - key: PA-206
+                        issueJiraId: "13402"
+                        success: false
+                        errors:
+                        - function: issueService.processIssues
+                          errorMessage: Missing required value for mapping content.title
+                          timestamp: 2026-08-06T09:16:01.000Z
+                        issue:
+                          id: "13402"
+                          key: PA-206
+                          fields:
+                            summary: Ticket sin campo obligatorio mapeado
+                        receivedAt: 2026-08-06T09:16:01.000Z
+                        storedTicketId: mesh-pilot:PA-206
+        "400":
+          description: "Validation failed. `details` takes one of two shapes depending on
+            issue count: a single validation issue, or an
+            AggregateValidationError with `details.errors[]` (see
+            src/errors/validation.ts)."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                unSoloIssue:
+                  value:
+                    success: false
+                    error:
+                      message: Value at issues.0.key must be >= 1
+                      code: VALIDATION_ERROR
+                      statusCode: 400
+                      details:
+                        code: too_small
+                        path:
+                        - issues
+                        - 0
+                        - key
+                        message: Value at issues.0.key must be >= 1
+                      timestamp: 2026-08-06T09:10:00.000Z
+                      requestId: 7c3a5e2e-1b3a-4b7a-9c2a-2e6a9d9e0a1f
+                      path: /api/v1/issues
+                variosIssues:
+                  value:
+                    success: false
+                    error:
+                      message: Multiple validation errors occurred
+                      code: VALIDATION_ERROR
+                      statusCode: 400
+                      details:
+                        errors:
+                        - type: TooSmallValidationError
+                          message: Value at issues.0.key must be >= 1
+                          details:
+                            path:
+                            - issues
+                            - 0
+                            - key
+                        - type: InvalidTypeValidationError
+                          message: Invalid type at issues.0.fields.summary, expected string
+                          details:
+                            path:
+                            - issues
+                            - 0
+                            - fields
+                            - summary
+                      timestamp: 2026-08-06T09:10:00.000Z
+                      requestId: 7c3a5e2e-1b3a-4b7a-9c2a-2e6a9d9e0a1f
+                      path: /api/v1/issues
+        "401": *a4
+        "429": *a5
+        default: *a2
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    ExecutionError:
+      type: object
+      properties:
+        function:
+          description: Origin function/method where the error was captured
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+        errorMessage:
+          type: string
+          maxLength: 500
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        timestamp:
+          format: date-time
+          description: UTC ISO-8601 timestamp
+          type: string
+          maxLength: 40
+      required:
+      - function
+      - errorMessage
+      - timestamp
+      additionalProperties: false
+    AttachedDocument:
+      type: object
+      properties:
+        filename:
+          type: string
+          maxLength: 500
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        markdown:
+          type: string
+          maxLength: 20000000
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        skippedReason:
+          type: string
+          enum:
+          - unsupported
+          - too_large
+          - download_failed
+      required:
+      - filename
+      - markdown
+      additionalProperties: false
+    IssueContent:
+      description: Known subset of the mapped Jira fields (the `mappings` collection).
+        The real field contract is driven by the "mappings" MongoDB collection
+        and can carry additional keys not listed here - hence
+        additionalProperties is open, not a bug.
+      type: object
+      properties:
+        key:
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+        issueJiraId:
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+        summary:
+          type: string
+          maxLength: 500
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        description:
+          type: string
+          maxLength: 50000
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        issueType:
+          type: string
+          maxLength: 500
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        status:
+          nullable: true
+          type: string
+          maxLength: 500
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        priority:
+          nullable: true
+          type: string
+          maxLength: 500
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        components:
+          maxItems: 200
+          type: array
+          items: {}
+        assignee:
+          type: object
+          properties:
+            accountId:
+              type: string
+              maxLength: 128
+              pattern: ^[^\s\x00-\x1F\x7F]*$
+            email:
+              type: string
+              maxLength: 500
+              pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+            displayName:
+              type: string
+              maxLength: 500
+              pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        attachedDocuments:
+          maxItems: 100
+          type: array
+          items:
+            $ref: "#/components/schemas/AttachedDocument"
+      additionalProperties:
+        $ref: "#/components/schemas/JsonValue"
+    IssueInfo:
+      type: object
+      properties:
+        meshId:
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+        content:
+          $ref: "#/components/schemas/IssueContent"
+      required:
+      - meshId
+      - content
+      additionalProperties: false
+    IssuePayload:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        key:
+          type: string
+          minLength: 1
+          maxLength: 128
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        fields:
+          type: object
+          properties:
+            summary:
+              type: string
+              minLength: 1
+              maxLength: 500
+              pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+            issuetype:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 128
+                  pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+              required:
+              - name
+              additionalProperties:
+                $ref: "#/components/schemas/JsonValue"
+          required:
+          - summary
+          additionalProperties:
+            $ref: "#/components/schemas/JsonValue"
+      required:
+      - key
+      - fields
+      additionalProperties:
+        $ref: "#/components/schemas/JsonValue"
+    IssueBatchRequest:
+      type: object
+      properties:
+        initiatedBy:
+          type: string
+          minLength: 1
+          maxLength: 200
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        issues:
+          minItems: 1
+          maxItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/IssuePayload"
+      required:
+      - issues
+      additionalProperties:
+        $ref: "#/components/schemas/JsonValue"
+    IssueProcessResult:
+      type: object
+      properties:
+        key:
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+        issueJiraId:
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+        success:
+          type: boolean
+        errors:
+          maxItems: 50
+          type: array
+          items:
+            $ref: "#/components/schemas/ExecutionError"
+        issue:
+          $ref: "#/components/schemas/IssuePayload"
+        transformedIssue:
+          $ref: "#/components/schemas/IssueInfo"
+        receivedAt:
+          format: date-time
+          type: string
+          maxLength: 40
+        storedTicketId:
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+      required:
+      - key
+      - issueJiraId
+      - success
+      - errors
+      - issue
+      - receivedAt
+      additionalProperties: false
+    IssueProcessSummary:
+      type: object
+      properties:
+        ticketsProcessed:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        ticketsSucceeded:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        ticketsFailed:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        successIntegration:
+          description: true only when every ticket in the batch succeeded (ticketsFailed
+            === 0)
+          type: boolean
+        orchestratorDispatched:
+          type: boolean
+      required:
+      - ticketsProcessed
+      - ticketsSucceeded
+      - ticketsFailed
+      - successIntegration
+      - orchestratorDispatched
+      additionalProperties: false
+    IssueProcessResponse:
+      type: object
+      properties:
+        executionId:
+          description: Same value as the itsm_tickets/tickets _id (execution_id)
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+        summary:
+          $ref: "#/components/schemas/IssueProcessSummary"
+        tickets:
+          minItems: 1
+          maxItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/IssueProcessResult"
+      required:
+      - executionId
+      - summary
+      - tickets
+      additionalProperties: false
+    IssueAcceptedResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum:
+          - true
+        message:
+          type: string
+          maxLength: 500
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        data:
+          $ref: "#/components/schemas/IssueProcessResponse"
+      required:
+      - success
+      - message
+      - data
+      additionalProperties: false
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum:
+          - false
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              maxLength: 500
+              pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+            code:
+              type: string
+              maxLength: 128
+              pattern: ^[^\s\x00-\x1F\x7F]*$
+            statusCode:
+              type: integer
+              minimum: 100
+              maximum: 599
+            details: {}
+            timestamp:
+              format: date-time
+              type: string
+              maxLength: 40
+            requestId:
+              type: string
+              maxLength: 128
+              pattern: ^[^\s\x00-\x1F\x7F]*$
+            path:
+              type: string
+              maxLength: 128
+              pattern: ^[^\s\x00-\x1F\x7F]*$
+          required:
+          - message
+          - code
+          - statusCode
+          - timestamp
+          additionalProperties: false
+      required:
+      - success
+      - error
+      additionalProperties: false
+    RateLimitErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum:
+          - false
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              maxLength: 500
+              pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+            code:
+              type: string
+              enum:
+              - RATE_LIMIT_EXCEEDED
+          required:
+          - message
+          - code
+          additionalProperties: false
+      required:
+      - success
+      - error
+      additionalProperties: false
+    HealthResponse:
+      type: object
+      properties:
+        uptime:
+          description: process.uptime() in seconds
+          type: number
+        message:
+          description: Literal "OK" even on a 503 response - only the HTTP status and
+            `database` differ.
+          type: string
+          enum:
+          - OK
+        timestamp:
+          format: date-time
+          type: string
+          maxLength: 40
+        environment:
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+        database:
+          type: string
+          enum:
+          - connected
+          - disconnected
+      required:
+      - uptime
+      - message
+      - timestamp
+      - environment
+      - database
+      additionalProperties: false
+    ApiRootResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum:
+          - true
+        message:
+          type: string
+          maxLength: 500
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
+        version:
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+      required:
+      - success
+      - message
+      - version
+      additionalProperties: false
+    JsonPrimitive:
+      description: Scalar JSON leaf value (string, number, boolean, or null).
+      anyOf:
+      - type: string
+        maxLength: 50000
+        nullable: true
+      - type: number
+      - type: boolean
+    JsonValue:
+      description: Any JSON value up to one level of nesting (scalar, or array/object
+        of scalars). Extra Jira/mapping-driven keys are accepted as-is.
+      anyOf:
+      - $ref: "#/components/schemas/JsonPrimitive"
+      - type: array
+        maxItems: 1000
+        items:
+          $ref: "#/components/schemas/JsonPrimitive"
+      - type: object
+        maxProperties: 500
+        additionalProperties:
+          $ref: "#/components/schemas/JsonPrimitive"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: Header name configurable via API_KEY_HEADER env var. Enforced by
+        src/middlewares/auth.middleware.ts on every operation under /api/v1
+        except getHealth. See README.md "Estado De Seguridad".
+security: []

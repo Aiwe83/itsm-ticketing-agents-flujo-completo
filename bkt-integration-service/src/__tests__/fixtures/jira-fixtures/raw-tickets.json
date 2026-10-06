@@ -1,0 +1,57 @@
+[{
+  "_id": "85d14282-55de-47bd-8d47-5eb639a266f5",
+  "tenantId": "b3711099-d7bd-446e-b126-6689dd7c6fac",
+  "projectId": "febda9b9-fd04-4722-a988-96cd0ade831c",
+  "itsmId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+  "itsmTicketId": "PA-205",
+  "content": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "13401",
+    "self": "https://dextia-pre.atlassian.net/rest/api/3/issue/13401",
+    "key": "PA-205",
+    "fields": {
+      "summary": "Incidencia en la cuenta puente GTX",
+      "customfield_10302": "<p>Solución 1:</p><p>Paso 1: Revisar con el usuario el escenario en la cuenta puente intragrupo (GTX), identificando los documentos que compensan a 0,00 en moneda de documento y la diferencia resultante en MXN.</p><p>Paso 2: Realizar una sesión con el usuario para ejecutar/mostrar las compensaciones aplicables al escenario y definir cómo proceder con la regularización.</p><p>Paso 3: Dejar el caso en espera de que el usuario realice el registro pendiente derivado de la compensación y confirme que ya no presenta problema.</p><p>Paso 4: Tras confirmación del usuario, proceder al cierre del ticket.</p><p>Solución 2:</p><p>Paso 1: Revisar los documentos intragrupo relacionados (incluyendo cancelaciones) y validar el efecto contable en moneda de documento vs. moneda local en la cuenta puente.</p><p>Paso 2: Confirmar que el efecto global debía quedar en cero y que la diferencia en MXN proviene del tipo de cambio por fechas distintas.</p><p>Paso 3: Anular (reversar) los documentos FI tipo KR vinculados a la cancelación para eliminar la diferencia cambiaria reflejada en MXN.</p><p>Paso 4: Validar nuevamente el saldo posterior a las anulaciones, verificando que los totales queden en 0,00 en ambas monedas.</p><p>Paso 5: Informar al usuario y adjuntar evidencia mostrando saldo en cero sin diferencia cambiaria.</p><p>Solución 3:</p><p>Paso 1: Revisar el detalle aportado por el usuario para identificar si existe una factura intragrupo que no está contabilizándose/impactando en la cuenta puente.</p><p>Paso 2: Analizar la causa del rechazo y determinar si falta crear/extender el proveedor en la sociedad correspondiente.</p><p>Paso 3: Solicitar la creación/extensión del proveedor a la planta/responsable de datos maestros.</p><p>Paso 4: Una vez confirmado que el proveedor ya está creado/extendido, ejecutar el programa de contabilización para generar el documento.</p><p>Paso 5: Validar el resultado confirmando que el documento contable se generó correctamente.</p><p>Paso 6: Informar al usuario y cerrar el ticket.</p><p>Transacciones o Fiori APP asociados a las soluciones:</p><ul><li>F-03 (Compensar partidas)</li><li>FB08 (Anular documento)</li></ul>\n",
+      "issuetype": {
+        "self": "https://dextia-pre.atlassian.net/rest/api/3/issuetype/10154",
+        "id": "10154",
+        "description": "",
+        "iconUrl": "https://dextia-pre.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10308?size=medium",
+        "name": "Incidencia",
+        "subtask": false,
+        "avatarId": 10308,
+        "hierarchyLevel": 0
+      },
+      "components": "COMPONENTE 1",
+      "description": "Me da error la cuenta puente intragrupo GTX. Veo que existe una variación significativa en pesos pero la cuenta está a cero.\n",
+      "assignee": null,
+      "priority": {
+        "self": "https://dextia-pre.atlassian.net/rest/api/3/priority/3",
+        "iconUrl": "https://dextia-pre.atlassian.net/images/icons/priorities/medium_new.svg",
+        "name": "Medium",
+        "id": "3"
+      },
+      "status": {
+        "self": "https://dextia-pre.atlassian.net/rest/api/3/status/10148",
+        "description": "",
+        "iconUrl": "https://dextia-pre.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Recibida",
+        "id": "10148",
+        "statusCategory": {
+          "self": "https://dextia-pre.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Listo"
+        }
+      },
+      "customfield_10301": "<p>Causa raíz más probable:</p><p>Diferencia en moneda local (MXN) en la cuenta puente intragrupo (GTX) causada por aplicación de tipos de cambio distintos entre documentos que se compensan a 0,00 en moneda de documento (por ejemplo, facturas y sus cancelaciones/compensaciones), dejando una variación residual en pesos.</p><p>Cómo se determinó (evidencias y comprobaciones):</p><ul><li>En el ticket PA-205 se indica explícitamente el patrón: “existe una variación significativa en pesos pero la cuenta está a cero”.</li><li>Este mismo síntoma coincide con el ticket similar *149366* (cuenta puente intragrupo con saldo 0 en moneda de documento pero variación significativa en MXN), donde se atribuye a TC distinto entre documentos.</li><li>Verificar en los documentos relacionados que los importes en moneda de documento se compensan (saldo 0) mientras que en moneda local permanece una diferencia, coherente con el escenario descrito en *149366 y 133942*.</li></ul>\n",
+      "comments": [],
+      "attachment": []
+    }
+  },
+  "createdAt": {
+    "$date": "2026-06-11T11:10:33.765Z"
+  },
+  "__v": 0
+}]

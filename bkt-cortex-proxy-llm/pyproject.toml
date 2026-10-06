@@ -1,0 +1,33 @@
+[project]
+name = "bktcortexproxyllm"
+version = "1.0.dev16"
+description = "A FastAPI interface for LLMs"
+
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "aiohttp>=3.11.16",
+    "fastapi>=0.115.12",
+    "gunicorn>=23.0.0",
+    "pydantic>=2.11.3",
+    "pydantic-settings>=2.8.1",
+    "python-dotenv>=1.1.0",
+    "python-json-logger>=3.3.0",
+    "uvicorn>=0.34.0",
+    "tiktoken>=0.5.0",
+    "arize-phoenix==13.1.1",
+    "openinference-instrumentation>=0.1.42",
+    "openinference-instrumentation-openai>=0.1.40",
+    "opentelemetry-instrumentation-fastapi>=0.59b0",
+    "arize-phoenix-otel>=0.13.1",
+    "opentelemetry-instrumentation-aiohttp-client>=0.59b0",
+    "opentelemetry-instrumentation-openai>=0.48.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]

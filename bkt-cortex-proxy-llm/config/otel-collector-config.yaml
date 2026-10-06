@@ -1,0 +1,96 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: 'otel-collector'
+          scrape_interval: 10s
+          static_configs:
+            - targets: ['0.0.0.0:8888']
+
+processors:
+  batch:
+    send_batch_size: 1000
+    timeout: 10s
+  
+  memory_limiter:
+    check_interval: 5s
+    limit_mib: 1000
+    spike_limit_mib: 200
+
+  attributes:
+    actions:
+      - key: service.name
+        action: insert
+        value: "nextai-llm-interface"
+      - key: deployment.environment
+        action: insert
+        value: "dev"
+      - key: log.origin.file.path
+        action: insert
+        from_attribute: "filename"
+      - key: code.function
+        action: upsert
+        from_attribute: log.origin.function.name
+
+exporters:
+  debug:
+    verbosity: detailed
+    sampling_initial: 5
+    sampling_thereafter: 100
+  
+  prometheus:
+    endpoint: 0.0.0.0:8889
+    send_timestamps: true
+    metric_expiration: 180m
+    resource_to_telemetry_conversion:
+      enabled: true
+
+  prometheusremotewrite:
+    endpoint: http://prometheus:9090/api/v1/write
+    add_metric_suffixes: false
+  
+  otlp:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
+
+  elasticsearch:
+    endpoints: ["http://${ELASTIC_USERNAME}:${ELASTIC_PASSWORD}@elasticsearch:9200"]
+    mapping:
+      mode: "ecs"
+    logs_index: "app-logs"
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+  
+  pprof:
+    endpoint: 0.0.0.0:1777
+  
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+service:
+  extensions: [health_check, pprof, zpages]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch, memory_limiter]
+      exporters: [debug, otlp]
+    
+    metrics:
+      receivers: [otlp, prometheus]
+      processors: [batch, memory_limiter]
+      exporters: [debug, prometheus, prometheusremotewrite]
+    
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, attributes, batch]
+      exporters: [debug, elasticsearch]

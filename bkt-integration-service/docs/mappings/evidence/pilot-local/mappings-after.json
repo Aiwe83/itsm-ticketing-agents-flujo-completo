@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "3c890538-fab4-400c-a011-b5b581da1121",
+    "createdBy": "system",
+    "description": "Maps the Jira assignee name to the technician user ID",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "fields.description",
+    "targetField": "content.issueDescription",
+    "transformer": "copy",
+    "updatedBy": "system"
+  },
+  {
+    "_id": "581dd084-6185-4367-90c9-71ae99e31121",
+    "createdBy": "system",
+    "description": "Maps the Jira assignee name to the technician user ID",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "fields.summary",
+    "targetField": "content.title",
+    "transformer": "copy",
+    "updatedBy": "system"
+  },
+  {
+    "_id": "973b16dd-8993-407e-b7fc-423dc4411231",
+    "createdBy": "system",
+    "description": "Maps the Jira assignee name to the technician user ID",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "fields.status.name",
+    "targetField": "content.status",
+    "transformer": "copy",
+    "updatedBy": "system"
+  },
+  {
+    "_id": "973b16dd-8993-407e-b7fc-423dc442asdf",
+    "createdBy": "system",
+    "description": "Maps the Jira assignee name to the technician user ID",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "fields.assignee.accountId",
+    "targetField": "content.technicianInfo.userId",
+    "transformer": "copy",
+    "updatedBy": "system"
+  },
+  {
+    "_id": "973b16dd-8993-407e-b7fc-423dc442asdw",
+    "createdBy": "system",
+    "description": "Maps the Jira assignee name to the technician user ID",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "fields.priority.name",
+    "targetField": "content.severityLevel",
+    "transformer": "copy",
+    "updatedBy": "system"
+  },
+  {
+    "_id": "973b16dd-8993-407e-b7fc-423dc442qpxj",
+    "createdBy": "system",
+    "description": "Maps the Jira assignee name to the technician user ID",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "fields.assignee.emailAddress",
+    "targetField": "content.technicianInfo.email",
+    "transformer": "copy",
+    "updatedBy": "system"
+  },
+  {
+    "_id": "973b16dd-8993-407e-b7fc-423dc442xino",
+    "createdBy": "system",
+    "description": "Maps the Jira component name to the GroupID field",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "fields.components",
+    "targetField": "content.groupId",
+    "transformer": "copy",
+    "updatedBy": "system"
+  },
+  {
+    "_id": "973b16dd-8993-407e-b7fc-4waos411211",
+    "createdBy": "system",
+    "description": "Maps the Jira assignee name to the technician user ID",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "fields.assignee.displayName",
+    "targetField": "content.technicianInfo.lastName",
+    "transformer": "copy",
+    "updatedBy": "system"
+  },
+  {
+    "_id": "d0ad6fa5-dd04-4a53-a94e-cb98bfb51211",
+    "createdBy": "system",
+    "description": "Maps the Jira assignee name to the technician user ID",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "fields.issuetype.name",
+    "targetField": "ticketType",
+    "transformer": "copy",
+    "updatedBy": "system"
+  },
+  {
+    "_id": "e9720d4b-df23-4371-b338-bba0993b1121",
+    "createdBy": "system",
+    "description": "Maps the Jira assignee name to the technician user ID",
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d",
+    "options": {},
+    "required": false,
+    "sourceField": "key",
+    "targetField": "itsmTicketId",
+    "transformer": "copy",
+    "updatedBy": "system"
+  }
+]

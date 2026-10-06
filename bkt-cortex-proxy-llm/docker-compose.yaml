@@ -1,0 +1,33 @@
+networks:
+  bkt-agentic-ticketing-network:
+    external: true
+
+services:
+  # bktcortexproxyllm - Capa de traducción de peticiones LLM (estilo litellm)
+  bktcortexproxyllm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bktcortexproxyllm
+    environment:
+      - SECRET_KEY=zeNzM1JMvOre5tGuGo3KgAxlFcLO70TJpdDZJMpYka5hX4Cu1sAFuhsehpwp1NVq
+      - PROXY_API_KEY=SRMBOHEKITRBwgdOFGpMPJK7jZf0hRZk4F0DFqEN6j5aFs99wBXikgvP8HewyiN2
+      - DEBUG=false
+      - TZ=Europe/Madrid
+      - ENVIRONMENT=dev
+      - LOG_LEVEL=DEBUG
+      - JSON_LOGS=json
+      - PROJECT_NAME=bktcortexproxyllm
+      - AZURE_OPENAI_API_KEY=6RCr5Stko3XWhpCqtSmpT2ekoeArKV0u5NqGohCZI4ODXgXK4ngJJQQJ99CAACR0EKYXJ3w3AAABACOGyywN
+      - AZURE_OPENAI_ENDPOINT=https://nextaidev-sp.openai.azure.com
+      - AZURE_OPENAI_API_VERSION=2025-01-01-preview
+      - PHOENIX_COLLECTOR_ENDPOINT=http://phoenix:4327
+      - PHOENIX_PROJECT_NAME=bktcortexproxyllm
+      - GUNICORN_WORKERS=1
+      - GUNICORN_THREADS=1
+      - GUNICORN_BIND=0.0.0.0:8010
+      - GUNICORN_RELOAD=false
+    ports:
+      - "8010:8010"
+    networks:
+      - bkt-agentic-ticketing-network

@@ -1,0 +1,20 @@
+# Dependencias
+node_modules/
+
+# Build del frontend (lo genera `npm run build:asistente`)
+static/asistente-app/build/
+
+# Forge
+.forge/
+manifest.yml.bak
+
+# Entorno local / secretos
+.env
+.env.*
+secrets.local.md
+
+# Editores y SO
+.claude/
+.DS_Store
+Thumbs.db
+*.log

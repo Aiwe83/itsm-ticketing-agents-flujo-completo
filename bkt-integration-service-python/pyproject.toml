@@ -1,0 +1,31 @@
+[project]
+name = "bkt-integration-service"
+version = "0.1.0"
+description = "Python/Litestar/Dishka port of bkt-integration-service (paridad de contrato, no rediseño)"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "dishka>=1.8.0",
+    "litestar[standard]==2.21.1",
+    "loguru>=0.7.3",
+    "msgspec>=0.19.0",
+    "pymongo>=4.13.2",
+    "httpx>=0.28.1",
+    "multidict<7",
+    "click<8.3",
+    "mammoth>=1.13.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.5",
+    "pytest-asyncio==0.24.0",
+    "iniconfig==2.1.0",
+    "mongomock>=4.3.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "context": {
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+  },
+  "source": {
+    "kind": "forma-saneada-del-modelo-funcional",
+    "notes": "Describe la forma de los campos del batch 2 sin conservar valores reales sensibles."
+  },
+  "sections": {
+    "alta": {
+      "standardJiraShape": {
+        "key": "string",
+        "fields.issuetype.name": "string",
+        "fields.summary": "string",
+        "fields.description": "string",
+        "fields.status.name": "string",
+        "fields.priority.name": "string"
+      },
+      "nativeOrEquivalentCandidates": [
+        "fields.created",
+        "fields.resolution.name",
+        "fields.resolutiondate",
+        "fields.reporter.*",
+        "fields.creator.*",
+        "fields.assignee.*",
+        "fields.attachment"
+      ],
+      "notes": "Los campos de persona quedan pendientes hasta decidir si se guarda ID, nombre o email. Los adjuntos no son mappings regulares."
+    },
+    "solucion": {
+      "shapeCandidates": {
+        "functionalSolutionDescription": "string",
+        "solutionType": "string-or-option",
+        "problemClassification": "string-or-option",
+        "rootCause": "object",
+        "modifiedComponents": "array-of-objects",
+        "performedTests": "array-of-objects",
+        "executedStatement": "string",
+        "informationRequestedFromReporter": "string",
+        "resolutionAttachments": "array"
+      },
+      "notes": "No hay customfields confirmados para estos campos. Los arrays de objetos requieren una capacidad de motor distinta al mapping simple."
+    },
+    "impacto": {
+      "shapeCandidates": {
+        "registeredAlertsRange": "option",
+        "affectedCustomersRange": "option",
+        "cidaDataLossCriteria": "array",
+        "impactedCountries": "array",
+        "hasEconomicImpact": "boolean-or-option",
+        "inactivity": "array",
+        "affectedCustomerSegments": "array",
+        "impactLevel": "option",
+        "isCriticalService": "boolean-or-option"
+      },
+      "notes": "No se confirma ningun customfield nuevo sin metadata Jira o payload saneado que indique nombre funcional y ruta."
+    },
+    "imputacion": {
+      "shapeCandidates": {
+        "timeEntries": "child-collection",
+        "timeEntries[].author": "user",
+        "timeEntries[].updateAuthor": "user",
+        "timeEntries[].application": "snapshot-object",
+        "timeEntries[].issueType": "snapshot-string",
+        "timeEntries[].environment": "snapshot-string",
+        "timeEntries[].workCharacteristic": "derived-snapshot",
+        "timeEntries[].started": "datetime",
+        "timeEntries[].timeSpentSeconds": "number"
+      },
+      "notes": "timeEntries[] queda bloqueado como coleccion hija. No se incluye en mappings ni en pendingCandidates cargables."
+    }
+  }
+}

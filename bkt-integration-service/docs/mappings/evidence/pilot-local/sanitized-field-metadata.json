@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "context": {
+    "meshId": "6a323e68-6f87-403a-a87d-72da69fcde0d"
+  },
+  "source": {
+    "kind": "evidencia-documental-saneada",
+    "metadataStatus": "partial",
+    "notes": "Todavia se necesita la metadata completa de nombres y esquema de Jira antes de confirmar nuevos mappings de customfield. Este archivo solo conserva los campos estandar aprobados y las formas observadas de customfield."
+  },
+  "standardFields": [
+    {
+      "jiraFieldId": "key",
+      "jiraFieldName": "Clave de incidencia",
+      "jiraType": "string",
+      "readPath": "key",
+      "decision": "confirmed"
+    },
+    {
+      "jiraFieldId": "issuetype",
+      "jiraFieldName": "Tipo de incidencia",
+      "jiraType": "object",
+      "readPath": "fields.issuetype.name",
+      "decision": "confirmed"
+    },
+    {
+      "jiraFieldId": "summary",
+      "jiraFieldName": "Resumen",
+      "jiraType": "string",
+      "readPath": "fields.summary",
+      "decision": "confirmed"
+    },
+    {
+      "jiraFieldId": "description",
+      "jiraFieldName": "Descripción",
+      "jiraType": "string",
+      "readPath": "fields.description",
+      "decision": "confirmed"
+    },
+    {
+      "jiraFieldId": "status",
+      "jiraFieldName": "Estado",
+      "jiraType": "object",
+      "readPath": "fields.status.name",
+      "decision": "confirmed"
+    },
+    {
+      "jiraFieldId": "priority",
+      "jiraFieldName": "Prioridad",
+      "jiraType": "object",
+      "readPath": "fields.priority.name",
+      "decision": "confirmed"
+    }
+  ],
+  "observedCustomFieldCandidates": [
+    {
+      "jiraFieldId": "customfield_10147",
+      "jiraFieldName": null,
+      "jiraType": "option",
+      "observedReadPath": "fields.customfield_10147.value",
+      "observedShape": {
+        "type": "object",
+        "keys": [
+          "self",
+          "value",
+          "id"
+        ]
+      },
+      "syntheticObservedValue": "Temporales",
+      "decision": "pending-validation",
+      "notes": "Se observó como un customfield de tipo opción. Su significado funcional no está confirmado, así que no debe promoverse a catalog.json."
+    },
+    {
+      "jiraFieldId": "customfield_10152",
+      "jiraFieldName": null,
+      "jiraType": "option",
+      "observedReadPath": "fields.customfield_10152.value",
+      "observedShape": {
+        "type": "object",
+        "keys": [
+          "self",
+          "value",
+          "id"
+        ]
+      },
+      "syntheticObservedValue": "SI",
+      "decision": "pending-validation",
+      "notes": "Se observó como un customfield de tipo opción. El valor sugiere una decisión sí/no, pero el campo funcional no está confirmado."
+    }
+  ],
+  "sanitization": {
+    "removed": [
+      "encabezados de autorización",
+      "cookies",
+      "tokens",
+      "nombres reales de personas",
+      "correos reales",
+      "identificadores de cuenta",
+      "URLs internas completas",
+      "descripciones de texto libre",
+      "adjuntos"
+    ],
+    "kept": [
+      "identificadores de campo",
+      "nombres genéricos de campo aprobados",
+      "formas de campo",
+      "valores sintéticos",
+      "candidatos a ruta de lectura"
+    ]
+  }
+}
