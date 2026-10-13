@@ -119,6 +119,72 @@ describe('sendIssueToIntegrationService', () => {
     });
   });
 
+  it('fails closed and reports the config issue when runtime URL is unsafe', async () => {
+    const fetchMock = jest.fn<ReturnType<FetchLike>, Parameters<FetchLike>>();
+
+    await expect(
+      sendIssueToIntegrationService(payload, 'correlation-config', {
+        env: {
+          INTEGRATION_SERVICE_BASE_URL: 'https://integration.example.test/api/v1/issues',
+          INTEGRATION_SERVICE_API_KEY: 'SECRET_API_KEY_123'
+        },
+        fetchImpl: fetchMock
+      })
+    ).resolves.toEqual({
+      sent: false,
+      success: false,
+      status: null,
+      requestIdEcho: null,
+      executionId: null,
+      storedTicketId: null,
+      ticketsSucceeded: null,
+      ticketsFailed: null,
+      orchestratorDispatched: null,
+      errorKind: 'CONFIG',
+      errorCode: 'INVALID_INTEGRATION_SERVICE_BASE_URL',
+      missingConfigKeys: [],
+      configIssue: 'contains_endpoint_path'
+    });
+
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('sends the configured API key header name', async () => {
+    const calls: Array<{ url: string; init?: RequestInit }> = [];
+    const fetchMock: FetchLike = async (url, init) => {
+      calls.push({ url, init });
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          data: {
+            summary: {
+              ticketsSucceeded: 1,
+              ticketsFailed: 0,
+              successIntegration: true,
+              orchestratorDispatched: false
+            },
+            tickets: [{ success: true, storedTicketId: 'mesh-pilot:DEMO-1' }]
+          }
+        }),
+        { status: 201 }
+      );
+    };
+
+    await sendIssueToIntegrationService(payload, 'correlation-custom-header', {
+      env: {
+        ...runtimeEnv,
+        INTEGRATION_SERVICE_API_KEY_HEADER: 'X-Integration-Key'
+      },
+      fetchImpl: fetchMock
+    });
+
+    expect(calls[0]?.init?.headers).toMatchObject({
+      'X-Integration-Key': 'SECRET_API_KEY_123'
+    });
+    expect(calls[0]?.init?.headers).not.toHaveProperty('X-API-KEY');
+  });
+
   it('classifies application failures even when the service returns 201', async () => {
     const fetchMock: FetchLike = async () =>
       new Response(

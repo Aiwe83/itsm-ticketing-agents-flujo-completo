@@ -1,0 +1,15 @@
+{
+  "runs": [
+    {
+      "date": "2026-09-25T13:25:09.412126+00:00",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "subagent_tokens_total": 1850147,
+      "subagents": 9,
+      "files": 435,
+      "note": "input/output split not reported by subagents; subagent_tokens_total is combined usage"
+    }
+  ],
+  "total_input_tokens": 0,
+  "total_output_tokens": 0
+}

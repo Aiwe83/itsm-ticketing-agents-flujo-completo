@@ -1,6 +1,8 @@
 import got, { HTTPError, type Response } from 'got'
+import logger from '../config/logger'
 import { env } from '../config/environment'
 import type { OrchestratorDispatchPayload, StoredTicketId, TicketKey } from '../types/integration'
+import { createOrchestratorRetryOptions } from './orchestrator-retry.policy'
 
 export interface OrchestratorTicketPayload {
   ticketId: TicketKey
@@ -16,28 +18,19 @@ export interface OrchestratorResult {
 }
 
 const DEFAULT_HTTP_CLIENT = got.extend({
-  retry: {
-    limit: 3,
-    methods: ['POST'],
-    statusCodes: [408, 413, 429, 500, 502, 503, 504],
-    errorCodes: [
-      'ETIMEDOUT',
-      'ECONNRESET',
-      'EADDRINUSE',
-      'ECONNREFUSED',
-      'EPIPE',
-      'ENOTFOUND',
-      'ENETUNREACH',
-      'EAI_AGAIN',
-    ],
-    calculateDelay: ({ attemptCount, retryOptions }) => {
-      if (attemptCount > retryOptions.limit) {
-        return 0
-      }
-      const baseDelay = 500
-      return Math.min(baseDelay * 2 ** (attemptCount - 1), 4000)
-    },
-  },
+  retry: createOrchestratorRetryOptions(trace => {
+    logger.warn(
+      {
+        eventName: 'orchestrator.retry.scheduled',
+        attemptCount: trace.attemptCount,
+        retryLimit: trace.retryLimit,
+        delayMs: trace.delayMs,
+        statusCode: trace.statusCode,
+        errorCode: trace.errorCode,
+      },
+      'Retrying orchestrator dispatch'
+    )
+  }),
 })
 
 export class OrchestratorService {

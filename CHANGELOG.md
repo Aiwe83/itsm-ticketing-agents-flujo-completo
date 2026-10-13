@@ -6,6 +6,21 @@ Formato: [Keep a Changelog](https://keepachangelog.com/). Los repos tienen su pr
 
 ## [Unreleased]
 
+### Docs — 2026-10-08: TICK-157 revisado y planificado, TICK-196 fuera de alcance
+- **TICK-157** (campos y API key del servicio de integracion en los planes Forge; solo `bkt-jira-triggers`): revision de
+  `manifest.yml`, `runtime-config.ts`, `integration-client.ts`, `contract.ts`, `handler.ts`, README, `.env.example` y tests; plan
+  escrito (validaciones de configuracion, tests, README con contrato/variables/API key cifrada/criterios E2E). **Sin implementar.**
+  Se mantiene el modelo actual de variables y no se fusiona `origin/main`. Cambios locales previos conservados: `.env.example` y
+  `src/__tests__/runtime-config.test.ts`.
+- Hallazgo: `loadIntegrationRuntimeConfig` acepta `https://https://...`, `http://`, `ftp://` y bases que ya incluyen
+  `/api/v1/issues`; tampoco valida el nombre de la cabecera ni detecta el marcador de clave sin sustituir.
+- **TICK-196** (colas/Kafka): fuera de alcance, lo hace otra persona; no se toca `bkt-integration-service`. Nota de la revision de
+  solo lectura: ya existe el OpenSpec `procesamiento-durable-escalable-outbox` (outbox Mongo, descarta Kafka), sin implementar.
+- Por verificar: el commit `28eabac` de `bkt-integration-service` (suite E2E) y su estado de subida; el reintento de adjuntos de
+  `bkt-jira-triggers` (`d969bcc`) y si esta desplegado. HANDOFF 20.15.
+- Speech del lunes 5 de octubre y mensaje de cierre de TICK-181 redactados (sin cambios de codigo).
+- `graphify update .`: 5229 nodos, 7966 aristas, 534 comunidades.
+
 ### Changed / Docs — 2026-10-02 (cierre): documentacion de las pruebas y verificaciones
 - `e2e/LEEME.md` reescrito: que mide cada prueba, glosario (`skipped`, `unsupported`, `too_large`...), salida real anotada,
   orden recomendado de 9 pasos y cuando crear el ticket (solo tras `preflight.js` en PASS, adjuntando los 10 ficheros en el

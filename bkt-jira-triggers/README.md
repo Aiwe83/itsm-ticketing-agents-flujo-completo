@@ -103,15 +103,36 @@ data.summary.successIntegration = true
 data.tickets[0].success = true
 ```
 
-## Variables de ejecucion
+## Configuracion Forge para llamar a integration-service
 
-Estas variables se configuran en Forge solo durante la demo:
+El envio al servicio se activa exclusivamente mediante variables de ejecucion de Forge. No hay claves ni URLs reales en el codigo, en el manifiesto ni en `.env.example`.
 
-| Variable | Uso |
-|---|---|
-| `INTEGRATION_SERVICE_BASE_URL` | URL base HTTPS del servicio |
-| `INTEGRATION_SERVICE_API_KEY` | Credencial del servicio, cifrada en Forge |
-| `INTEGRATION_SERVICE_API_KEY_HEADER` | Nombre de la cabecera, por defecto `X-API-KEY` |
+Variables necesarias:
+
+| Variable | Uso | Validacion aplicada |
+|---|---|---|
+| `INTEGRATION_SERVICE_BASE_URL` | URL base del servicio, sin `/api/v1/issues` | Debe ser HTTPS, no puede traer credenciales, no puede duplicar esquema y no puede incluir path/query/hash |
+| `INTEGRATION_SERVICE_API_KEY` | Credencial esperada por el servicio | Obligatoria, cifrada en Forge y distinta del marcador de ejemplo |
+| `INTEGRATION_SERVICE_API_KEY_HEADER` | Nombre de la cabecera de autenticacion | Opcional; por defecto `X-API-KEY`; si se informa debe ser un nombre de cabecera HTTP valido |
+
+Ejemplo de configuracion de desarrollo:
+
+```powershell
+forge variables set --encrypt INTEGRATION_SERVICE_API_KEY "<valor-real>"
+forge variables set INTEGRATION_SERVICE_BASE_URL "https://<subdominio>.ngrok-free.dev"
+forge variables set INTEGRATION_SERVICE_API_KEY_HEADER "X-API-KEY"
+forge deploy
+forge variables list --environment development
+```
+
+La URL es la base del servicio. No debe incluir el endpoint completo:
+
+```text
+Correcto:   https://demo.ngrok-free.dev
+Incorrecto: https://demo.ngrok-free.dev/api/v1/issues
+Incorrecto: https://https://demo.ngrok-free.dev
+Incorrecto: http://demo.ngrok-free.dev
+```
 
 Si falta la URL o la credencial, la app no intenta llamar al servicio y registra:
 
@@ -119,7 +140,15 @@ Si falta la URL o la credencial, la app no intenta llamar al servicio y registra
 MISSING_RUNTIME_CONFIG
 ```
 
-Dos avisos operativos:
+Si la configuracion existe pero no es segura o no es valida, tambien falla cerrado y no realiza la peticion HTTP:
+
+| Codigo | Motivo registrado |
+|---|---|
+| `INVALID_INTEGRATION_SERVICE_BASE_URL` | `not_a_url`, `duplicated_scheme`, `not_https`, `contains_endpoint_path` o `contains_credentials` |
+| `INVALID_API_KEY_HEADER` | `invalid_header_name` |
+| `PLACEHOLDER_API_KEY` | `placeholder_api_key` |
+
+Avisos operativos:
 
 - **Las variables de Forge solo se aplican al desplegar.** Tras `forge variables set`, ejecutar
   `forge deploy` y comprobar con `forge variables list`.
@@ -129,8 +158,9 @@ Dos avisos operativos:
 Cambiar los dominios de `permissions.external.fetch` en `manifest.yml` provoca una actualizacion de version mayor y
 `forge deploy` pide `--approve MAJOR_VERSION_RULE`.
 
-Cuando el servicio responde con un error HTTP, `jira.integration.response` incluye `diagnostic` (host, cabeceras
-`server`, `cf-ray` y `ngrok-error-code`, y un trozo corto del cuerpo) para saber quien respondio, sin datos del ticket.
+Cuando la configuracion es invalida, `jira.integration.response` incluye `configIssue` con un motivo corto y seguro.
+Cuando el servicio responde con un error HTTP, incluye `diagnostic` (host, cabeceras `server`, `cf-ray` y
+`ngrok-error-code`, y un trozo corto del cuerpo) para saber quien respondio, sin datos del ticket.
 
 ## Seguridad y trazabilidad
 

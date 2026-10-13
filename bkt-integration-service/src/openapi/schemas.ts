@@ -96,6 +96,8 @@ assertWireShape<IssueContent>({} as z.infer<typeof issueContentSchema>)
 
 export const issueInfoSchema = z.strictObject({
   meshId: token(ID_MAX),
+  itsmTicketId: token(ID_MAX).optional(),
+  ticketType: freeText(SHORT_TEXT_MAX).optional(),
   content: issueContentSchema,
 })
 registry.add(issueInfoSchema, { id: 'IssueInfo' })
@@ -111,8 +113,8 @@ registry.add(issueBatchSchema, {
 })
 
 export const issueProcessResultSchema = z.strictObject({
-  key: token(ID_MAX),
-  issueJiraId: token(ID_MAX),
+  ticketId: token(ID_MAX),
+  issueId: token(ID_MAX),
   success: z.boolean(),
   errors: z.array(executionErrorSchema).max(50),
   issue: issuePayloadSchema,

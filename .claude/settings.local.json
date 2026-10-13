@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker exec *)",
+      "Bash(docker compose *)",
+      "mcp__plaud__get_current_user",
+      "mcp__plaud__login",
+      "mcp__plaud__list_files",
+      "mcp__plaud__get_note",
+      "mcp__plaud__get_transcript",
+      "mcp__firecrawl__firecrawl_search",
+      "Bash(pip show *)",
+      "Bash(where ffmpeg *)",
+      "Bash(ffmpeg -version)",
+      "Bash(pip install *)",
+      "Bash(python *)",
+      "Bash(mkdir *)",
+      "Bash(npx tsc *)",
+      "mcp__firecrawl__firecrawl_scrape"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "browsermcp",
+    "MarketplaceExecutionRuntime",
+    "remotion-documentation",
+    "chrome-devtools",
+    "sequential-thinking"
+  ]
+}

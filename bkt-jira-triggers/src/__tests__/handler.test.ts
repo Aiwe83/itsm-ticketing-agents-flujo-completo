@@ -193,6 +193,50 @@ describe('handleJiraIssueEvent', () => {
     });
   });
 
+  it('logs safe configIssue details when integration dispatch is blocked by configuration', async () => {
+    const lines: string[] = [];
+    const send = jest
+      .fn<Promise<IntegrationDispatchResult>, [IssuesRequest, string]>()
+      .mockResolvedValue({
+        sent: false,
+        success: false,
+        status: null,
+        requestIdEcho: null,
+        executionId: null,
+        storedTicketId: null,
+        ticketsSucceeded: null,
+        ticketsFailed: null,
+        orchestratorDispatched: null,
+        errorKind: 'CONFIG',
+        errorCode: 'INVALID_INTEGRATION_SERVICE_BASE_URL',
+        missingConfigKeys: [],
+        configIssue: 'contains_endpoint_path'
+      });
+
+    await handleJiraIssueEvent(
+      createdEvent,
+      {},
+      {
+        log: (line) => lines.push(line),
+        readIssue: readOk,
+        send,
+        uuid: () => '00000000-0000-4000-8000-000000000009',
+        now: () => new Date('2026-08-13T12:00:00.000Z')
+      }
+    );
+
+    expect(JSON.parse(lines[3])).toMatchObject({
+      eventName: 'jira.integration.response',
+      sent: false,
+      success: false,
+      errorKind: 'CONFIG',
+      errorCode: 'INVALID_INTEGRATION_SERVICE_BASE_URL',
+      missingConfigKeys: [],
+      configIssue: 'contains_endpoint_path'
+    });
+    expect(findForbiddenContent(lines.map((line) => JSON.parse(line)))).toEqual([]);
+  });
+
   it('retries the Jira read before dispatching when attachments are not visible yet', async () => {
     const lines: string[] = [];
     const send = jest

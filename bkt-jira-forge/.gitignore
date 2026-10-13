@@ -11,6 +11,7 @@ manifest.yml.bak
 # Entorno local / secretos
 .env
 .env.*
+!.env.example
 secrets.local.md
 
 # Editores y SO

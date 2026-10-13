@@ -254,4 +254,11 @@ remoto real. Confirmado ademas que los cambios de Manuel en `develop` ya estaban
 hizo falta portar nada). Probado con Postman por el propio usuario contra los dos servicios (TS y Python,
 `201` en ambos). `main` no se toco. Detalle completo: HANDOFF secciones 18 y 19.
 
+**2026-10-08:** en curso **TICK-157** (campos y API key del servicio de integracion en los planes Forge), solo en
+`bkt-jira-triggers`: revision hecha y plan escrito, sin implementar. Mantiene el modelo de variables actual
+(`INTEGRATION_SERVICE_BASE_URL`, `INTEGRATION_SERVICE_API_KEY`, `INTEGRATION_SERVICE_API_KEY_HEADER`, `X-API-KEY`) y no
+fusiona `origin/main`. Hallazgo: la validacion de `INTEGRATION_SERVICE_BASE_URL` acepta `https://https://...` (causa del 403 de
+`BFC-23/24/25`), `http://` y bases con la ruta del endpoint. La tarea de colas/Kafka (TICK-196) la hace otra persona y queda
+fuera de este workspace. Detalle: HANDOFF 20.15.
+
 Detalle completo, riesgos y pendientes: `HANDOFF.md`.

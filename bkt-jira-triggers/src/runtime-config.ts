@@ -3,6 +3,7 @@
 // clara en vez de fallar a medias mas adelante.
 import type {
   IntegrationRuntimeConfig,
+  IntegrationRuntimeConfigIssue,
   LoadIntegrationRuntimeConfigResult
 } from './types';
 
@@ -11,6 +12,8 @@ import type {
 // con `forge variables set` y viven cifrados en Forge.
 const DEFAULT_API_KEY_HEADER = 'X-API-KEY';
 const DEFAULT_TIMEOUT_MS = 10_000;
+const PLACEHOLDER_API_KEY = '<set-in-forge-as-encrypted-variable>';
+const HTTP_HEADER_NAME_PATTERN = /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/;
 
 // Lee la configuracion de envio desde variables de entorno. Si falta algo
 // obligatorio, no lanza una excepcion: devuelve un resultado que dice que
@@ -45,22 +48,39 @@ export function loadIntegrationRuntimeConfig(
     };
   }
 
-  try {
-    // Comprueba que la URL configurada sea una URL absoluta valida
-    // (http:// o https://), no un texto suelto por error.
-    new URL(baseUrl as string);
-  } catch {
+  const baseUrlIssue = validateBaseUrl(baseUrl as string);
+  if (baseUrlIssue) {
     return {
       ok: false,
       missingKeys: [],
-      errorCode: 'INVALID_INTEGRATION_SERVICE_BASE_URL'
+      errorCode: 'INVALID_INTEGRATION_SERVICE_BASE_URL',
+      configIssue: baseUrlIssue
+    };
+  }
+
+  if (apiKey === PLACEHOLDER_API_KEY) {
+    return {
+      ok: false,
+      missingKeys: [],
+      errorCode: 'PLACEHOLDER_API_KEY',
+      configIssue: 'placeholder_api_key'
+    };
+  }
+
+  const apiKeyHeader = env.INTEGRATION_SERVICE_API_KEY_HEADER?.trim() || DEFAULT_API_KEY_HEADER;
+  if (!HTTP_HEADER_NAME_PATTERN.test(apiKeyHeader)) {
+    return {
+      ok: false,
+      missingKeys: [],
+      errorCode: 'INVALID_API_KEY_HEADER',
+      configIssue: 'invalid_header_name'
     };
   }
 
   const config: IntegrationRuntimeConfig = {
     baseUrl: baseUrl as string,
     apiKey: apiKey as string,
-    apiKeyHeader: env.INTEGRATION_SERVICE_API_KEY_HEADER?.trim() || DEFAULT_API_KEY_HEADER,
+    apiKeyHeader,
     timeoutMs: DEFAULT_TIMEOUT_MS
   };
 
@@ -68,4 +88,31 @@ export function loadIntegrationRuntimeConfig(
     ok: true,
     config
   };
+}
+
+function validateBaseUrl(baseUrl: string): IntegrationRuntimeConfigIssue | null {
+  if ((baseUrl.match(/:\/\//g) ?? []).length > 1) {
+    return 'duplicated_scheme';
+  }
+
+  let parsed: URL;
+  try {
+    parsed = new URL(baseUrl);
+  } catch {
+    return 'not_a_url';
+  }
+
+  if (parsed.protocol !== 'https:') {
+    return 'not_https';
+  }
+
+  if (parsed.username || parsed.password) {
+    return 'contains_credentials';
+  }
+
+  if (parsed.pathname !== '/' || parsed.search || parsed.hash) {
+    return 'contains_endpoint_path';
+  }
+
+  return null;
 }

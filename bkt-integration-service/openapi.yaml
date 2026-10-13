@@ -194,21 +194,20 @@ paths:
                         successIntegration: true
                         orchestratorDispatched: true
                       tickets:
-                      - key: PA-205
-                        issueJiraId: "13401"
+                      - ticketId: PA-205
+                        issueId: "13401"
                         success: true
                         errors: []
                         issue: *a3
                         transformedIssue:
                           meshId: mesh-pilot
+                          itsmTicketId: "13401"
+                          ticketType: Incidencia
                           content:
-                            key: PA-205
-                            issueJiraId: "13401"
-                            summary: Incidencia en la cuenta puente GTX
-                            description: Me da error la cuenta puente intragrupo GTX.
-                            issueType: Incidencia
+                            title: Incidencia en la cuenta puente GTX
+                            issueDescription: Me da error la cuenta puente intragrupo GTX.
                             status: Recibida
-                            priority: Medium
+                            severityLevel: "3"
                             attachedDocuments: []
                         receivedAt: 2026-08-06T09:15:32.000Z
                         storedTicketId: mesh-pilot:PA-205
@@ -225,8 +224,8 @@ paths:
                         successIntegration: false
                         orchestratorDispatched: false
                       tickets:
-                      - key: PA-206
-                        issueJiraId: "13402"
+                      - ticketId: PA-206
+                        issueId: "13402"
                         success: false
                         errors:
                         - function: issueService.processIssues
@@ -413,6 +412,14 @@ components:
           type: string
           maxLength: 128
           pattern: ^[^\s\x00-\x1F\x7F]*$
+        itsmTicketId:
+          type: string
+          maxLength: 128
+          pattern: ^[^\s\x00-\x1F\x7F]*$
+        ticketType:
+          type: string
+          maxLength: 500
+          pattern: ^[^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]*$
         content:
           $ref: "#/components/schemas/IssueContent"
       required:
@@ -482,11 +489,11 @@ components:
     IssueProcessResult:
       type: object
       properties:
-        key:
+        ticketId:
           type: string
           maxLength: 128
           pattern: ^[^\s\x00-\x1F\x7F]*$
-        issueJiraId:
+        issueId:
           type: string
           maxLength: 128
           pattern: ^[^\s\x00-\x1F\x7F]*$
@@ -510,8 +517,8 @@ components:
           maxLength: 128
           pattern: ^[^\s\x00-\x1F\x7F]*$
       required:
-      - key
-      - issueJiraId
+      - ticketId
+      - issueId
       - success
       - errors
       - issue

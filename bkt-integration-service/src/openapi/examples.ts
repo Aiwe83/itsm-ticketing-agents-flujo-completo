@@ -41,7 +41,6 @@ export const issueAcceptedFullSuccessExample = {
         errors: [],
         issue: jiraIssuePayloadExample.issues[0],
         transformedIssue: {
-          _id: 'mesh-pilot:PA-205',
           meshId: 'mesh-pilot',
           itsmTicketId: '13401',
           ticketType: 'Incidencia',

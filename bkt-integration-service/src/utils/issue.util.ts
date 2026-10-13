@@ -21,6 +21,8 @@ export interface AttachedDocument {
 // estructural del documento y se deriva del payload.
 export interface IssueInfo {
   meshId: string
+  itsmTicketId?: string
+  ticketType?: string
   content: IssueContent
 }
 

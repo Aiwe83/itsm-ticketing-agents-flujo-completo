@@ -27,6 +27,7 @@ coverage.xml
 # Local environment files and credentials
 .env
 .env.*
+!.env.example
 *.pem
 *.key
 

@@ -176,6 +176,7 @@ export async function handleJiraIssueEvent(
     errorKind: integration.success ? undefined : integration.errorKind,
     errorCode: integration.success ? undefined : integration.errorCode,
     missingConfigKeys: integration.success ? undefined : integration.missingConfigKeys,
+    configIssue: integration.success ? undefined : integration.configIssue,
     diagnostic: integration.success ? undefined : integration.diagnostic
   });
 }

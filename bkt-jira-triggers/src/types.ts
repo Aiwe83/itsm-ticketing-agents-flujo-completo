@@ -187,10 +187,24 @@ export interface IntegrationRuntimeConfig {
   timeoutMs: number;
 }
 
+export type IntegrationRuntimeConfigIssue =
+  | 'not_a_url'
+  | 'duplicated_scheme'
+  | 'not_https'
+  | 'contains_endpoint_path'
+  | 'contains_credentials'
+  | 'invalid_header_name'
+  | 'placeholder_api_key';
+
 export interface MissingIntegrationRuntimeConfig {
   ok: false;
   missingKeys: string[];
-  errorCode: 'MISSING_RUNTIME_CONFIG' | 'INVALID_INTEGRATION_SERVICE_BASE_URL';
+  errorCode:
+    | 'MISSING_RUNTIME_CONFIG'
+    | 'INVALID_INTEGRATION_SERVICE_BASE_URL'
+    | 'INVALID_API_KEY_HEADER'
+    | 'PLACEHOLDER_API_KEY';
+  configIssue?: IntegrationRuntimeConfigIssue;
 }
 
 export interface LoadedIntegrationRuntimeConfig {
@@ -247,6 +261,7 @@ export interface IntegrationDispatchFailure extends IntegrationDispatchBase {
   errorKind: IntegrationDispatchErrorKind;
   errorCode: string;
   missingConfigKeys?: string[];
+  configIssue?: IntegrationRuntimeConfigIssue;
   diagnostic?: HttpDiagnostic;
 }
 

@@ -8,6 +8,7 @@ con trazabilidad de extremo a extremo.
 
 - [Objetivo](#objetivo)
 - [Flujo](#flujo)
+- [Politica de reintentos hacia el runtime](#politica-de-reintentos-hacia-el-runtime)
 - [Adjuntos convertidos a Markdown](#adjuntos-convertidos-a-markdown)
 - [API](#api)
 - [Seguridad](#seguridad)
@@ -41,6 +42,28 @@ de trabajo. Su responsabilidad principal es:
    `content.attachedDocuments` y se notifica al orquestador.
 6. Cada ejecucion queda registrada en `executions`, incluyendo que identificadores se
    despacharon realmente al orquestador (`dispatchedExecutionIds`).
+
+## Politica de reintentos hacia el runtime
+
+El aviso al orquestador/runtime se ejecuta en segundo plano despues de persistir el ticket.
+La respuesta de `POST /api/v1/issues` no queda bloqueada por ese envio: el servicio responde
+cuando termina la ingesta y deja la notificacion al siguiente componente como trabajo operativo.
+
+La politica de reintentos esta centralizada en `src/services/orchestrator-retry.policy.ts`.
+Solo se reintentan fallos transitorios:
+
+- Codigos HTTP: `408`, `429`, `500`, `502`, `503` y `504`.
+- Errores de red: `ETIMEDOUT`, `ECONNRESET`, `EADDRINUSE`, `ECONNREFUSED`, `EPIPE`,
+  `ENOTFOUND`, `ENETUNREACH` y `EAI_AGAIN`.
+- Metodo permitido: `POST`.
+
+No se reintentan errores funcionales o de contrato como `400`, `401`, `403`, `404` o `413`,
+porque repetirlos no corregiria la causa y podria duplicar ruido operativo.
+
+El backoff configurado es exponencial y acotado: `500 ms`, `1000 ms` y `2000 ms`, con un
+maximo de 3 reintentos. Cada intento programado genera una traza `orchestrator.retry.scheduled`
+con `attemptCount`, `retryLimit`, `delayMs`, `statusCode` y `errorCode`, de forma que se pueda
+auditar por que se repitio el envio sin exponer informacion sensible del ticket.
 
 ## Adjuntos convertidos a Markdown
 

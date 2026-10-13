@@ -4,5 +4,6 @@ coverage/
 .forge/
 .env
 .env.*
+!.env.example
 *.pem
 docs/evidence/*.local.txt

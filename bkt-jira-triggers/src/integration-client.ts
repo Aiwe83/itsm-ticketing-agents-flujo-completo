@@ -89,7 +89,8 @@ export async function sendIssueToIntegrationService(
       orchestratorDispatched: null,
       errorKind: 'CONFIG',
       errorCode: configResult.errorCode,
-      missingConfigKeys: configResult.missingKeys
+      missingConfigKeys: configResult.missingKeys,
+      configIssue: configResult.configIssue
     };
   }
 
